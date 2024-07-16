@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="BaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!--是否显示系统启动应用时默认加载的默认页-->
+        <item name="android:windowDisablePreview">true</item>
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <!--窗口背景颜色-->
+        <item name="android:windowBackground">@color/backgroundColor</item>
+        <!-- 界面切换动画 -->
+        <!--        <item name="android:windowAnimationStyle">@style/animFade</item>-->
+        <!--全局默认竖屏-->
+        <item name="android:screenOrientation">portrait</item>
+        <item name="android:configChanges">
+            screenLayout|screenSize|smallestScreenSize|orientation|keyboardHidden
+        </item>
+        <!--国内决大部分手机，不会适配行间距，不管是一行还是两行都加入了行间距，导致设置了超过1的行间距时，不能居中-->
+        <item name="android:lineSpacingMultiplier">1</item>
+        <item name="android:textColor">@color/c_333333</item>
+        <!--Android 5.x开始需要把颜色设置透明，否则导航栏会呈现系统默认的浅灰色-->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <!--禁用安卓默认的边界阴影-->
+        <item name="android:overScrollMode">never</item>
+    </style>
+
+    <style name="BaseTheme.Dialog">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+    </style>
+
+    <style name="BaseTheme.Translucent">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:screenOrientation">unspecified</item>
+    </style>
+
+
+    <!-- 定义输入界面主题 配置进入进出动画-->
+    <style name="BaseTheme.Translucent.Input">
+        <item name="android:windowAnimationStyle">@style/AnimInput</item>
+    </style>
+
+    <!-- 定义弹框Activity的进入、关闭动画 -->
+    <style name="AnimInput" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/anim_bottom_push_in</item>
+        <item name="android:activityCloseExitAnimation">@anim/anim_bottom_push_out</item>
+    </style>
+
+</resources>

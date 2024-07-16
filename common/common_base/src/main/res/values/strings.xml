@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">base</string>
+
+    <string name="toast_mask">你发布的内容带有敏感词汇哦~</string>
+    <!--  Login  -->
+    <string name="one_key_login">一键登录</string>
+    <string name="other_login_methods">验证码登录</string>
+    <string name="agree">同意</string>
+    <string name="one_agreement">用户协议</string>
+    <string name="agreement">《用户协议》</string>
+    <string name="and">和</string>
+    <string name="one_policy">隐私政策</string>
+    <string name="policy">《隐私政策》</string>
+    <string name="send_sms">获取短信验证码</string>
+    <string name="login_by_phone">手机登录</string>
+    <string name="phone_number">手机号</string>
+    <string name="play_share">分享</string>
+
+
+
+</resources>

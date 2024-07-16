@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.peanutmusic.base">
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <!--检查wifi网络状态-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <!--检查网络状态-->
+<!--    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>-->
+    <!--切换网络通道-->
+<!--    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>-->
+
+    <!--用于进行网络定位-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!--用于访问GPS定位-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!--用于获取运营商信息，用于支持提供运营商信息相关的接口-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!--用于访问wifi网络信息，wifi信息会用于进行网络定位-->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!--用于获取wifi的获取权限，wifi信息会用来进行网络定位-->
+<!--    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />-->
+    <!--用于访问网络，网络定位需要上网-->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!--用于读取手机当前的状态-->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!--用于写入缓存数据到扩展存储卡-->
+    <uses-permission android:name="android.permission.READ_PRIVILEGED_PHONE_STATE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!--用于申请调用A-GPS模块-->
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <!--如果设置了target >= 28 如果需要启动后台定位则必须声明这个权限-->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <!--如果您的应用需要后台定位权限，且有可能运行在Android Q设备上,并且设置了target>28，必须增加这个权限声明-->
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
+    <!-- 设置环信应用的AppKey -->
+    <meta-data android:name="EASEMOB_APPKEY"  android:value="org#app" />
+    <application>
+        <!--定位-->
+        <service android:name="com.amap.api.location.APSService" />
+        <meta-data android:name="com.amap.api.v2.apikey" android:value="ef4ccf85390dfc317f8ffd2e0b6d9a5a">
+
+        </meta-data>
+
+       <!--  vivo begin-->
+        <meta-data tools:replace="android:value"
+            android:name="com.vivo.push.api_key"
+            android:value="7c88c7a13ce2056c832bd40874bbf34e" />
+        <meta-data tools:replace="android:value"
+            android:name="com.vivo.push.app_id"
+            android:value="105669750" />
+ <!--       // vivo end-->
+
+       <!-- // honor begin-->
+        <meta-data tools:replace="android:value"
+            android:name="com.hihonor.push.app_id"
+            android:value="104419122" />
+     <!--   // honor end-->
+
+    </application>
+
+</manifest>

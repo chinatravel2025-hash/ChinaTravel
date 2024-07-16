@@ -1,0 +1,58 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        maven { url 'https://jitpack.io' }
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        maven { url 'https://maven.aliyun.com/repository/public' }
+        maven { url "https://maven.aliyun.com/repository/jcenter" }
+
+        maven {
+            url 'https://developer.huawei.com/repo/'
+        }
+        mavenCentral()
+        maven { url 'https://repo1.maven.org/maven2/' }
+        maven {
+            url 'https://mirrors.huaweicloud.com/repository/maven/'
+        }
+        maven {
+            url 'https://developer.huawei.com/repo/'
+        }
+        maven {
+            //XRouter
+            url "https://raw.githubusercontent.com/MondyXue/Maven/master"
+        }
+        jcenter()
+        gradlePluginPortal()
+
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        maven { url 'https://jitpack.io' }
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        maven { url 'https://maven.aliyun.com/repository/public' }
+        maven { url "https://maven.aliyun.com/repository/jcenter" }
+        maven { url 'https://developer.huawei.com/repo/' }
+        mavenCentral()
+        maven { url 'https://repo1.maven.org/maven2/' }
+        maven {
+            url 'https://mirrors.huaweicloud.com/repository/maven/'
+        }
+        maven {
+            url 'https://developer.huawei.com/repo/'
+        }
+        maven {
+            //XRouter
+            url "https://raw.githubusercontent.com/MondyXue/Maven/master"
+        }
+        jcenter()
+    }
+}
+rootProject.name = "ChinaTravel"
+include ':app'
+//功能组件
+include ':common:common_base'
+include ':common:common_bean'
+include ':common:common_http'
+//include ':common:common_router'

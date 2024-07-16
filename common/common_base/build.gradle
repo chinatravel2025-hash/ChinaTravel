@@ -1,0 +1,112 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+}
+
+android {
+    compileSdk 33
+
+    defaultConfig {
+        minSdk 24
+        targetSdk 33
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {//指定room.schemaLocation生成的文件路径
+                arguments = [AROUTER_MODULE_NAME: project.getName(), "room.schemaLocation": "$projectDir/schemas".toString()]
+            }
+        }
+    }
+    buildFeatures {
+        dataBinding = true
+        viewBinding = true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+    api fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
+    api project(":common:common_bean")
+
+    api Libs.kotlin_stdlib
+    api 'androidx.core:core-ktx:1.6.0'
+    api Libs.appcompat//'androidx.appcompat:appcompat:1.2.0'
+    api Libs.material//'com.google.android.material:material:1.2.1'
+    api Libs.constraintlayout//'androidx.constraintlayout:constraintlayout:2.0.4'
+    api Libs.lottie//"com.airbnb.android:lottie:$lottieVersion"
+    api Libs.glide//'com.github.bumptech.glide:glide:4.11.0'
+    api Libs.webp//'com.facebook.fresco:animated-webp:1.9.0'
+    api Libs.eventbus//'org.greenrobot:eventbus:3.2.0'
+    //api Libs.arouter_api//'com.alibaba:arouter-api:1.5.1'
+    api Libs.fastjson
+    //api Libs.viewanimator//'com.github.florent37:viewanimator:1.1.0'
+    api Libs.banner//'com.youth.banner:banner:2.1.0'
+    api "androidx.core:core-splashscreen:1.0.1"
+    api 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    api "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0"
+    api "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+    //腾讯MMKV
+    api 'com.tencent:mmkv-static:1.1.2'
+    //bugly
+    api 'com.tencent.bugly:crashreport:latest.release'
+    api 'com.google.auto.service:auto-service:1.0-rc6'
+    api files('libs/tinypinyin-2.0.1.jar')
+    annotationProcessor 'com.google.auto.service:auto-service:1.0-rc6'
+
+    api 'com.llew.huawei:verifier:1.1.2'
+    api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.4'
+    // 工具类库
+    implementation 'com.blankj:utilcodex:1.29.0'
+    api("com.makeramen:roundedimageview:2.3.0")
+    //图片选择
+    api("com.github.LuckSiege.PictureSelector:picture_library:v2.5.9")
+    //高斯模糊
+    api 'jp.wasabeef:glide-transformations:4.3.0'
+    //阴影
+    api 'io.github.meetsl:SCardView:1.2'
+    api 'io.reactivex.rxjava2:rxjava:2.2.6'
+    api 'io.reactivex.rxjava2:rxandroid:2.1.0'
+    api 'com.github.getActivity:XXPermissions:18.63'
+    api 'androidx.multidex:multidex:2.0.1'
+    api 'com.guolindev.permissionx:permissionx:1.7.1'
+    // Glide集成OkHttp时需要使用的库
+    api 'com.github.bumptech.glide:okhttp3-integration:4.11.0'
+// Glide需要处理注解时的依赖库，用于处理注解并生成java类
+    kapt 'com.github.bumptech.glide:compiler:4.11.0'
+
+    //db
+    implementation 'androidx.room:room-runtime:2.5.0'
+    kapt 'androidx.room:room-compiler:2.5.0'//kotlin必须这样写
+    annotationProcessor 'androidx.room:room-compiler:2.5.0'
+    implementation 'androidx.room:room-rxjava2:2.5.0'
+    //implementation  "androidx.room:room-compiler:2.5.0"
+    implementation  "androidx.room:room-guava:2.5.0"
+    implementation  "androidx.room:room-ktx:2.5.0"
+    testImplementation  "androidx.room:room-testing:2.5.0"
+
+    api 'com.tencent.tav:libpag:4.3.47'
+    api Libs.gson
+    // 添加 IM SDK，推荐填写最新的版本号7.8.5505
+    api 'com.tencent.imsdk:imsdk-plus:7.8.5505'
+
+    // 如果您需要添加 Quic 插件，请取消下一行的注释（注意：要求插件版本号和 IM SDK 版本号相同）
+    //api "com.tencent.imsdk:timquic-plugin:7.8.5505"
+
+    def projects = this.rootProject.getAllprojects().stream().map { project -> project.name }.collect()
+    api projects.contains("tuicore") ? project(':tuicore') : "com.tencent.liteav.tuikit:tuicore:7.8.5484"
+    implementation "androidx.work:work-runtime:2.7.0"
+    //workmanager 的
+//    def work_version = "2.7.0"
+//    api "androidx.work:work-runtime-ktx:$work_version"
+
+}

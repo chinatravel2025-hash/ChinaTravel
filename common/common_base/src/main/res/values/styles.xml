@@ -1,0 +1,61 @@
+<resources>
+
+    <style name="ImageView" />
+
+    <style name="Circle">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="Round">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
+    </style>
+
+    <style name="Cut">
+        <item name="cornerFamily">cut</item>
+        <item name="cornerSize">16dp</item>
+    </style>
+
+    <style name="ImageView.Circle">
+        <item name="shapeAppearance">@style/Circle</item>
+    </style>
+
+    <style name="ImageView.Round">
+        <item name="shapeAppearance">@style/Round</item>
+    </style>
+    <style name="ImageView.SemicircleStyle">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">8dp</item>
+        <item name="cornerSizeBottomLeft">8dp</item>
+        <item name="cornerSizeTopRight">8dp</item>
+        <item name="cornerSizeBottomRight">8dp</item>
+    </style>
+    <style name="ImageView.Circle.border">
+        <item name="shapeAppearance">@style/Circle</item>
+        <item name="strokeColor">?attr/colorPrimary</item>
+        <item name="strokeWidth">4dp</item>
+    </style>
+
+    <style name="ImageView.Cut">
+        <item name="shapeAppearance">@style/Cut</item>
+    </style>
+
+    <style name="dialog_style">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+    <style name="DialogExit">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+</resources>
