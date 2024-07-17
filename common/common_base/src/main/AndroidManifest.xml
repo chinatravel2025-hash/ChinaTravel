@@ -40,26 +40,8 @@
     <!-- 设置环信应用的AppKey -->
     <meta-data android:name="EASEMOB_APPKEY"  android:value="org#app" />
     <application>
-        <!--定位-->
-        <service android:name="com.amap.api.location.APSService" />
-        <meta-data android:name="com.amap.api.v2.apikey" android:value="ef4ccf85390dfc317f8ffd2e0b6d9a5a">
 
-        </meta-data>
 
-       <!--  vivo begin-->
-        <meta-data tools:replace="android:value"
-            android:name="com.vivo.push.api_key"
-            android:value="7c88c7a13ce2056c832bd40874bbf34e" />
-        <meta-data tools:replace="android:value"
-            android:name="com.vivo.push.app_id"
-            android:value="105669750" />
- <!--       // vivo end-->
-
-       <!-- // honor begin-->
-        <meta-data tools:replace="android:value"
-            android:name="com.hihonor.push.app_id"
-            android:value="104419122" />
-     <!--   // honor end-->
 
     </application>
 
