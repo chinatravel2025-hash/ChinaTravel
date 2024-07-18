@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+ >
     <data>
 
         <import type="android.view.View" />
@@ -16,7 +16,7 @@
         <TextView
             android:id="@+id/tv_title"
             android:text="China Travel"
-            android:textSize="@dimen/dp_30"
+            android:textSize="@dimen/sp_30"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"

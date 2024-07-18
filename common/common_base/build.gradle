@@ -39,7 +39,7 @@ dependencies {
     api project(":common:common_bean")
 
     api Libs.kotlin_stdlib
-    api 'androidx.core:core-ktx:1.6.0'
+    api 'androidx.core:core-ktx:1.7.0'
     api Libs.appcompat//'androidx.appcompat:appcompat:1.2.0'
     api Libs.material//'com.google.android.material:material:1.2.1'
     api Libs.constraintlayout//'androidx.constraintlayout:constraintlayout:2.0.4'
@@ -47,7 +47,7 @@ dependencies {
     api Libs.glide//'com.github.bumptech.glide:glide:4.11.0'
     api Libs.webp//'com.facebook.fresco:animated-webp:1.9.0'
     api Libs.eventbus//'org.greenrobot:eventbus:3.2.0'
-    //api Libs.arouter_api//'com.alibaba:arouter-api:1.5.1'
+    api Libs.arouter_api//'com.alibaba:arouter-api:1.5.1'
     api Libs.fastjson
     //api Libs.viewanimator//'com.github.florent37:viewanimator:1.1.0'
     api Libs.banner//'com.youth.banner:banner:2.1.0'
@@ -108,5 +108,5 @@ dependencies {
     //workmanager 的
 //    def work_version = "2.7.0"
 //    api "androidx.work:work-runtime-ktx:$work_version"
-
+    annotationProcessor 'com.alibaba:arouter-compiler:1.5.1'
 }
