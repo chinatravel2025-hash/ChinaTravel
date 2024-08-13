@@ -20,10 +20,6 @@ android {
             }
         }
     }
-    buildFeatures {
-        dataBinding = true
-        viewBinding = true
-    }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -31,6 +27,10 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+    buildFeatures {
+        dataBinding = true
+        viewBinding = true
     }
 }
 
@@ -106,7 +106,10 @@ dependencies {
     api projects.contains("tuicore") ? project(':tuicore') : "com.tencent.liteav.tuikit:tuicore:7.8.5484"
     implementation "androidx.work:work-runtime:2.7.0"
     //workmanager 的
-//    def work_version = "2.7.0"
-//    api "androidx.work:work-runtime-ktx:$work_version"
+
+
+    api 'com.github.liangjingkanji:Tooltip:1.2.3'
     annotationProcessor 'com.alibaba:arouter-compiler:1.5.1'
+    api 'io.github.vincent-series:smart-toast:4.1.9'
+    api 'com.github.liangjingkanji:Interval:1.0.3'
 }

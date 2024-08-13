@@ -115,6 +115,9 @@
     <color name="txt_b3000000">#b3000000</color>
     <color name="txt_FFC6C6C6">#FFC6C6C6</color>
     <color name="txt_FF666666">#FF666666</color>
+    <color name="txt_FF6C6C">#FF6C6C</color>
+    <color name="txt_00B386">#00B386</color>
+    <color name="txt_12C286">#12C286</color>
     <color name="txt_fc672d">#FC672D</color>
     <color name="txt_8cffffff">#8cffffff</color>
     <color name="txt_FF303437">#FF303437</color>
@@ -150,6 +153,8 @@
     <color name="bg_FFD7F4D6">#FFD7F4D6</color>
     <color name="bg_FFD6F4EB">#FFD6F4EB</color>
     <color name="bg_FFEAD6F4">#FFEAD6F4</color>
+    <color name="bg_59D4AA">#59D4AA</color>
+    <color name="bg_12C286">#12C286</color>
 
 
 
@@ -220,5 +225,6 @@
     <color name="txt_aeb3bf">#AEB3BF</color>
     <color name="txt_c9ccd4">#C9CCD4</color>
     <color name="bg_b2dad9df">#B2DAD9DF</color>
+    <color name="bg_F0F0F0">#F0F0F0</color>
 
 </resources>

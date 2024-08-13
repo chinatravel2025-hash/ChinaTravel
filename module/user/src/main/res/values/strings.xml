@@ -1,0 +1,21 @@
+<resources>
+    <string name="register_txt_china_travel">China Travel</string>
+    <string name="welcome_to_china_travel_ps">Welcome to China Travel</string>
+    <string name="sign_up_with_facebook">Sign up with Facebook</string>
+    <string name="sign_up_with_google">Sign up with Google</string>
+    <string name="sign_up_with_email">Sign up with Email</string>
+    <string name="already_have_account">Already have account？</string>
+    <string name="sign_in_ps">Sign in</string>
+    <string name="become_a_traveller">Become a Traveller</string>
+    <string name="set_password">Set password</string>
+    <string name="password">password</string>
+    <string name="please_enter_again">Please enter again</string>
+    <string name="e_mail_address">E-mail Address</string>
+    <string name="e_mail_address_hint">E-mail Address</string>
+    <string name="captcha_countdown_format">Resend Code in %s second</string>
+    <string name="captcha_countdown_resend">Resend Code</string>
+    <string name="verification_code_hint">We’ve sent you a verification code \nPlease enter and verify:</string>
+    <string name="what_should_we_call_you">What should we call you？</string>
+    <string name="nickname_hint">Nickname</string>
+    <string name="next">Next</string>
+</resources>

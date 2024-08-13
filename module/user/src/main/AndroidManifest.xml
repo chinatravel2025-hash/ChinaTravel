@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.travel.user"
+    >
+
+    <application
+        android:requestLegacyExternalStorage="true"
+        android:allowBackup="true"
+        android:supportsRtl="true"
+        android:theme="@style/BaseTheme">
+        <activity
+
+            android:name="com.travel.user.ui.register.UserRegisterActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity android:name="com.travel.user.ui.register.UserPasswordSettingActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name="com.travel.user.ui.register.UserEmailAddressActivity"
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.travel.user.ui.register.UserSetNickNameActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.travel.user.ui.verification.UserVerificationCodeActivity"
+            android:screenOrientation="portrait"/>
+    </application>
+</manifest>

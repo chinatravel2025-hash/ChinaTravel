@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/selector_navigation_home"
+        android:title="Home"
+        android:visible="true"/>
+
+    <item
+        android:id="@+id/navigation_guide"
+        android:icon="@drawable/selector_navigation_guide"
+        android:title="Guide"
+        android:visible="true"/>
+
+ <!--   <item
+        android:id="@+id/navigation_community"
+        android:icon="@drawable/selector_navigation_mall"
+        android:title="Community"
+        android:visible="true"/>-->
+
+    <item
+        android:id="@+id/navigation_profile"
+        android:icon="@drawable/selector_navigation_profile"
+        android:title="Profile"
+        android:visible="true"/>
+
+</menu>

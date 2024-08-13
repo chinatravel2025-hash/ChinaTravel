@@ -6,23 +6,31 @@ import androidx.databinding.DataBindingUtil
 import com.alibaba.android.arouter.launcher.ARouter
 import com.china.travel.R
 import com.china.travel.databinding.ActivityLaunchBinding
+import com.example.base.base.BaseStatusBarActivity
+import com.example.base.utils.StatusBarUtil
 import com.example.router.ARouterPathList
 
-class LaunchActivity : AppCompatActivity() {
+class LaunchActivity : BaseStatusBarActivity() {
 
-    lateinit var binding: ActivityLaunchBinding
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_launch)
+    private lateinit var binding: ActivityLaunchBinding
+
+    override val ivBack: Int
+        get() = 0
+    override fun getLayoutId(): Int {
+        return R.layout.activity_launch
+    }
+    override fun initView(savedInstanceState: Bundle?) {
+        super.initView(savedInstanceState)
+
+        binding = mBaseBinding as ActivityLaunchBinding
+        setContentView(binding.root)
         binding.lifecycleOwner = this
-
         binding.tvTitle.postDelayed({
-            ARouter.getInstance().build(ARouterPathList.APP_MAIN)
+            ARouter.getInstance().build(ARouterPathList.USER_REGISTER)
                 .navigation()
         },800)
-
-
     }
+
 
 
 }

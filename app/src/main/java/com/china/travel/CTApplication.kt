@@ -1,6 +1,7 @@
 package com.china.travel
 
 import android.app.Application
+import android.content.Context
 import androidx.multidex.MultiDex
 import com.china.travel.init.RouteModule
 import com.example.base.base.App

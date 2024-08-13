@@ -9,6 +9,7 @@ pluginManagement {
         maven {
             url 'https://developer.huawei.com/repo/'
         }
+        google()
         mavenCentral()
         maven { url 'https://repo1.maven.org/maven2/' }
         maven {
@@ -34,6 +35,7 @@ dependencyResolutionManagement {
         maven { url 'https://maven.aliyun.com/repository/public' }
         maven { url "https://maven.aliyun.com/repository/jcenter" }
         maven { url 'https://developer.huawei.com/repo/' }
+        google()
         mavenCentral()
         maven { url 'https://repo1.maven.org/maven2/' }
         maven {
@@ -56,3 +58,8 @@ include ':common:common_base'
 include ':common:common_bean'
 include ':common:common_http'
 include ':common:common_router'
+include ':module:user'
+include ':module:home'
+include ':module:community'
+include ':module:guide'
+include ':lib:widget'

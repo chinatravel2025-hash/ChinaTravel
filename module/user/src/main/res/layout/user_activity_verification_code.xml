@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+        <variable
+            name="vm"
+            type="com.travel.user.vm.UserVerificationCodeVM" />
+        <variable
+            name="ac"
+            type="com.travel.user.ui.verification.UserVerificationCodeActivity" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_bg_F3FFF8">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:src="@mipmap/user_register_bg"
+            app:layout_constraintTop_toTopOf="parent" />
+        <com.example.base.view.StatusBarHolderView
+            android:id="@+id/view_holder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="@dimen/dp_40"
+            android:padding="@dimen/dp_10"
+            android:src="@mipmap/ic_black_top_back"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view_holder" />
+        <TextView
+            android:id="@+id/tv_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_108"
+            android:lineHeight="@dimen/dp_50"
+            android:text="@string/register_txt_china_travel"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp_42"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:textStyle="bold"
+            android:id="@+id/tv_ps"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_5"
+            android:text="@string/become_a_traveller"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp_20"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_top" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/info_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dp_13"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="@dimen/dp_8"
+            app:cardElevation="@dimen/dp_10"
+            android:layout_marginBottom="@dimen/dp_211"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+        >
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_marginBottom="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_25"
+                android:layout_marginHorizontal="@dimen/dp_17"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:textStyle="bold"
+                    android:textColor="@color/txt_FF666666"
+                    android:textSize="@dimen/sp_16"
+                    android:lineHeight="@dimen/dp_21"
+                    android:text="@string/verification_code_hint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <com.china.travel.widget.edtext.TravelVerifyEditText
+                   android:layout_marginHorizontal="@dimen/dp_5"
+                    android:layout_marginTop="@dimen/dp_18"
+                    android:id="@+id/verity_txt"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_65"
+                    android:inputType="number"
+                    android:textSize="@dimen/sp_40"
+                    app:blockColor="#F0F0F0"
+                    app:borderColor="#FFF"
+                    app:borderWidth="@dimen/dp_1"
+                    app:blockSpacing="@dimen/dp_18"
+                    app:corner="@dimen/dp_8"
+                    app:cursorColor="@color/bg_59D4AA"
+                    app:cursorDuration="1000"
+                    app:cursorWidth="@dimen/dp_3"
+                    app:highLightEnable="false"
+                    app:highlightColor="@color/bg_59D4AA"
+                    app:maxLength="4"
+                    app:separateType="@integer/type_solid"
+                    app:showKeyboard="true"
+                    android:textStyle="bold"
+                    app:highlightStyle="@integer/style_border"
+                    app:textColor="#D9000000" />
+
+                <TextView
+                    visibleWhen="@{vm.resultError}"
+                    android:layout_marginTop="@dimen/dp_7"
+                    android:drawablePadding="@dimen/dp_6"
+                    android:textSize="@dimen/sp_16"
+                    android:drawableStart="@mipmap/user_red_x_14_tag"
+                    android:textColor="@color/txt_FF6C6C"
+                    android:text="Wrong code. Please try again."
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:enabled="@{vm.resend}"
+                    android:onClick="@{()->vm.startCountDown()}"
+                    android:id="@+id/btn_next"
+                    android:layout_marginTop="@dimen/dp_23"
+                    android:background="@{vm.resend?@drawable/shape_r100_ff59d4aa:@drawable/shape_r100_fff0f0f0}"
+                    android:text="@{vm.resend?@string/captcha_countdown_resend:@string/captcha_countdown_format(vm.countDown)}"
+                    android:textSize="@dimen/sp_18"
+                    android:textColor="@{vm.resend?@color/white:@color/text_FF999999}"
+                    android:textStyle="bold"
+                   android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_56"/>
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

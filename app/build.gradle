@@ -61,6 +61,12 @@ dependencies {
     implementation project(path: ':common:common_http')
     implementation project(path: ':common:common_base')
     implementation project(path: ':common:common_router')
+    implementation project(path: ':module:user')
+    implementation project(path: ':module:home')
+    implementation project(path: ':module:guide')
+    implementation project(path: ':module:community')
     kapt Libs.arouter_compiler
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.4.1'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.4.1'
 
 }
