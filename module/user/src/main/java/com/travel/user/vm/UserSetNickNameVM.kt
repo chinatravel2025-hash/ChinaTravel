@@ -6,12 +6,16 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.example.router.ARouterPathList
 
 class UserSetNickNameVM:ViewModel() {
-    var selectLoginType = MutableLiveData(0)
+    var nickName = MutableLiveData("")
 
 
     fun navigationLogin(){
-        ARouter.getInstance().build(ARouterPathList.USER_PASSWORD_SET)
+        ARouter.getInstance().build(ARouterPathList.APP_MAIN)
             .navigation()
+    }
+
+    fun inputNickName(content:CharSequence?){
+        nickName.value=content.toString()
 
     }
 }

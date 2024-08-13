@@ -4,13 +4,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.alibaba.android.arouter.launcher.ARouter
 import com.coder.vincent.smart_toast.SmartToast
-import com.example.base.ext.showToast
-import com.example.base.utils.LogUtils
 import com.example.base.utils.PasswordUtil
 import com.example.router.ARouterPathList
-import com.tencent.qcloud.tuicore.util.ToastUtil
 
-class UserPasswordSettingVM : ViewModel() {
+class UserEmailLoginVM:ViewModel() {
     var originPw = MutableLiveData("")
     var confirmPw = MutableLiveData("")
     var showPw = MutableLiveData(false)

@@ -5,38 +5,32 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.travel.user.databinding.FragmentUserBinding
 
 class UserFragment : Fragment() {
 
-    private var _binding: FragmentUserBinding? = null
+    private lateinit var binding: FragmentUserBinding
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
 
+    private lateinit var userVM: UserViewModel
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val userViewModel =
-            ViewModelProvider(this)[UserViewModel::class.java]
 
-        _binding = FragmentUserBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-        _binding?.textHome?.setOnClickListener {
-
-        }
-        return root
+        binding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_user, null, false)
+        binding.lifecycleOwner = this
+        userVM = ViewModelProvider(this)[UserViewModel::class.java]
+        binding.vm = userVM
+        return binding.root
     }
-
 
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
     }
 }

@@ -106,17 +106,21 @@
                     android:orientation="horizontal">
 
                     <androidx.appcompat.widget.AppCompatEditText
-                        android:id="@+id/ed_email"
+                        android:id="@+id/ed_name"
                         android:layout_width="0dp"
                         android:layout_height="@dimen/dp_36"
                         android:layout_weight="1"
                         android:background="@color/transparent"
                         android:gravity="top"
                         android:hint="@string/nickname_hint"
+                        android:singleLine="true"
+                        android:text="@{vm.nickName}"
+                        android:afterTextChanged="@{(s) -> vm.inputNickName(s)}"
                         android:textCursorDrawable="@drawable/shape_cursor"
                         android:textSize="@dimen/sp_17" />
 
                     <ImageView
+                        goneWhenStr="@{vm.nickName}"
                         android:layout_width="@dimen/dp_36"
                         android:layout_height="@dimen/dp_36"
                         android:onClick="@{()->ac.clearContent()}"

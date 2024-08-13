@@ -56,13 +56,13 @@ class UserVerificationCodeActivity : BaseStatusBarActivity() {
         })
     }
     private fun registerInputListener() {
-        val h191 = DisplayUtils.dp2px(this, 191f)
+        val h240 = DisplayUtils.dp2px(this, 240f)
         binding.apply {
             softInputListener = InputMonitorHelpUtils.softInputListener(this@UserVerificationCodeActivity, object :
                 InputMonitorHelpUtils.SoftInputListener {
                 override fun onSoftKeyBoardVisible(visible: Boolean, keyBroadHeight: Int) {
                     if (visible) {
-                        infoCard.translationY = (-keyBroadHeight + h191).toFloat()
+                        infoCard.translationY = (-keyBroadHeight + h240).toFloat()
                     } else {
                         infoCard.translationY = 0f
                     }
