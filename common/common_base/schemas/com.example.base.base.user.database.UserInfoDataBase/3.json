@@ -1,0 +1,388 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 3,
+    "identityHash": "69356f14cc8e2eeaa41eeb7c82cd5bf9",
+    "entities": [
+      {
+        "tableName": "UserInfo_v12",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid_` INTEGER NOT NULL, `token_` TEXT, `accessToken_` TEXT, `nickname_` TEXT, `headPic_` TEXT, `provinceCode_` TEXT, `cityCode_` TEXT, `districtCode_` TEXT, `genderLabel_` TEXT, `statusLabel_` TEXT, `loginState` INTEGER NOT NULL, `gender_` INTEGER NOT NULL, `birthday_` TEXT, `constellation_` TEXT, `age_` TEXT, `looks_` TEXT, `address_` TEXT, `city_` TEXT, `district_` TEXT, `educationName_` TEXT, `education_` INTEGER NOT NULL, `headPicAudit_` TEXT, `headPicStatus_` INTEGER NOT NULL, `weight_` INTEGER NOT NULL, `height_` INTEGER NOT NULL, `inSchool_` INTEGER NOT NULL, `loginTime_` TEXT, `nativeCityCode_` TEXT, `nativeCity_` TEXT, `nativeDistrictCode_` TEXT, `nativeDistrict_` TEXT, `nativeProvinceCode_` TEXT, `nativeProvince_` TEXT, `nicknameAudit_` TEXT, `nicknameStatus_` INTEGER NOT NULL, `province_` TEXT, `schoolId_` INTEGER NOT NULL, `schoolName_` TEXT, `space_` TEXT, `createdAt_` TEXT, `hxAccessToken_` TEXT, `moodData_` TEXT, `collecteds_` INTEGER NOT NULL, `thumbsUpeds_` INTEGER NOT NULL, `diarys_` INTEGER NOT NULL, `fans_` INTEGER NOT NULL, `followings_` INTEGER NOT NULL, `points_` INTEGER NOT NULL, `eggs_` INTEGER NOT NULL, `headType_` INTEGER NOT NULL, `oursId_` TEXT, `inviteCode_` TEXT, `oursGender_` INTEGER NOT NULL, `eSCommentSwitch_` INTEGER NOT NULL, `showBg` TEXT, `looksHead_` TEXT, `isGM_` INTEGER NOT NULL, `spaceData` TEXT, `avatar` TEXT, `ridStr_` TEXT NOT NULL, PRIMARY KEY(`ridStr_`))",
+        "fields": [
+          {
+            "fieldPath": "userId",
+            "columnName": "uid_",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "token",
+            "columnName": "token_",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "accessToken",
+            "columnName": "accessToken_",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "nickname",
+            "columnName": "nickname_",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "headPic",
+            "columnName": "headPic_",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "provinceCode",
+            "columnName": "provinceCode_",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "cityCode",
+            "columnName": "cityCode_",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "districtCode",
+            "columnName": "districtCode_",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "genderLabel",
+            "columnName": "genderLabel_",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "statusLabel",
+            "columnName": "statusLabel_",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "loginState",
+            "columnName": "loginState",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "gender",
+            "columnName": "gender_",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "birthday",
+            "columnName": "birthday_",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "constellation",
+            "columnName": "constellation_",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "age",
+            "columnName": "age_",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "looks",
+            "columnName": "looks_",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "address",
+            "columnName": "address_",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "city",
+            "columnName": "city_",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "district",
+            "columnName": "district_",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "educationName",
+            "columnName": "educationName_",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "education",
+            "columnName": "education_",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "headPicAudit",
+            "columnName": "headPicAudit_",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "headPicStatus",
+            "columnName": "headPicStatus_",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "weight",
+            "columnName": "weight_",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "height",
+            "columnName": "height_",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "inSchool",
+            "columnName": "inSchool_",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "loginTime",
+            "columnName": "loginTime_",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "nativeCityCode",
+            "columnName": "nativeCityCode_",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "nativeCity",
+            "columnName": "nativeCity_",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "nativeDistrictCode",
+            "columnName": "nativeDistrictCode_",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "nativeDistrict",
+            "columnName": "nativeDistrict_",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "nativeProvinceCode",
+            "columnName": "nativeProvinceCode_",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "nativeProvince",
+            "columnName": "nativeProvince_",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "nicknameAudit",
+            "columnName": "nicknameAudit_",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "nicknameStatus",
+            "columnName": "nicknameStatus_",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "province",
+            "columnName": "province_",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "schoolId",
+            "columnName": "schoolId_",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "schoolName",
+            "columnName": "schoolName_",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "space",
+            "columnName": "space_",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "createdAt_",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "hxAccessToken",
+            "columnName": "hxAccessToken_",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "moodData",
+            "columnName": "moodData_",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "collecteds",
+            "columnName": "collecteds_",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "thumbsUpeds",
+            "columnName": "thumbsUpeds_",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "diarys",
+            "columnName": "diarys_",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fans",
+            "columnName": "fans_",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "followings",
+            "columnName": "followings_",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "points",
+            "columnName": "points_",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "eggs",
+            "columnName": "eggs_",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "headType",
+            "columnName": "headType_",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "oursId",
+            "columnName": "oursId_",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "inviteCode",
+            "columnName": "inviteCode_",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "oursGender",
+            "columnName": "oursGender_",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "eSCommentSwitch",
+            "columnName": "eSCommentSwitch_",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "showBg",
+            "columnName": "showBg",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "looksHead",
+            "columnName": "looksHead_",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "isGM",
+            "columnName": "isGM_",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "spaceData",
+            "columnName": "spaceData",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "avatar",
+            "columnName": "avatar",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "ridStr",
+            "columnName": "ridStr_",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "ridStr_"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '69356f14cc8e2eeaa41eeb7c82cd5bf9')"
+    ]
+  }
+}

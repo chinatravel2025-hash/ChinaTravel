@@ -1,5 +1,6 @@
 package com.example.base.msg.i
 
+import com.example.base.common.v2t.im.CommonIMManager
 import com.tencent.imsdk.v2.V2TIMMessage
 import java.io.Serializable
 
@@ -26,6 +27,8 @@ abstract class TUIMessageBean : Serializable {
 
     val isDownload: Boolean
         get() = downloadStatus == MSG_STATUS_SEND_SUCCESS
+    val conversationId:String
+        get() = CommonIMManager.convertUserIdToConversationId(isGroup,userId)
 
 
     companion object {

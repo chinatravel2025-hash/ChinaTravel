@@ -1,0 +1,76 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "7de57c8a89208c84f4b5a9160d3b9078",
+    "entities": [
+      {
+        "tableName": "RoleGrowthInfo",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`rid` INTEGER NOT NULL, `growth` INTEGER NOT NULL, `level` INTEGER NOT NULL, `nextGrowth` INTEGER NOT NULL, `nextLevel` INTEGER NOT NULL, `spaceLevel` INTEGER NOT NULL, `spaceNextGrowth` INTEGER NOT NULL, `spaceNextLevel` INTEGER NOT NULL, PRIMARY KEY(`rid`))",
+        "fields": [
+          {
+            "fieldPath": "rid",
+            "columnName": "rid",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "growth",
+            "columnName": "growth",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "level",
+            "columnName": "level",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nextGrowth",
+            "columnName": "nextGrowth",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nextLevel",
+            "columnName": "nextLevel",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "spaceLevel",
+            "columnName": "spaceLevel",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "spaceNextGrowth",
+            "columnName": "spaceNextGrowth",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "spaceNextLevel",
+            "columnName": "spaceNextLevel",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "rid"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '7de57c8a89208c84f4b5a9160d3b9078')"
+    ]
+  }
+}

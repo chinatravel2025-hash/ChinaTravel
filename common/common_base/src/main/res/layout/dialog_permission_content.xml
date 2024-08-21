@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout
+    android:layout_marginHorizontal="@dimen/dp_16"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <com.example.base.view.StatusBarHolderView
+        android:id="@+id/sbh_holder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+       />
+    <LinearLayout
+        android:background="@drawable/shape_radius_dp16_fff5f5f5"
+        android:id="@+id/fl_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/dp_16"
+        android:paddingVertical="@dimen/dp_18">
+
+
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="消息通知授权说明"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp_14" />
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_6"
+            android:lineHeight="@dimen/dp_18"
+            android:textColor="@color/txt_c9ccd4"
+            android:text="需要您授权开启通知，以便于我们能及时通知您所收到的新消息。"
+            android:textSize="@dimen/sp_12" />
+    </LinearLayout>
+    </LinearLayout>
+
+</FrameLayout>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_marginHorizontal="@dimen/dp_32"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:outlineAmbientShadowColor="@android:color/transparent"
+        android:outlineSpotShadowColor="@android:color/transparent"
+        app:cardBackgroundColor="@android:color/transparent"
+        app:cardCornerRadius="@dimen/dp_24"
+        app:cardElevation="0dp"
+        app:cardPreventCornerOverlap="false"
+        app:cardUseCompatPadding="false">
+
+    <FrameLayout
+        android:id="@+id/fl_container"
+        android:paddingBottom="@dimen/dp_24"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="vertical"
+           android:gravity="center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <View
+                android:id="@+id/view_holder"
+                android:layout_width="@dimen/dp_100"
+                android:layout_height="@dimen/dp_24"/>
+            <TextView
+                android:text=""
+                android:layout_marginTop="@dimen/dp_24"
+                android:textStyle="bold"
+                android:layout_marginHorizontal="@dimen/dp_18"
+                android:textSize="@dimen/sp_17"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:id="@+id/tv_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:text=""
+                android:layout_marginTop="@dimen/dp_8"
+                android:layout_marginHorizontal="@dimen/dp_18"
+                android:textSize="@dimen/sp_14"
+                android:textColor="@color/txt_66788094"
+                android:gravity="center"
+                android:id="@+id/tv_sub_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_marginHorizontal="@dimen/dp_22"
+                android:layout_marginTop="@dimen/dp_40"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <View
+                    android:visibility="gone"
+                    android:id="@+id/holder_a"
+                    android:layout_width="@dimen/dp_34"
+                    android:layout_height="@dimen/dp_48"/>
+                <TextView
+                    android:id="@+id/btn_left"
+                    android:text="取消"
+                    android:textSize="@dimen/sp_17"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:layout_weight="1"
+                    android:layout_marginRight="@dimen/dp_15"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/dp_48"/>
+                <TextView
+                    android:id="@+id/btn_right"
+                    android:text="确定"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/sp_17"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/dp_48"/>
+                <View
+                    android:visibility="gone"
+                    android:id="@+id/holder_b"
+                    android:layout_width="@dimen/dp_34"
+                    android:layout_height="@dimen/dp_48"/>
+            </LinearLayout>
+        </LinearLayout>
+    </FrameLayout>
+    </androidx.cardview.widget.CardView>
+
+</layout>

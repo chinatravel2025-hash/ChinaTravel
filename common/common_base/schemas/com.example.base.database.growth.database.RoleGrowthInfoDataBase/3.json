@@ -1,0 +1,88 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 3,
+    "identityHash": "b1f2841acbcf6946a3432971d2a8e594",
+    "entities": [
+      {
+        "tableName": "RoleGrowthInfo",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`rid` TEXT NOT NULL, `growth` INTEGER NOT NULL, `levelGrowth` INTEGER NOT NULL, `level` INTEGER NOT NULL, `nextGrowth` INTEGER NOT NULL, `nextLevel` INTEGER NOT NULL, `spaceLevel` INTEGER NOT NULL, `spaceLevelGrowth` INTEGER NOT NULL, `spaceNextGrowth` INTEGER NOT NULL, `spaceNextLevel` INTEGER NOT NULL, PRIMARY KEY(`rid`))",
+        "fields": [
+          {
+            "fieldPath": "rid",
+            "columnName": "rid",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "growth",
+            "columnName": "growth",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "levelGrowth",
+            "columnName": "levelGrowth",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "level",
+            "columnName": "level",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nextGrowth",
+            "columnName": "nextGrowth",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nextLevel",
+            "columnName": "nextLevel",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "spaceLevel",
+            "columnName": "spaceLevel",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "spaceLevelGrowth",
+            "columnName": "spaceLevelGrowth",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "spaceNextGrowth",
+            "columnName": "spaceNextGrowth",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "spaceNextLevel",
+            "columnName": "spaceNextLevel",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "rid"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'b1f2841acbcf6946a3432971d2a8e594')"
+    ]
+  }
+}

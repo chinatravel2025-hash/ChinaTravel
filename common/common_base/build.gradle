@@ -112,4 +112,23 @@ dependencies {
     annotationProcessor 'com.alibaba:arouter-compiler:1.5.1'
     api 'io.github.vincent-series:smart-toast:4.1.9'
     api 'com.github.liangjingkanji:Interval:1.0.3'
+
+    api Libs.exoplayer//'com.google.android.exoplayer:exoplayer:2.18.5'
+    //api Libs.exoplayerUi//'com.google.android.exoplayer:exoplayer-ui:2.18.5'
+    //api Libs.videoCache//'com.danikula:videocache:2.7.1'
+    api 'com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-java:v8.4.0-release-jitpack'
+
+    api 'com.github.CarGuo.GSYVideoPlayer:GSYVideoPlayer-exo2:v8.4.0-release-jitpack'
+    api 'com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-ex_so:v8.4.0-release-jitpack'
+
+    api 'com.github.li-xiaojun:XPopup:2.9.19' //https://github.com/li-xiaojun/XPopup
+
+
+    //定位
+    // api 'com.amap.api:location:latest.integration'
+    api 'com.amap.api:location:6.4.2'
+    //搜索
+    //  api 'com.amap.api:search:latest.integration'
+    api 'com.amap.api:search:9.7.0'
+
 }

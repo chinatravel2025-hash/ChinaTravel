@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.travel.guide.databinding.FragmentGuideBinding
+import com.travel.guide.fragment.SingleChatFragment
 
 class GuideFragment : Fragment() {
 
@@ -27,27 +28,11 @@ class GuideFragment : Fragment() {
 
         _binding = FragmentGuideBinding.inflate(inflater, container, false)
         val root: View = binding.root
-        _binding?.textHome?.setOnClickListener {
-
+        _binding?.flList?.let {
+            childFragmentManager.beginTransaction().replace(R.id.fl_list, SingleChatFragment())
+                .commitNowAllowingStateLoss()
         }
-            test()
         return root
-    }
-
-    private fun test(){
-        // 原始列表
-        val originalList: MutableList<String> = ArrayList()
-        originalList.add("A")
-        originalList.add("B")
-        originalList.add("C")
-        originalList.add("D")
-        originalList.add("E")
-        //originalList.add("F")
-        val chunked = originalList.chunked(2)
-
-        for (group in chunked) {
-            Log.d("llllll","chunked=${group}")
-        }
     }
 
 

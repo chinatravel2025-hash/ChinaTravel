@@ -13,4 +13,10 @@
     <color name="transparent">#00000000</color>
     <color name="color_bg_F3FFF8">#F3FFF8</color>
 
+    <color name="bg_788094">#788094</color>
+    <color name="bg_0055ff">#0055FF</color>
+    <color name="bg_5997ff">#5997FF</color>
+    <color name="bg_e0dfec">#E0DFEC</color>
+    <color name="bg_ee3a3b">#EE3A3B</color>
+    <color name="bg_b6b6e8">#B6B6E8</color>
 </resources>

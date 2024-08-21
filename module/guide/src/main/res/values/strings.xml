@@ -1,3 +1,5 @@
 <resources>
 
+    <string name="lite_not_has">引用内容不存在</string>
+    <string name="lite_chat_revoke">引用内容已撤回</string>
 </resources>

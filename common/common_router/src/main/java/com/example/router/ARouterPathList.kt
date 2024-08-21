@@ -2,6 +2,25 @@ package com.example.router
 
 object ARouterPathList {
 
+    /**
+     *home--杂志
+     */
+    const val HOME_TAB_MAGAZINE = "/home/tab/magazine/"
+
+    /**
+     *home--聊天页
+     */
+    const val HOME_TAB_SESSION = "/home/tab/session/"
+
+    /**
+     *home--我的
+     */
+    const val HOME_TAB_ME = "/home/tab/me/"
+    /**
+     *home--浏览器
+     */
+    const val WEB_HOME = "/app/web/home/"
+
 
     const val APP_MAIN= "/app/main"
     const val USER_REGISTER= "/user/register"

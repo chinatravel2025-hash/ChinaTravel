@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_cb"
+            android:layout_width="@dimen/dp_24"
+            android:layout_height="@dimen/dp_24"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/dp_16"
+            android:layout_marginEnd="@dimen/dp_8"
+            android:adjustViewBounds="true"
+            android:gravity="center"
+            android:scaleType="fitXY" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/dp_1"
+            android:layout_toEndOf="@+id/iv_cb"
+            android:padding="@dimen/dp_6">
+
+            <include
+                android:id="@+id/include_avatar"
+                layout="@layout/chat_border_avatar"
+                android:layout_width="@dimen/dp_54"
+                android:layout_height="@dimen/dp_54"
+                android:adjustViewBounds="true"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <FrameLayout
+                android:id="@+id/fl_content"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dp_54"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:id="@+id/ll_emo_gif"
+                        android:background="@mipmap/chat_img_pop_me_bg"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:gravity="center"
+                        android:visibility="gone"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:id="@+id/iv_emo_gif"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:scaleType="fitCenter" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <View
+                        android:id="@+id/view_holder"
+                        android:layout_width="@dimen/dp_1"
+                        android:layout_height="@dimen/dp_10"
+                        android:layout_marginStart="@dimen/dp_54"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_content"
+                        android:textColor="@color/black"
+                        android:layout_width="0dp"
+                        app:layout_constraintWidth_default="wrap"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/dp_4"
+                        android:background="@drawable/shape_radius_im_right_dp16_f1f1f1"
+                        android:ellipsize="end"
+                        android:gravity="center_vertical"
+                        android:lineHeight="@dimen/dp_22"
+                        android:maxLength="1000"
+                        android:minHeight="@dimen/dp_40"
+                        android:paddingHorizontal="@dimen/dp_16"
+                        android:paddingVertical="@dimen/dp_11"
+                        android:textSize="@dimen/dp_15"
+                        app:layout_constraintHorizontal_bias="1"
+                        app:layout_constraintLeft_toRightOf="@id/view_holder"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <FrameLayout
+                        android:id="@+id/fl_load"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_content"
+                        app:layout_constraintRight_toLeftOf="@id/tv_content"
+                        app:layout_constraintTop_toTopOf="@id/tv_content">
+
+                        <ImageView
+                            android:id="@+id/iv_error"
+                            android:layout_width="@dimen/dp_32"
+                            android:layout_height="@dimen/dp_32"
+                            android:layout_gravity="center_vertical|right"
+                            android:layout_marginEnd="@dimen/dp_4"
+                            android:adjustViewBounds="true"
+                            android:padding="@dimen/dp_8"
+                            android:src="@mipmap/ic_network_sigh" />
+
+                        <org.libpag.PAGImageView
+                            android:visibility="gone"
+                            android:id="@+id/lav_loading"
+                            android:layout_width="@dimen/dp_32"
+                            android:layout_height="@dimen/dp_32"
+                            android:layout_gravity="center_vertical|right"
+                            android:layout_marginEnd="@dimen/dp_12"
+                            android:adjustViewBounds="true" />
+                    </FrameLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </FrameLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
+</layout>

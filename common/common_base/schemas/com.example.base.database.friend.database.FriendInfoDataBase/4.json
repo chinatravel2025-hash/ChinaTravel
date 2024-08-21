@@ -1,0 +1,297 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 4,
+    "identityHash": "0b225b051346b1bf736be0bbef665f12",
+    "entities": [
+      {
+        "tableName": "FriendInfo_v12",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`ridStr` TEXT NOT NULL, `isBlackList` INTEGER NOT NULL, `remark` TEXT, `nickname` TEXT, `nameCard` TEXT, `headPic` TEXT, `isGroup` INTEGER NOT NULL, `groupType` TEXT, `isFriend` INTEGER NOT NULL, `statusType` INTEGER NOT NULL, `baseIndexPinyin` TEXT, `baseIndexTag` TEXT, `relationType` INTEGER NOT NULL, `creatAt` TEXT, `spaceData` TEXT, `birthday` TEXT, `spaceLevel` INTEGER NOT NULL, `level` INTEGER NOT NULL, `spaceImgUrl` TEXT, `bodyPic` TEXT, `bg` TEXT, `bodyData` TEXT, `gener` INTEGER NOT NULL, `memberStatus` INTEGER NOT NULL, PRIMARY KEY(`ridStr`))",
+        "fields": [
+          {
+            "fieldPath": "ridStr",
+            "columnName": "ridStr",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isBlackList",
+            "columnName": "isBlackList",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "remark",
+            "columnName": "remark",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "nickName",
+            "columnName": "nickname",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "nameCard",
+            "columnName": "nameCard",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "avatarUrl",
+            "columnName": "headPic",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "isGroup",
+            "columnName": "isGroup",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "groupType",
+            "columnName": "groupType",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "isFriend",
+            "columnName": "isFriend",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "statusType",
+            "columnName": "statusType",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "baseIndexPinyin",
+            "columnName": "baseIndexPinyin",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "baseIndexTag",
+            "columnName": "baseIndexTag",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "relationType",
+            "columnName": "relationType",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "creatAt",
+            "columnName": "creatAt",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "spaceData",
+            "columnName": "spaceData",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "birthday",
+            "columnName": "birthday",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "spaceLevel",
+            "columnName": "spaceLevel",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "level",
+            "columnName": "level",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "spaceImgUrl",
+            "columnName": "spaceImgUrl",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "bodyPic",
+            "columnName": "bodyPic",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "bg",
+            "columnName": "bg",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "bodyData",
+            "columnName": "bodyData",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "gener",
+            "columnName": "gener",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "memberStatus",
+            "columnName": "memberStatus",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "ridStr"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "FriendApplicationLocalRecord",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`ownerIdStr` TEXT NOT NULL, `ridStr` TEXT NOT NULL, `displayName` TEXT, `status` INTEGER NOT NULL, `headPic` TEXT, `createdAt` INTEGER NOT NULL, `memberStatus` INTEGER NOT NULL, `addSource` TEXT, `addWording` TEXT, `isSender` INTEGER NOT NULL, PRIMARY KEY(`ownerIdStr`, `ridStr`))",
+        "fields": [
+          {
+            "fieldPath": "ownerIdStr",
+            "columnName": "ownerIdStr",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ridStr",
+            "columnName": "ridStr",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "displayName",
+            "columnName": "displayName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "status",
+            "columnName": "status",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "headPic",
+            "columnName": "headPic",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "createdAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "memberStatus",
+            "columnName": "memberStatus",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "addSource",
+            "columnName": "addSource",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "addWording",
+            "columnName": "addWording",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "isSender",
+            "columnName": "isSender",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "ownerIdStr",
+            "ridStr"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "FriendStateV2",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `userId` TEXT, `ridStr` TEXT, `updateTarget` INTEGER NOT NULL, `number` INTEGER NOT NULL, `extra` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "userId",
+            "columnName": "userId",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "ridStr",
+            "columnName": "ridStr",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "updateTarget",
+            "columnName": "updateTarget",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "number",
+            "columnName": "number",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "extra",
+            "columnName": "extra",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '0b225b051346b1bf736be0bbef665f12')"
+    ]
+  }
+}
