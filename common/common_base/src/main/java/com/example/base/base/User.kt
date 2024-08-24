@@ -81,8 +81,9 @@ object User {
         ) else ""
     //get() = currentUser.value?.accessToken ?: ""
     var secretKey: String = ""
-    val hxToken: String
-        get() = currentUser.value?.hxAccessToken ?: ""
+    var hxToken: String
+         = "eJyrVgrxCdYrSy1SslIy0jNQ0gHzM1NS80oy0zIhwgYGMPHilOzEgoLMFCUrQzOgqIklkITIpFYUZBalAsVNTU1BGiCiJZm5IDFzIxNjQzMzC2OoKZnpQGOjtE2LXQ08EkNj9IOq0irCKirDwh29Mwwqq4xNDV39s5IsTVxzQgPzil20y22VagGX4zAi"
+        //get() = currentUser.value?.hxAccessToken ?: ""
 
     val uid: Long
         get() = currentUser.value?.userId ?: 0
@@ -93,8 +94,8 @@ object User {
     val ridString: String
         get() = currentUser.value?.ridStr ?: ""
 
-    val oursId: String
-        get() = currentUser.value?.oursId ?: ""
+    var oursId: String = "2000"
+        //get() = currentUser.value?.oursId ?: ""
 
     val nickname: String
         get() = currentUser.value?.nickname ?: ""

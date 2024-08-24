@@ -112,6 +112,34 @@
                         />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp_44"
+                    android:layout_marginTop="@dimen/dp_44"
+                    android:layout_marginStart="@dimen/dp_50"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:onClick="@{()->f.login1()}"
+                    android:text="登录用户1"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/dp_14"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp_44"
+                    android:layout_marginTop="@dimen/dp_44"
+                    android:layout_marginStart="@dimen/dp_200"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:onClick="@{()->f.login2()}"
+                    android:text="登录用户2"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/dp_14"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
             </RelativeLayout>
         </LinearLayout>
     </FrameLayout>

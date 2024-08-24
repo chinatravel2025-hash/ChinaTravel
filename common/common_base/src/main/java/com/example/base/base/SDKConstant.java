@@ -11,8 +11,8 @@ public class SDKConstant {
 
     public static int HX_APP_ID_RELEASE = 1600026242;
 
-    public static int HX_APP_ID_TEST = 1600026230;
-    public static int HX_APP_ID_DEV = 1600020635;
+    public static int HX_APP_ID_TEST = 1600049600;
+    public static int HX_APP_ID_DEV = 1600049600;
 
     public static final int TX_SDK_ID = 1600020635;
     public static final String BUGLY_SDK_ID = "6ffaa1a210";
