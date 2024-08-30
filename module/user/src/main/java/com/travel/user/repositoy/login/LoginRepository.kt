@@ -1,5 +1,6 @@
 
 import androidx.lifecycle.MutableLiveData
+import com.aws.bean.entities.user.MailLoginDTO
 import com.coder.vincent.smart_toast.SmartToast
 
 import com.example.http.RequestManager
@@ -23,9 +24,9 @@ class LoginRepository {
     /**
      * 获取邮箱
      */
-    fun fetchCaptcha(callback:(Boolean)->Unit) {
+    fun fetchCaptcha(mail:String,callback:(Boolean)->Unit) {
         loginAPI.fetchCaptcha(hashMapOf(
-            "mail" to "852436078@qq.com",
+            "mail" to mail,
             "tag" to "register",
         )).enqueue(object :
             Callback<ResponseResult<Any>> {
@@ -47,12 +48,11 @@ class LoginRepository {
     }
 
 
-
-    fun registerByEmail() {
-        loginAPI.registerByEmail(hashMapOf(
-            "mail" to "2343454",
-            "password" to "wo1111111w",
-            "confirm_password" to "wo1111111w",
+    fun checkCaptcha(mail:String,captcha:String, callback:(Boolean)->Unit) {
+        loginAPI.checkCaptcha(hashMapOf(
+            "mail" to mail,
+            "tag" to "register",
+            "captcha" to captcha,
         )).enqueue(object :
             Callback<ResponseResult<Any>> {
             override fun onResponse(
@@ -60,11 +60,38 @@ class LoginRepository {
                 response: Response<ResponseResult<Any>>
             ) {
                 if (response.body()?.isSuccessful == true) {
+                    callback.invoke(true)
                 }else{
                     SmartToast.classic().showInCenter(response.body()?.message?:"请重新尝试")
                 }
             }
             override fun onFailure(call: Call<ResponseResult<Any>>, t: Throwable) {
+                SmartToast.classic().showInCenter(t.message?:"请重新尝试")
+
+            }
+        })
+    }
+
+
+
+    fun registerByEmail(mail:String,password:String,confirmPassword:String, callback:(Boolean)->Unit) {
+        loginAPI.registerByEmail(hashMapOf(
+            "mail" to mail,
+            "password" to password,
+            "confirm_password" to confirmPassword,
+        )).enqueue(object :
+            Callback<ResponseResult<MailLoginDTO?>> {
+            override fun onResponse(
+                call: Call<ResponseResult<MailLoginDTO?>>,
+                response: Response<ResponseResult<MailLoginDTO?>>
+            ) {
+                if (response.body()?.isSuccessful == true) {
+                    callback.invoke(true)
+                }else{
+                    SmartToast.classic().showInCenter(response.body()?.message?:"请重新尝试")
+                }
+            }
+            override fun onFailure(call: Call<ResponseResult<MailLoginDTO?>>, t: Throwable) {
                 SmartToast.classic().showInCenter(t.message?:"请重新尝试")
 
             }

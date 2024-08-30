@@ -108,11 +108,6 @@ dependencies {
     //workmanager 的
 
 
-    api 'com.github.liangjingkanji:Tooltip:1.2.3'
-    annotationProcessor 'com.alibaba:arouter-compiler:1.5.1'
-    api 'io.github.vincent-series:smart-toast:4.1.9'
-    api 'com.github.liangjingkanji:Interval:1.0.3'
-
     api Libs.exoplayer//'com.google.android.exoplayer:exoplayer:2.18.5'
     //api Libs.exoplayerUi//'com.google.android.exoplayer:exoplayer-ui:2.18.5'
     //api Libs.videoCache//'com.danikula:videocache:2.7.1'
@@ -121,8 +116,18 @@ dependencies {
     api 'com.github.CarGuo.GSYVideoPlayer:GSYVideoPlayer-exo2:v8.4.0-release-jitpack'
     api 'com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-ex_so:v8.4.0-release-jitpack'
 
-    api 'com.github.li-xiaojun:XPopup:2.9.19' //https://github.com/li-xiaojun/XPopup
+    api 'com.github.liangjingkanji:Tooltip:1.2.3'
+    annotationProcessor 'com.alibaba:arouter-compiler:1.5.1'
+    api 'io.github.vincent-series:smart-toast:4.1.9'
+    api 'io.github.vincent-series:smart-dialog:4.1.4'
 
+    api 'com.github.liangjingkanji:Interval:1.0.3'
+    api 'com.github.liangjingkanji:StateLayout:1.4.2'
+
+    api 'com.github.zyyoona7:RecyclerViewItemDecoration:1.0.3'
+    api("com.scwang.smart:refresh-layout-kernel:2.0.1") // 下拉刷新
+    api("com.scwang.smart:refresh-header-classics:2.0.1") // 刷新头
+    api("com.scwang.smart:refresh-footer-classics:2.0.1") // 刷新底
 
     //定位
     // api 'com.amap.api:location:latest.integration'
@@ -130,5 +135,5 @@ dependencies {
     //搜索
     //  api 'com.amap.api:search:latest.integration'
     api 'com.amap.api:search:9.7.0'
-
+    api 'com.github.li-xiaojun:XPopup:2.9.19'
 }

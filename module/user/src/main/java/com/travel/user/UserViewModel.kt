@@ -3,6 +3,8 @@ package com.travel.user
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.alibaba.android.arouter.launcher.ARouter
+import com.example.router.ARouterPathList
 
 class UserViewModel : ViewModel() {
 
@@ -10,4 +12,18 @@ class UserViewModel : ViewModel() {
         value = "This is User Fragment"
     }
     val text: LiveData<String> = _text
+
+    fun navigationSupport(){
+        ARouter.getInstance().build(ARouterPathList.USER_SUPPORT)
+            .navigation()
+    }
+
+    fun navigationPreferences(){
+        ARouter.getInstance().build(ARouterPathList.USER_PREFERENCES_ACCOUNT)
+            .navigation()
+    }
+    fun navigationOrders(){
+        ARouter.getInstance().build(ARouterPathList.USER_ORDERS)
+            .navigation()
+    }
 }

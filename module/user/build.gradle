@@ -54,5 +54,6 @@ dependencies {
     api project(':common:common_bean')
     api project(":common:common_http")
     api project(":lib:widget")
+    api project(":lib:imagepicker")
     kapt Libs.arouter_compiler
 }

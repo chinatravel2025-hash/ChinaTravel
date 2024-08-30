@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize">
+
+    <TextView
+        android:id="@+id/text_toolbar_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:padding="@dimen/imagepicker_padding_large"
+        android:gravity="center"
+        android:text="Cancel"
+        android:textSize="14sp"
+        android:textColor="#141413"/>
+
+    <TextView
+        android:id="@+id/text_toolbar_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="@dimen/imagepicker_margin_large"
+        android:layout_marginRight="@dimen/imagepicker_margin_large"
+        android:text="ALL"
+        android:textSize="16sp"
+        android:textColor="#141413"
+        app:drawableEndCompat="@mipmap/imagepicker_arrow_down"
+        android:drawablePadding="8dp"/>
+
+    <TextView
+        android:id="@+id/text_toolbar_done"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:padding="@dimen/imagepicker_padding_large"
+        android:text="Next"
+        android:textAllCaps="false"
+        android:textStyle="bold"
+        android:textColor="#008BE0"/>
+
+</RelativeLayout>

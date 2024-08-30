@@ -65,6 +65,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <LinearLayout
+                android:onClick="@{()->vm.navigationOrders()}"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_48">
@@ -158,6 +159,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_1"/>
             <LinearLayout
+                android:onClick="@{()->vm.navigationPreferences()}"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_48">
@@ -189,6 +191,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_1"/>
             <LinearLayout
+                android:onClick="@{()->vm.navigationSupport()}"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_48">

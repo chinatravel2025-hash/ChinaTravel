@@ -29,6 +29,10 @@ object ARouterPathList {
     const val USER_EMAIL_LOGIN= "/user/email/login"
     const val USER_SET_NICKNAME= "/user/set/nickname"
     const val USER_VERIFICATION_CODE= "/user/verification/code"
+    const val USER_VERIFICATION_EMAIL= "/user/verification/email"
+    const val USER_SUPPORT= "/user/support"
+    const val USER_ORDERS= "/user/orders"
+    const val USER_PREFERENCES_ACCOUNT= "/user/preferences/account"
 
 
 

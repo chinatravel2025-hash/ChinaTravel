@@ -21,4 +21,12 @@
     <string name="welcome_back">Welcome back</string>
     <string name="password_tips">Password</string>
     <string name="btn_sign_in">Sign in</string>
+    <string name="user_email_verification_code_ps">We’ve sent you a verification code</string>
+    <string name="support_upload_screen_shot">Upload screen shot</string>
+    <string name="support_feedback">Feedback</string>
+    <string name="support_title">Support</string>
+    <string name="support_your_feedback_is_very_important_to_us">Your feedback is very important to us</string>
+    <string name="support_please_describe_your_suggestions_hint">Please describe your suggestions</string>
+    <string name="preferences_title">Preferences</string>
+    <string name="prefer_close_account">Close account</string>
 </resources>

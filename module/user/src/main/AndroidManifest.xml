@@ -2,7 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.travel.user"
     >
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+    <!-- android13需要新增以下权限 -->
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO"/>
 
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO"/>
     <application
         android:requestLegacyExternalStorage="true"
         android:allowBackup="true"
@@ -22,6 +29,16 @@
         <activity android:name="com.travel.user.ui.register.UserSetNickNameActivity"
             android:screenOrientation="portrait"/>
         <activity android:name="com.travel.user.ui.verification.UserVerificationCodeActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.travel.user.ui.verification.UserEmailVerificationActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.travel.user.ui.login.UserEmailLoginActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.travel.user.ui.support.UserSupportActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.travel.user.ui.preferences.UserPreferencesAccountActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.travel.user.ui.order.UserOrdersActivity"
             android:screenOrientation="portrait"/>
     </application>
 </manifest>

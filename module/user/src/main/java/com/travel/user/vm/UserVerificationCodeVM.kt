@@ -12,9 +12,12 @@ class UserVerificationCodeVM:ViewModel() {
     var countDown = MutableLiveData("")
     var resultError = MutableLiveData(false)
     var resend = MutableLiveData(false)
-    fun navigationLogin(sms:String){
-        ARouter.getInstance().build(ARouterPathList.USER_PASSWORD_SET)
-            .navigation()
+    fun navigationLogin(mail:String,captcha:String){
+        LoginRepository.loginRepository.checkCaptcha(mail,captcha){
+            ARouter.getInstance().build(ARouterPathList.USER_PASSWORD_SET)
+                .withString("mail",mail)
+                .navigation()
+        }
     }
 
     fun startCountDown() {
