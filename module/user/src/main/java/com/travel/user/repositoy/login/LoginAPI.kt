@@ -1,5 +1,5 @@
 
-import com.aws.bean.entities.user.MailLoginDTO
+import com.example.base.base.UserInfo
 import com.example.http.api.ResponseResult
 import retrofit2.Call
 import retrofit2.http.Body
@@ -15,7 +15,7 @@ interface LoginAPI {
     fun checkCaptcha(@Body params: Map<String,String>): Call<ResponseResult<Any>>
 
     @POST("/user/mail/register")
-    fun registerByEmail(@Body params: Map<String,String>): Call<ResponseResult<MailLoginDTO?>>
+    fun registerByEmail(@Body params: Map<String,String>): Call<ResponseResult<UserInfo?>>
 
 
 }

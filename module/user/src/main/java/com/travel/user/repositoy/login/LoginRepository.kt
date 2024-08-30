@@ -1,7 +1,7 @@
 
-import androidx.lifecycle.MutableLiveData
-import com.aws.bean.entities.user.MailLoginDTO
 import com.coder.vincent.smart_toast.SmartToast
+import com.example.base.base.User
+import com.example.base.base.UserInfo
 
 import com.example.http.RequestManager
 import com.example.http.api.ResponseResult
@@ -80,18 +80,21 @@ class LoginRepository {
             "password" to password,
             "confirm_password" to confirmPassword,
         )).enqueue(object :
-            Callback<ResponseResult<MailLoginDTO?>> {
+            Callback<ResponseResult<UserInfo?>> {
             override fun onResponse(
-                call: Call<ResponseResult<MailLoginDTO?>>,
-                response: Response<ResponseResult<MailLoginDTO?>>
+                call: Call<ResponseResult<UserInfo?>>,
+                response: Response<ResponseResult<UserInfo?>>
             ) {
                 if (response.body()?.isSuccessful == true) {
-                    callback.invoke(true)
+                    response.body()?.data?.let {
+                        User.saveUserInfo(it)
+                        callback.invoke(true)
+                    }
                 }else{
                     SmartToast.classic().showInCenter(response.body()?.message?:"请重新尝试")
                 }
             }
-            override fun onFailure(call: Call<ResponseResult<MailLoginDTO?>>, t: Throwable) {
+            override fun onFailure(call: Call<ResponseResult<UserInfo?>>, t: Throwable) {
                 SmartToast.classic().showInCenter(t.message?:"请重新尝试")
 
             }

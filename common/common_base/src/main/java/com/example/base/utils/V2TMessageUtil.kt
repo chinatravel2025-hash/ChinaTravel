@@ -699,8 +699,8 @@ fun V2TIMMessage.setPushDesc(
     TLog.d("TUICore","setAndroidXiaoMiChannelID")
     // info.setAndroidOPPOChannelID("OURSIM")
     val content = toTitle(false, isGroup, isTopic)
-    info.title = if (isGroup) showName else User.nickname
-    info.desc = if (isGroup) "${User.nickname}：${content}" else content
+   // info.title = if (isGroup) showName else User.nickname
+   // info.desc = if (isGroup) "${User.nickname}：${content}" else content
     return info
 }
 

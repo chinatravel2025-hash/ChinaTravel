@@ -1,8 +1,6 @@
 package com.travel.guide.common
 
-import android.annotation.SuppressLint
 import android.text.TextUtils
-import com.aws.bean.util.GsonUtil
 import com.example.base.base.App
 import com.example.base.base.SDKConstant
 import com.example.base.base.User
@@ -10,15 +8,8 @@ import com.example.base.common.v2t.im.CommonIMManager
 import com.example.base.common.v2t.im.core.interfaces.IMUICallback
 import com.example.base.common.v2t.im.core.interfaces.UILoginListener
 import com.example.base.localstore.MMKVConstanst
-import com.example.base.localstore.MMKVSpUtils
-import com.example.base.localstore.MMKVStore
-import com.example.base.utils.DateUtils
 import com.example.base.utils.LogUtils
-import com.example.base.utils.TLog
 import com.example.base.utils.ThreadUtils
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class LoginRepository {
 
@@ -273,8 +264,8 @@ class LoginRepository {
         }
 
         Thread{
-            val imLoginInfoStr = MMKVStore.getString(MMKVConstanst.IM_LOGIN_INFO_KEY)
-            var userId = User.oursId//todo 测试
+           // val imLoginInfoStr = MMKVStore.getString(MMKVConstanst.IM_LOGIN_INFO_KEY)
+          //  var userId = User.oursId//todo 测试
             var userSig = User.hxToken//todo 测试
             /*if (imLoginInfoStr != "") {
                 val imLoginInfo = GsonUtil.fromJson(imLoginInfoStr, IMLoginInfo::class.java)
@@ -283,7 +274,7 @@ class LoginRepository {
                     userSig = imLoginInfo.userSig
                 }
             }*/
-            if (TextUtils.isEmpty(userSig) || TextUtils.isEmpty(userId)) {
+            if (TextUtils.isEmpty(userSig)) {
                 //获取token2  腾讯云登录放在这里
                 /*var imInfo = GrpcTask.newInstance<EmptyReqV2, ImTokenRespV2>(
                     EmptyReqV2.newBuilder()
@@ -300,14 +291,14 @@ class LoginRepository {
             }
 
             ThreadUtils.runOnUiThread {
-                if (userSig.isEmpty() || userId.isEmpty()) {
+                if (userSig.isEmpty()) {
                     imLoginOnFailed(-1, "未获取到登录信息")
                     isIMLogining = false
                     LogUtils.i(TAG, "IMLogin failed  用户签名信息为null")
                     return@runOnUiThread
                 }
 
-                CommonIMManager.login(App.getContext(), userId, userSig,
+                CommonIMManager.login(App.getContext(), "", userSig,
                     SDKConstant.HX_APP_ID_TEST, uiIMUICallback = object :
                         IMUICallback() {
                         override fun onSuccess() {
@@ -329,7 +320,7 @@ class LoginRepository {
                             isIMLogining = false
                             LogUtils.i(
                                 TAG,
-                                "IMLogin failed errorCode = ${errorCode} error = ${errorMessage} userId = ${userId}" +
+                                "IMLogin failed errorCode = ${errorCode} error = ${errorMessage} " +
                                         " userSig = ${userSig}"
                             )
                             imLoginOnFailed(errorCode, errorMessage ?: "未知错误")

@@ -131,9 +131,7 @@ class SingleChatFragment : Fragment(), MsgBaseHolder.OnChatItemClickListener,
                 initMax(60)
             }
             binding.viewBottomChat.ivOwer.apply {
-                User.headPic.let {
-                    GlideUtils.loadNormalPic(this.context, it, this)
-                }
+
             }
 
             V2TMessageManager.doubleCheckerMode.observe(viewLifecycleOwner) { doubleCheckerMode ->
