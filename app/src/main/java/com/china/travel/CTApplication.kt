@@ -33,7 +33,7 @@ class CTApplication : Application() {
         App.init(this, "");
        // val environment = MMKVSpUtils.getString(MMKVConstanst.YSM_ENVIRONMENT, "dev")
      //   API.env=environment
-        APIService.initRetrofit("")
+        APIService.initRetrofit(this,"dev")
         RouteModule.init(this)
 
     }

@@ -13,15 +13,19 @@ import retrofit2.Response;
 
 public class ResponseResult<T> implements Serializable {
     private String code;
+    private String requestId;
+    private String businessDesc;
     private T data;
     private String msg;
+
+    private long timestamp;
     private int httpCode;
 
     public String getCode() {
         return code;
     }
 
-    public String getMsg() {
+    public String getMessage() {
         return !TextUtils.isEmpty(msg) ? msg : "";
     }
 
@@ -32,6 +36,18 @@ public class ResponseResult<T> implements Serializable {
 
     public boolean isSuccessful() {
         return TextUtils.equals(code, Code.SUCCESS);
+    }
+
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public boolean isExternalSuccessful() {
+        return TextUtils.equals(code, Code.SUCCESS2);
     }
 
     public static <R> ResponseResult<R> onResponse(Response<R> response) {
@@ -51,6 +67,7 @@ public class ResponseResult<T> implements Serializable {
                 responseResult.msg = response.message();
             }
         } catch (Exception e) {
+            e.printStackTrace();
             responseResult.code = Code.UNKONW_ERROR;
             responseResult.msg = e.getMessage();
         }

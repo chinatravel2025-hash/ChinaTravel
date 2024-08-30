@@ -17,7 +17,6 @@ import okhttp3.OkHttpClient;
 /**
  * https 证书工具
  *
- * @author liyi
  */
 public class SSLContextUtil {
 
@@ -53,6 +52,7 @@ public class SSLContextUtil {
             sc.init(null, new TrustManager[]{new TrustAllCerts()}, new SecureRandom());
             ssfFactory = sc.getSocketFactory();
         } catch (Exception e) {
+            e.printStackTrace();
         }
         return ssfFactory;
     }

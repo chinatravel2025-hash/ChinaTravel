@@ -1,5 +1,7 @@
 package com.example.http.util;
 
+import android.util.Log;
+
 import androidx.annotation.Nullable;
 
 import java.io.IOException;
@@ -54,11 +56,15 @@ public class HttpEventListener extends EventListener {
     }
 
     private void recordEventLog(String name) {
-        SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
-        sbLog.append(name + format.format(System.currentTimeMillis())).append(";");
+       // long elapseNanos = System.nanoTime() - callStartNanos;
+
+           SimpleDateFormat format=new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
+        // Log.d("lgh", "代码执行  开始 "+format.format(System.currentTimeMillis()));
+        sbLog.append(name+ format.format(System.currentTimeMillis())  ).append(";");
+
         if (name.equalsIgnoreCase("callEnd") || name.equalsIgnoreCase("callFailed")) {
             //打印出每个步骤的时间点
-
+            Log.d("ddebug",sbLog.toString());
         }
     }
 

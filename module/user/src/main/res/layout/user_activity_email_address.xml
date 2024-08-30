@@ -127,7 +127,7 @@
 
                 <TextView
                     android:clickable="@{vm.canNext}"
-                    android:onClick="@{()->vm.navigationLogin()}"
+                    android:onClick="@{()->vm.navigationVerificationEmail()}"
                     android:id="@+id/btn_next"
                     android:layout_marginTop="@dimen/dp_25"
                     android:background="@{vm.canNext?@drawable/shape_r100_ff12c286:@drawable/shape_r100_ff59d4aa}"
@@ -163,7 +163,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <TextView
-                android:onClick="@{()->vm.navigationLogin()}"
+                android:onClick="@{()->vm.navigationSignIn()}"
                 android:layout_marginBottom="@dimen/dp_2"
                 app:layout_constraintLeft_toRightOf="@id/tv_left"
                 app:layout_constraintBottom_toBottomOf="parent"

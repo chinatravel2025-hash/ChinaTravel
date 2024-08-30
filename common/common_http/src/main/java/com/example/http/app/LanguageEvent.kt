@@ -1,3 +1,3 @@
 package com.example.http.app
 
-class TokenInvalidEvent
+class LanguageEvent

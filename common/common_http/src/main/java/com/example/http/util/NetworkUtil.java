@@ -7,6 +7,7 @@ import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.text.TextUtils;
 
+
 import com.example.base.base.App;
 
 import java.net.InetAddress;
@@ -16,15 +17,41 @@ import java.net.UnknownHostException;
  *
  * 网络工具类
  *
- * 作者：li yi on 2018/9/12 14:33
  */
 public class NetworkUtil {
     public static final int NETWORK_TYPE_NONE = -1;
     public static final int NETWORK_TYPE_MOBILE = ConnectivityManager.TYPE_MOBILE;
     public static final int NETWORK_TYPE_WIFI = ConnectivityManager.TYPE_WIFI;
     private static boolean reverseProxyOn = false;
+    public static final String INTERFACE_WLAN0 = "wlan0";
+
     private static final String ANDROID_HOTSPOT_IP_ADDRESS = "192.168.43.1";
     private static final String IOS_HOTSPOT_IP_ADDRESS = "172.20.10.1";
+
+    /**
+     * Unknown network class
+     */
+    public static final int NETWORK_CLASS_UNKNOWN = 0;
+
+    /**
+     * wifi net work
+     */
+    public static final int NETWORK_WIFI = 1;
+
+    /**
+     * "2G" networks
+     */
+    public static final int NETWORK_CLASS_2_G = 2;
+
+    /**
+     * "3G" networks
+     */
+    public static final int NETWORK_CLASS_3_G = 3;
+
+    /**
+     * "4G" networks
+     */
+    public static final int NETWORK_CLASS_4_G = 4;
 
     private NetworkUtil() {}
 
@@ -38,6 +65,8 @@ public class NetworkUtil {
         try {
             activeNetworkInfo = connManager.getActiveNetworkInfo();
         } catch (Exception e) {
+            // in some roms, here maybe throw a exception(like nullpoint).
+            e.printStackTrace();
         }
         return (activeNetworkInfo != null && activeNetworkInfo.isConnected());
     }
@@ -72,6 +101,7 @@ public class NetworkUtil {
             // maybe throw exception in android framework
             networkInfo = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
         } catch (Exception e) {
+            e.printStackTrace();
         }
 
         // can not use pingSupplicant (), on cm9 or some other roms it will
@@ -96,7 +126,9 @@ public class NetworkUtil {
         try {
             inetAddress = InetAddress.getByAddress(addressBytes);
         } catch (UnknownHostException e) {
+            e.printStackTrace();
         } catch (Exception e) {
+            e.printStackTrace();
         }
 
         return inetAddress;
@@ -141,6 +173,9 @@ public class NetworkUtil {
         try {
             networkInfo = connManager.getActiveNetworkInfo();
         } catch (NullPointerException e) {
+            // get some crash that getActiveNetworkInfo() may throw NullPointerException in some ROM...
+            // so catch it here
+            e.printStackTrace();
             return NETWORK_TYPE_NONE;
         }
         return parseNetworkType(networkInfo);

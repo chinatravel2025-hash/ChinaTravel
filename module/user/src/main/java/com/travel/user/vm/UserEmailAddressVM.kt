@@ -1,5 +1,6 @@
 package com.travel.user.vm
 
+import LoginRepository
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.alibaba.android.arouter.launcher.ARouter
@@ -10,11 +11,11 @@ class UserEmailAddressVM:ViewModel() {
     var canNext = MutableLiveData(false)
 
 
-    fun navigationLogin(){
-
-        ARouter.getInstance().build(ARouterPathList.USER_VERIFICATION_CODE)
-            .navigation()
-
+    fun navigationVerificationEmail(){
+        LoginRepository.loginRepository.fetchCaptcha(){
+            ARouter.getInstance().build(ARouterPathList.USER_VERIFICATION_CODE)
+                .navigation()
+        }
     }
 
     fun showClear(content:CharSequence?){

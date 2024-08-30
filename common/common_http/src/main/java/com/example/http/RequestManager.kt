@@ -2,7 +2,6 @@ package com.example.http
 
 import android.os.Build
 import androidx.collection.ArrayMap
-import com.example.base.utils.TLog.d
 import com.example.common_http.BuildConfig
 import com.example.http.api.LiveDataCallAdapterFactory
 import com.example.http.interceptor.LogInterceptor
@@ -17,11 +16,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.lang.ref.SoftReference
 import java.util.concurrent.TimeUnit
 
-/**
- * Created by li yi on 2019-11-29 18:00
- */
-object RequestManager {
 
+object RequestManager {
     private val okHttpClient: OkHttpClient by lazy {
         val okHttp = OkHttpClient.Builder()
             .connectTimeout(10, TimeUnit.SECONDS)
@@ -34,14 +30,14 @@ object RequestManager {
                 }
             }
         if (BuildConfig.DEBUG) {
-//            val loggingInterceptor = HttpLoggingInterceptor()
-//            loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+            val loggingInterceptor = HttpLoggingInterceptor()
+            loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
             okHttp.addInterceptor(loggingInterceptor)
             okHttp.addInterceptor(LogInterceptor())
+
         }
-     //   okHttp.addInterceptor(ChuckerInterceptor(App.getContext()))
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            SSLContextUtil.createUntrustedSSLClient(okHttp);
+             SSLContextUtil.createUntrustedSSLClient(okHttp);
         } else {
             okHttp.eventListenerFactory(HttpEventListener.FACTORY)
             okHttp.build()
@@ -68,7 +64,6 @@ object RequestManager {
         retrofit = Retrofit.Builder()
             .baseUrl(domain)
             .addConverterFactory(GsonConverterFactory.create())
-            //.addConverterFactory(ProtoConverterFactory.create())
             .apply {
                 if (factory != null) {
                     addCallAdapterFactory(factory)
@@ -87,11 +82,3 @@ object RequestManager {
         return domain + factory?.javaClass?.canonicalName
     }
 }
-
-val loggingInterceptor
-    get() = HttpLoggingInterceptor(object : HttpLoggingInterceptor.Logger {
-        override fun log(message: String) {
-            d("Okhttp", message)
-        }
-
-    }).apply { level = HttpLoggingInterceptor.Level.BODY }
