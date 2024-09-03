@@ -9,42 +9,30 @@ import com.example.router.ARouterPathList
 
 class UserEmailLoginVM:ViewModel() {
     var originPw = MutableLiveData("")
-    var confirmPw = MutableLiveData("")
+    var email = MutableLiveData("")
     var showPw = MutableLiveData(false)
     var canNext = MutableLiveData(false)
 
-    fun navigationVerificationCode() {
-        if (canNext.value!=true){
+    fun navigationLogin() {
+        if (email.value.isNullOrEmpty() || originPw.value.isNullOrEmpty()){
             SmartToast.classic().showInCenter("密码不符合规则")
         }else{
-            ARouter.getInstance().build(ARouterPathList.USER_SET_NICKNAME)
-                .navigation()
+            LoginRepository.loginRepository.loginByEmail(email.value?:"",originPw.value?:""){
+                ARouter.getInstance().build(ARouterPathList.APP_MAIN)
+                    .navigation()
+            }
         }
 
     }
 
     fun setOriginPw(content: CharSequence?) {
         originPw.value = content.toString()
-        checkNext()
     }
 
-    fun setConfirmPw(content: CharSequence?) {
-        confirmPw.value = content.toString()
-        checkNext()
+    fun setEmail(content: CharSequence?) {
+        email.value = content.toString()
     }
 
-
-    /**
-     * 最少8位，最多20位。大写，小写，数字，特殊符号中包含其中2种。
-     * At least 8 characters, no longer than 20 characters.
-     * Contains at least 2 kinds of characters:
-     * uppercase/lowercase/number/special symbol.
-     */
-    private fun checkNext() {
-        val origin = PasswordUtil.isPswComplex(originPw.value)
-        val confirm = PasswordUtil.isPswComplex(confirmPw.value)
-        canNext.value = origin && confirm
-    }
 
 
 }

@@ -6,6 +6,7 @@ import android.text.method.PasswordTransformationMethod
 import android.view.ViewTreeObserver
 import androidx.lifecycle.ViewModelProvider
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.android.arouter.launcher.ARouter
 import com.example.base.base.BaseStatusBarActivity
 import com.example.base.utils.DisplayUtils
 import com.example.base.utils.InputMonitorHelpUtils
@@ -33,6 +34,7 @@ class UserEmailLoginActivity : BaseStatusBarActivity() {
 
     override fun initView(savedInstanceState: Bundle?) {
         super.initView(savedInstanceState)
+        ARouter.getInstance().inject(this)
         mVM = ViewModelProvider(this)[UserEmailLoginVM::class.java]
         binding = mBaseBinding as UserActivityEmailLoginBinding
         setContentView(binding.root)
@@ -41,10 +43,6 @@ class UserEmailLoginActivity : BaseStatusBarActivity() {
         binding.ac=this
         registerInputListener()
         //默认不显示密码
-        binding.edOrigin.apply {
-            transformationMethod = PasswordTransformationMethod.getInstance()
-            setSelection(this.text?.length?:0)
-        }
         binding.edConfirm.apply {
             transformationMethod = PasswordTransformationMethod.getInstance()
             setSelection(this.text?.length?:0)
@@ -57,22 +55,12 @@ class UserEmailLoginActivity : BaseStatusBarActivity() {
         val showPwd = mVM.showPw.value ?: false
         if (!showPwd) {
             mVM.showPw.value = true
-            //显示密码
-            binding.edOrigin.apply {
-                transformationMethod = HideReturnsTransformationMethod.getInstance()
-                setSelection(this.text?.length?:0)
-            }
             binding.edConfirm.apply {
                 transformationMethod = HideReturnsTransformationMethod.getInstance()
                 setSelection(this.text?.length?:0)
             }
         } else {
             mVM.showPw.value = false
-            //隐藏密码
-            binding.edOrigin.apply {
-                transformationMethod = PasswordTransformationMethod.getInstance()
-                setSelection(this.text?.length?:0)
-            }
             binding.edConfirm.apply {
                 transformationMethod = PasswordTransformationMethod.getInstance()
                 setSelection(this.text?.length?:0)

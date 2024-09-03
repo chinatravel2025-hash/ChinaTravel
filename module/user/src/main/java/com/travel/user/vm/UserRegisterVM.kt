@@ -20,4 +20,9 @@ class UserRegisterVM:ViewModel() {
         }
 
     }
+
+    fun signIn(){
+        ARouter.getInstance().build(ARouterPathList.USER_EMAIL_LOGIN)
+            .navigation()
+    }
 }

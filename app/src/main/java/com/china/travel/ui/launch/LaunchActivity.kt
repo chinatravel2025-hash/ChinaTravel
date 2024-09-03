@@ -7,6 +7,7 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.china.travel.R
 import com.china.travel.databinding.ActivityLaunchBinding
 import com.example.base.base.BaseStatusBarActivity
+import com.example.base.base.User
 import com.example.base.utils.StatusBarUtil
 import com.example.router.ARouterPathList
 
@@ -26,9 +27,14 @@ class LaunchActivity : BaseStatusBarActivity() {
         setContentView(binding.root)
         binding.lifecycleOwner = this
         binding.tvTitle.postDelayed({
-            ARouter.getInstance().build(ARouterPathList.USER_REGISTER)
-                .navigation()
-        },800)
+            if (User.isLogin){
+                ARouter.getInstance().build(ARouterPathList.APP_MAIN)
+                    .navigation()
+            }else{
+                ARouter.getInstance().build(ARouterPathList.USER_REGISTER)
+                    .navigation()
+            }
+        },500)
     }
 
 

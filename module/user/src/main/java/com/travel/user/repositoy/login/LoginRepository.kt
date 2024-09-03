@@ -101,7 +101,34 @@ class LoginRepository {
         })
     }
 
+    /**
+     *  {"mail":"852436078@qq.com","password":"qwer1234"}
+     */
+    fun loginByEmail(mail:String,password:String ,callback:(Boolean)->Unit) {
+        loginAPI.loginByEmail(hashMapOf(
+            "mail" to mail,
+            "password" to password,
+        )).enqueue(object :
+            Callback<ResponseResult<UserInfo?>> {
+            override fun onResponse(
+                call: Call<ResponseResult<UserInfo?>>,
+                response: Response<ResponseResult<UserInfo?>>
+            ) {
+                if (response.body()?.isSuccessful == true) {
+                    response.body()?.data?.let {
+                        User.saveUserInfo(it)
+                        callback.invoke(true)
+                    }
+                }else{
+                    SmartToast.classic().showInCenter(response.body()?.message?:"请重新尝试")
+                }
+            }
+            override fun onFailure(call: Call<ResponseResult<UserInfo?>>, t: Throwable) {
+                SmartToast.classic().showInCenter(t.message?:"请重新尝试")
 
+            }
+        })
+    }
 
 
 }

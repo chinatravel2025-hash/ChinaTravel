@@ -5,6 +5,7 @@ import android.content.Context
 import androidx.multidex.MultiDex
 import com.china.travel.init.RouteModule
 import com.example.base.base.App
+import com.example.base.base.User
 import com.example.base.localstore.MMKVSpUtils
 import com.example.base.utils.ProcessUtils
 import com.example.http.API
@@ -31,6 +32,7 @@ class CTApplication : Application() {
         MMKVSpUtils.init(this)
         App.initApp(this)
         App.init(this, "");
+        User.output()
        // val environment = MMKVSpUtils.getString(MMKVConstanst.YSM_ENVIRONMENT, "dev")
      //   API.env=environment
         APIService.initRetrofit(this,"dev")
