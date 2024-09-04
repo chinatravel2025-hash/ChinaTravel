@@ -9,10 +9,14 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.aws.bean.util.GsonUtil
+import com.example.base.utils.LogUtils
 import com.ours.ui.home.HomeViewModel
+import com.travel.home.adapter.BaseMultiQuickItem
 import com.travel.home.adapter.CityListAdapter
 import com.travel.home.adapter.DayTripListAdapter
 import com.travel.home.adapter.HomeBannerAdapter
+import com.travel.home.adapter.HomeProviderMultiAdapter
 import com.travel.home.adapter.ThingsListAdapter
 import com.travel.home.databinding.FragmentHomeBinding
 
@@ -22,9 +26,7 @@ class HomeFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private lateinit var homeVM: HomeViewModel
-    private var mCityListAdapter: CityListAdapter? = null
-    private var mDayTripListAdapter: DayTripListAdapter? = null
-    private var mThingsListAdapter: ThingsListAdapter? = null
+    private var mHomeAdapter: HomeProviderMultiAdapter? = null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -33,44 +35,30 @@ class HomeFragment : Fragment() {
         binding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_home, null, false)
         binding.lifecycleOwner = this
         homeVM = ViewModelProvider(this)[HomeViewModel::class.java]
-        initBanner()
         initRv()
         return binding.root
     }
 
-    private fun initBanner(){
-        binding.banner.setAdapter(HomeBannerAdapter(listOf("","","")))
-        binding.banner.setIndicator(binding.circleIndicator,false)
 
-    }
     private fun initRv(){
-        binding.rvCity.apply {
+        binding.rvHome.apply {
             val manager = LinearLayoutManager(context)
-            manager.orientation = LinearLayoutManager.HORIZONTAL
+            manager.orientation = LinearLayoutManager.VERTICAL
             layoutManager = manager
-            mCityListAdapter=CityListAdapter()
-            adapter=mCityListAdapter
-            mCityListAdapter?.setList(listOf("","",""))
+            mHomeAdapter=HomeProviderMultiAdapter()
+            adapter=mHomeAdapter
+            val tempdata = mutableListOf<BaseMultiQuickItem>()
+            tempdata.add(BaseMultiQuickItem(1,"11111"))
+            tempdata.add(BaseMultiQuickItem(2,"22222"))
+            tempdata.add(BaseMultiQuickItem(3,"33333"))
+            tempdata.add(BaseMultiQuickItem(4,"44444"))
+            tempdata.add(BaseMultiQuickItem(5,"55555"))
+            mHomeAdapter?.setList(tempdata)
+
+            LogUtils.d("lklklkl","data=${GsonUtil.toJson(tempdata)}")
         }
-        binding.rvTrip.apply {
-            val manager = LinearLayoutManager(context)
-            manager.orientation = LinearLayoutManager.HORIZONTAL
-            layoutManager = manager
-            mDayTripListAdapter=DayTripListAdapter()
-            adapter=mDayTripListAdapter
-            mDayTripListAdapter?.setList(listOf("","",""))
-        }
-        binding.rvThings.apply {
-            val manager = LinearLayoutManager(context)
-            manager.orientation = LinearLayoutManager.HORIZONTAL
-            layoutManager = manager
-            mThingsListAdapter=ThingsListAdapter()
-            adapter=mThingsListAdapter
-            mThingsListAdapter?.setList(listOf("","",""))
-        }
+
     }
-
-
 
 
     override fun onDestroyView() {

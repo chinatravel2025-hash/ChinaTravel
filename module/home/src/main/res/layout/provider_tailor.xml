@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:paddingBottom="@dimen/dp_120"
+        android:layout_marginTop="@dimen/dp_24"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginHorizontal="@dimen/dp_30"
+            android:id="@+id/btn_next"
+            android:background="@drawable/shape_r100_ff12c286"
+            android:text="Tailor my trip"
+            android:textSize="@dimen/sp_18"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_56"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

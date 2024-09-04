@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <FrameLayout
+            android:layout_marginHorizontal="@dimen/dp_12"
+            android:id="@+id/fl_banner"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_80">
+
+            <com.youth.banner.Banner
+                android:id="@+id/banner"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:banner_indicator_normal_color="@color/bg_FFD9D9D9"
+                app:banner_indicator_selected_color="@color/bg_7DAAB0"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.youth.banner.indicator.RectangleIndicator
+                android:id="@+id/circle_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginBottom="@dimen/dp_20"
+                app:layout_constraintBottom_toBottomOf="@id/banner" />
+        </FrameLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

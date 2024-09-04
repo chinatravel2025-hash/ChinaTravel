@@ -53,5 +53,6 @@ dependencies {
     api project(':common:common_base')
     api project(':common:common_bean')
     api project(":common:common_http")
+    api project(":lib:widget")
     kapt Libs.arouter_compiler
 }

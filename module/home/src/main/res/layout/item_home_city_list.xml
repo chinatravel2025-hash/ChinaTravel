@@ -10,6 +10,7 @@
             type="java.lang.Integer" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_marginStart="@dimen/dp_12"
         android:background="@drawable/shape_radius_dp16_9bacce"
         android:layout_width="@dimen/dp_190"
         android:layout_height="@dimen/dp_190">
