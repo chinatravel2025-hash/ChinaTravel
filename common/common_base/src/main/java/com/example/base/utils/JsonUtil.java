@@ -28,7 +28,7 @@ public class JsonUtil {
     public static String fileWriter(String fileExt,String c) {
         String fileName = fileExt+".json";
         try {
-            File root = new File(App.getContext().getExternalFilesDir(null).getAbsolutePath() + File.separator + "json", String.valueOf(User.INSTANCE.getRidString()));
+            File root = new File(App.getContext().getExternalFilesDir(null).getAbsolutePath() + File.separator + "json", String.valueOf(User.INSTANCE.getUid()));
             root.delete();
             if (!root.exists()) {
                 root.mkdirs();

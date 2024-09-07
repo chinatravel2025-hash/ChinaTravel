@@ -16,10 +16,7 @@ import kotlinx.coroutines.launch
 class SingleChatViewModel : ChatViewModel() {
 
     var isChatType = MutableLiveData(1)
-    var age = MutableLiveData("")
-    var sex = MutableLiveData(0)
-    var isNotFriend = MutableLiveData(false)
-
+    var loginStatus = MutableLiveData(0)
     //默认为空
     var content = MutableLiveData("")
 

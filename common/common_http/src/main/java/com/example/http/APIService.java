@@ -5,6 +5,7 @@ import android.os.Build;
 import android.text.TextUtils;
 
 
+import com.example.base.base.User;
 import com.example.http.app.TokenInvalidEvent;
 
 import org.greenrobot.eventbus.EventBus;
@@ -29,20 +30,18 @@ public class APIService {
         API.Companion.setEnv(buildType);
         RequestManager.INSTANCE.addInterceptor(chain -> {
             String ts = String.valueOf(System.currentTimeMillis());
-            String token="";
+            String token= User.INSTANCE.getToken();
 
             Request request = chain.request()
                     .newBuilder()
                     .addHeader("request-id", UUID.randomUUID().toString())
                     .addHeader("request-agent", "1")
-
                     .addHeader("os-version", "1")
                     .addHeader("sdk-version", Build.VERSION.RELEASE)
                     .addHeader("phone-model", Build.BRAND + "_" + Build.MODEL)
                    // .addHeader("market", App.getChannel())
-                   .addHeader("token", token)
+                   .addHeader("Authorization", token)
                     .addHeader("app-name", "1")
-                  //  .addHeader("app-id", AppConfig.APP_ID)
                     .addHeader("timestamp", ts)
                   //  .addHeader("customer-id", User.INSTANCE.getUserId())
                   //  .addHeader("access-token", User.INSTANCE.getToken())

@@ -22,7 +22,7 @@ class MsgSystemHolder(binding: ViewDataBinding) : MsgBaseHolder(binding) {
                 vo.message?.let { msg ->
                     var isSelf = msg.isSelf
                     msg.customDataToBean()?.let { data ->
-                        isSelf = data.data?.sender?.ridStr == User.ridString
+                        isSelf = data.data?.sender?.ridStr == User.uid
                     }
                     binding.tvContent.text =
                         vo.customMsgToTxt(isSelf, false)

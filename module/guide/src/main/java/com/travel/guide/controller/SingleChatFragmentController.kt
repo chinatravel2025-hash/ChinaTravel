@@ -78,7 +78,7 @@ class SingleChatFragmentController constructor(
     }
 
     override fun onDestroy() {
-        if(userId == User.ridString){
+        if(userId == User.uid){
             V2TMessageManager.clearBubbleToUser(mConversationId,null)
         }
         super.onDestroy()

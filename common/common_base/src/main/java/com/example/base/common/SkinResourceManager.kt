@@ -101,7 +101,6 @@ object SkinResourceManager {
 
         //表示
         if (!success) {
-            LogUtils.i(TAG, "rid = ${User.ridString}")
             //pagImageView.setCurrentFrame(1)
             pagImageView.setPath("assets://${pagFileName}${File.separator}${anName}.pag")
             LogUtils.i(TAG, "${anName}加载了本地")

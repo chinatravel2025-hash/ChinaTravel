@@ -2,6 +2,7 @@ package com.example.base.localstore;
 
 public class MMKVConstanst {
     public static final String USER_INFO = "user_info";
+    public static final String IM_SIGH = "im_sigh";
 
     /**
      * 通信息
