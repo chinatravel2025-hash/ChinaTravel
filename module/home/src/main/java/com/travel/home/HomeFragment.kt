@@ -11,13 +11,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aws.bean.util.GsonUtil
 import com.example.base.utils.LogUtils
-import com.ours.ui.home.HomeViewModel
 import com.travel.home.adapter.BaseMultiQuickItem
-import com.travel.home.adapter.CityListAdapter
-import com.travel.home.adapter.DayTripListAdapter
-import com.travel.home.adapter.HomeBannerAdapter
 import com.travel.home.adapter.HomeProviderMultiAdapter
-import com.travel.home.adapter.ThingsListAdapter
 import com.travel.home.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
@@ -35,6 +30,7 @@ class HomeFragment : Fragment() {
         binding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_home, null, false)
         binding.lifecycleOwner = this
         homeVM = ViewModelProvider(this)[HomeViewModel::class.java]
+        binding.vm=homeVM
         initRv()
         return binding.root
     }

@@ -36,4 +36,9 @@ object ARouterPathList {
 
 
 
+    const val HOME_CITY= "/home/city"
+    const val HOME_SEARCH= "/home/search"
+
+
+
 }
