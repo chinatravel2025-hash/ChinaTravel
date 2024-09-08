@@ -1,4 +1,5 @@
 
+import com.example.base.base.IMInfo
 import com.example.base.base.UserInfo
 import com.example.http.api.ResponseResult
 import retrofit2.Call
@@ -19,4 +20,7 @@ interface LoginAPI {
 
     @POST("/user/mail/login")
     fun loginByEmail(@Body params: Map<String,String>): Call<ResponseResult<UserInfo?>>
+
+    @POST("/im/sign")
+    fun imSigh(): Call<ResponseResult<IMInfo?>>
 }

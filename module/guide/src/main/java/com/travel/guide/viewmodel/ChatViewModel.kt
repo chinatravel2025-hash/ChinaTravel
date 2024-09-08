@@ -3,7 +3,6 @@ package com.travel.guide.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.base.base.User
-import com.example.base.localstore.MMKVSpUtils
 
 open class ChatViewModel : ViewModel() {
 
@@ -51,5 +50,5 @@ open class ChatViewModel : ViewModel() {
      */
     var isGroup = MutableLiveData(false)
 
-    val voiceTypeKey = "VoiceType_${User.ridString}"
+    val voiceTypeKey = "VoiceType_${User.uid}"
 }

@@ -4,17 +4,12 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.OnItemTouchListener
-import com.aws.bean.util.GsonUtil
-import com.example.base.base.App
 import com.travel.guide.viewmodel.SingleChatViewModel
 import com.travel.guide.controller.SingleChatFragmentController
 import com.travel.guide.weiget.MsgBaseHolder
@@ -25,15 +20,12 @@ import com.example.base.common.v2t.IMCallback
 import com.example.base.common.v2t.V2TMessageManager
 import com.example.base.event.*
 import com.example.base.msg.i.TUIMessageBean
-import com.example.base.toast.ToastHelper
-import com.example.base.utils.LogUtils
 import com.example.base.weiget.LongTimerAndMoveButton
 import com.example.base.weiget.OursLinearLayoutManager
 import com.tencent.imsdk.v2.V2TIMMessage
 import com.travel.guide.R
 import com.travel.guide.common.LoginRepository
 import com.travel.guide.databinding.FragmentSingleChatBinding
-import com.travel.guide.utils.GlideUtils
 import org.greenrobot.eventbus.EventBus
 import kotlin.collections.ArrayList
 
@@ -89,22 +81,6 @@ class SingleChatFragment : Fragment(), MsgBaseHolder.OnChatItemClickListener,
         return binding.root
     }
 
-    fun login1() {
-        User.oursId = "2000"
-        User.hxToken =
-            "eJyrVgrxCdYrSy1SslIy0jNQ0gHzM1NS80oy0zIhwgYGMPHilOzEgoLMFCUrQzOgqIklkITIpFYUZBalAsVNTU1BGiCiJZm5IDFzIxNjQzMzC2OoKZnpQGOjtE2LXQ08EkNj9IOq0irCKirDwh29Mwwqq4xNDV39s5IsTVxzQgPzil20y22VagGX4zAi"
-        LoginRepository.repository.imLogin()
-    }
-
-    fun login2() {
-
-        User.oursId = "2001"
-        User.hxToken =
-            "eJyrVgrxCdYrSy1SslIy0jNQ0gHzM1NS80oy0zIhwgYGhlDx4pTsxIKCzBQlK0MzAwMDE0sgCZFJrSjILEoFipuamgI1QEVLMnNBYuZGJsYmhpZGRlBTMtOBxkZUlZlmuFWallSZmpcG*xXnm5qVFuVZZCUllfv5hYfF6JvlmnnnmfhXppRl2yrVAgC2kjEo"
-        LoginRepository.repository.imLogin()
-    }
-
-
     private fun initView() {
         binding.rvList.let { rvList ->
             val layoutManager = OursLinearLayoutManager(requireActivity())
@@ -121,11 +97,11 @@ class SingleChatFragment : Fragment(), MsgBaseHolder.OnChatItemClickListener,
                     binding,
                     mViewModel,
                     mAdapter,
-                    User.oursId ?: "",//todo
+                    User.uid,
                     layoutManager
                 )
             mController.bindEditText()
-            User.hxToken
+
             binding.viewBottomChat.ltb.apply {
                 mLongListener = this@SingleChatFragment
                 initMax(60)
@@ -140,6 +116,7 @@ class SingleChatFragment : Fragment(), MsgBaseHolder.OnChatItemClickListener,
             }
             mViewModel.loadData()
 
+            mViewModel.loginStatus.value = if(User.imLoginStatus.value == true) 1 else 2
             //mController.registerInputListener()
 
         }
@@ -209,19 +186,16 @@ class SingleChatFragment : Fragment(), MsgBaseHolder.OnChatItemClickListener,
     val imLoginListener = object : LoginRepository.IMLoginStatusListener {
 
         override fun onSuccess() {
-            ToastHelper.createToastToSuccess(App.getContext(), "${User.oursId} login onSuccess")
+            mViewModel.loginStatus.value = 1
         }
 
         override fun onFailed(code: Int, message: String) {
-            ToastHelper.createToastToSuccess(
-                App.getContext(),
-                "${User.oursId} login onFailed,message:$message"
-            )
+            mViewModel.loginStatus.value = 2
 
         }
 
         override fun logining() {
-
+            mViewModel.loginStatus.value = 0
         }
     }
 

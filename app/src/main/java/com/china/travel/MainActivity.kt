@@ -15,9 +15,11 @@ import androidx.navigation.ui.setupWithNavController
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.example.router.ARouterPathList
 import com.china.travel.databinding.ActivityMainBinding
+import com.example.base.base.User
 import com.example.base.utils.LogUtils
 import com.example.base.utils.StatusBarUtil
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.travel.guide.common.LoginRepository
 
 
 @Route(path = ARouterPathList.APP_MAIN)
@@ -44,7 +46,9 @@ class MainActivity : AppCompatActivity() {
         binding.navView.setOnItemSelectedListener { item ->
             NavigationUI.onNavDestinationSelected(item, navController)
         }
-
+        User.currentUser.observe(this){
+            LoginRepository.repository.imLogin()
+        }
     }
 
     private fun setUpBottomNavigationBar() {

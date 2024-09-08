@@ -69,7 +69,7 @@ public class FriendStateDataBaseUtils {
         if (dataBase != null) {
             try {
                 dataBase.runInTransaction(() -> {
-                    dao.delete(User.INSTANCE.getRidString(), friendState.getRid());
+                    dao.delete(User.INSTANCE.getUid(), friendState.getRid());
                     dao.insert(friendState);
                 });
             } catch (Exception exception) {
@@ -87,7 +87,7 @@ public class FriendStateDataBaseUtils {
         if (dao == null) {
             return null;
         }
-        return dao.getUserInfo(User.INSTANCE.getRidString(), rid);
+        return dao.getUserInfo(User.INSTANCE.getUid(), rid);
     }
 
 

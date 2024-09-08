@@ -20,19 +20,16 @@ object User {
     var currentUser: MutableLiveData<UserInfo?> = MutableLiveData<UserInfo?>()
 
 
-    var ridString = ""
-    var oursId = ""
-
+    var tpToken = ""
 
     /**
      * IM  登录相关回调
      */
     //IM登录成功 true
-    var imgLoginStatus = MutableLiveData(false)
+    var imLoginStatus = MutableLiveData(false)
 
     //IM退出登录，如果退出登录成功 true
     var imOutLoginStatus = MutableLiveData(false)
-
 
     /**
      * isLogin是否登录
@@ -41,14 +38,17 @@ object User {
         get() = !currentUser.value?.token.isNullOrEmpty()
 
 
-    var hxToken: String = "eJyrVgrxCdYrSy1SslIy0jNQ0gHzM1NS80oy0zIhwgYGMPHilOzEgoLMFCUrQzOgqIklkITIpFYUZBalAsVNTU1BGiCiJZm5IDFzIxNjQzMzC2OoKZnpQGOjtE2LXQ08EkNj9IOq0irCKirDwh29Mwwqq4xNDV39s5IsTVxzQgPzil20y22VagGX4zAi"
-    //get() = currentUser.value?.hxAccessToken ?: ""
+    val hxToken: String
+        get() = currentUser.value?.imToken ?: ""
 
     val uid: String
         get() = currentUser.value?.uid ?: ""
 
     val mail: String
         get() = currentUser.value?.mail ?: ""
+
+    val token: String
+        get() = tpToken.ifEmpty { currentUser.value?.token ?: "" }
 
     fun output() {
         val userInfo = MMKVSpUtils.getString(MMKVConstanst.USER_INFO, "")
@@ -61,6 +61,7 @@ object User {
     fun logout() {
         currentUser.value = null
         MMKVSpUtils.putString(MMKVConstanst.USER_INFO, "")
+        MMKVSpUtils.putString(MMKVConstanst.IM_SIGH, "")
     }
 
 
@@ -68,6 +69,5 @@ object User {
         MMKVSpUtils.putString(MMKVConstanst.USER_INFO, GsonUtil.toJson(userInfo))
         currentUser.value = userInfo
     }
-
 
 }

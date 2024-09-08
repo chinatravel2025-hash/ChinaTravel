@@ -7,7 +7,6 @@ import com.example.base.base.User
 import com.example.base.common.v2t.im.CommonIMManager
 import com.example.base.common.v2t.im.core.interfaces.IMUICallback
 import com.example.base.common.v2t.im.core.interfaces.UILoginListener
-import com.example.base.localstore.MMKVConstanst
 import com.example.base.utils.LogUtils
 import com.example.base.utils.ThreadUtils
 
@@ -196,10 +195,10 @@ class LoginRepository {
         override fun onKickedOffline() {
             super.onKickedOffline()
             //相同的用户id 才会被踢掉.
-            if(TextUtils.equals(CommonIMManager.getLoginUser(),User.ridString)){
+            if(TextUtils.equals(CommonIMManager.getLoginUser(),User.uid)){
 
             }
-            LogUtils.i(TAG, "IMLogin 被踢用户 loginUser = ${CommonIMManager.getLoginUser()} ridStr = ${User.ridString}")
+            LogUtils.i(TAG, "IMLogin 被踢用户 loginUser = ${CommonIMManager.getLoginUser()} ridStr = ${User.uid}")
 
             for (l in kickedOfflineListeners) {
                 l.onKickedOff()
@@ -219,7 +218,7 @@ class LoginRepository {
 
     fun isCurrentUserLogined():Boolean{
 
-        if(CommonIMManager.isLogin() && TextUtils.equals(CommonIMManager.getLoginUser(),User.ridString)){
+        if(CommonIMManager.isLogin() && TextUtils.equals(CommonIMManager.getLoginUser(),User.uid)){
             return true
         }
 
@@ -233,20 +232,21 @@ class LoginRepository {
      * im登录，正常启动后走账号切换和退登流程，再登录就是这个； app 刚启动时候走quickImLogin 流程...为了快速获取数据初始化.
      */
     fun imLogin() {
-        /*if (!User.isLoginRole) {
+        if (!User.isLogin) {
             return
         }
-*/
+
         tryImLogin()
     }
 
     private var isIMLogining = false
     fun tryImLogin(){
-/*
-        if (!User.isLoginRole) {
+
+        if (!User.isLogin || User.imLoginStatus.value == true) {
+            LogUtils.i(TAG, "IMLogin tryImLogin imgLoginStatus = ${User.imLoginStatus.value} ")
             return
         }
-*/
+
 
         LogUtils.i(TAG, "IMLogin tryImLogin isIMLogining = ${isIMLogining} ")
 
@@ -264,9 +264,7 @@ class LoginRepository {
         }
 
         Thread{
-           // val imLoginInfoStr = MMKVStore.getString(MMKVConstanst.IM_LOGIN_INFO_KEY)
-          //  var userId = User.oursId//todo 测试
-            var userSig = User.hxToken//todo 测试
+            var userSig = User.hxToken
             /*if (imLoginInfoStr != "") {
                 val imLoginInfo = GsonUtil.fromJson(imLoginInfoStr, IMLoginInfo::class.java)
                 if (imLoginInfo != null && !TextUtils.isEmpty(imLoginInfo.userId)) {
@@ -298,12 +296,12 @@ class LoginRepository {
                     return@runOnUiThread
                 }
 
-                CommonIMManager.login(App.getContext(), "", userSig,
+                CommonIMManager.login(App.getContext(), User.uid, userSig,
                     SDKConstant.HX_APP_ID_TEST, uiIMUICallback = object :
                         IMUICallback() {
                         override fun onSuccess() {
                             //去掉eventbus 使用liveData 和 接口监听去做事件处理
-                            User.imgLoginStatus.value = true
+                            User.imLoginStatus.value = true
                             LogUtils.i(TAG, "IMLogin Success tryImLogin")
                             afterIMLogin()
                             isIMLogining = false
@@ -316,7 +314,7 @@ class LoginRepository {
                         }
 
                         override fun onError(errorCode: Int, errorMessage: String?) {
-                            User.imgLoginStatus.value = false
+                            User.imLoginStatus.value = false
                             isIMLogining = false
                             LogUtils.i(
                                 TAG,

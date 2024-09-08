@@ -30,14 +30,12 @@ object V2TGroupManager {
     fun createGroup(
         groupName: String,
         faceUrl: String,
-        isTopic: Boolean,
         users: MutableList<V2TIMCreateGroupMemberInfo>,
         callback: ((String?) -> Unit?)?
     ) {
 
         val v2TIMGroupInfo = V2TIMGroupInfo()
-        v2TIMGroupInfo.groupType =
-            if (!isTopic) V2TIMManager.GROUP_TYPE_PUBLIC else V2TIMManager.GROUP_TYPE_AVCHATROOM
+        v2TIMGroupInfo.groupType = V2TIMManager.GROUP_TYPE_PUBLIC
         v2TIMGroupInfo.groupName = groupName
         v2TIMGroupInfo.groupAddOpt = V2TIMGroupInfo.V2TIM_GROUP_ADD_ANY
         v2TIMGroupInfo.groupApproveOpt = V2TIMGroupInfo.V2TIM_GROUP_ADD_ANY

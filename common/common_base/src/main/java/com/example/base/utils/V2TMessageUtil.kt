@@ -501,7 +501,7 @@ fun V2TIMMessage.customMsgToTxt(
                                         var isFlag = false
 
                                         userList?.forEach {
-                                            if (it.ridStr == User.ridString) {
+                                            if (it.ridStr == User.uid) {
                                                 isHasSelf = true
                                             } else {
                                                 endContent += if (isFlag) "、\"${it.nickName ?: ""}\"" else "\"${it.nickName ?: ""}\""
@@ -573,7 +573,7 @@ fun V2TIMMessage.customMsgToTxt(
                         ChatCMDMsgType.TYPE_MSG_GROUP_EXIT_OUT -> {
                             var names = ""
                             data.userList?.forEach { user ->
-                                val isSelf = user.ridStr == User.ridString
+                                val isSelf = user.ridStr == User.uid
                                 if (isSelf) {
                                     return "你已经被移出${groupType}${if (isTopic) "" else "聊"}。"
                                 }
@@ -586,7 +586,7 @@ fun V2TIMMessage.customMsgToTxt(
 
                         ChatCMDMsgType.TYPE_MSG_FALLBACK -> {
                             var nickname =
-                                if (data.sender?.ridStr == User.ridString) "你" else data.sender?.nickName
+                                if (data.sender?.ridStr == User.uid) "你" else data.sender?.nickName
                                     ?: ""
                             return "${nickname}撤回了一条消息。"
                         }
@@ -617,7 +617,7 @@ fun V2TIMMessage.customMsgToTxt(
 
                                 ChatCMDMsgType.TYPE_MSG_GROUP_OWNER -> {
                                     return if(data.userList?.isNotEmpty() == true){
-                                        "${if (data.userList?.get(0)?.ridStr == User.ridString) "你" else data.userList?.get(0)?.nickName}已成为新的群主。"
+                                        "${if (data.userList?.get(0)?.ridStr == User.uid) "你" else data.userList?.get(0)?.nickName}已成为新的群主。"
                                     }else{
                                         "群主已经变更。"
                                     }
@@ -683,7 +683,7 @@ fun V2TIMMessage.setPushDesc(
     isTopic: Boolean,
     oursUrl:String?
 ): V2TIMOfflinePushInfo {
-    var oursNewUrl = if(isGroup) "ours-meta://app/home/group/chat?id=${toId}" else "ours-meta://app/home/single/chat?id=${User.ridString}"
+    var oursNewUrl = if(isGroup) "ours-meta://app/home/group/chat?id=${toId}" else "ours-meta://app/home/single/chat?id=${User.uid}"
     val info = V2TIMOfflinePushInfo()
     info.setAndroidHuaWeiCategory("IM")
     info.setAndroidVIVOCategory("IM")
@@ -725,7 +725,7 @@ fun V2TIMMessage.getPushDesc(isSend: Boolean, isGroup: Boolean, isTopic: Boolean
 fun V2TIMMessage.getConversationDesc(isTopic: Boolean): String {
     var isSend = isSelf
     customDataToBean()?.let { data ->
-        isSend = data.data?.sender?.ridStr == User.ridString
+        isSend = data.data?.sender?.ridStr == User.uid
     }
 
     return getPushDesc(
