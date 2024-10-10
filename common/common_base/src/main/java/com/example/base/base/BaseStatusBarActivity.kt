@@ -36,7 +36,7 @@ abstract class BaseStatusBarActivity : AppCompatActivity() {
         }
         mIvBack= mBaseBinding.root.findViewById(ivBack)
         mIvBack?.setOnClickListener {
-            finish()
+            onBackPressedDispatcher.onBackPressed()
         }
     }
 

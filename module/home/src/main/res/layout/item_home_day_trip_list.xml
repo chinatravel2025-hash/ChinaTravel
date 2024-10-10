@@ -2,7 +2,9 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-
+        <variable
+            name="vm"
+            type="com.aws.bean.entities.home.TravelProductItem" />
 
         <import type="com.example.base.utils.CommonNumber" />
         <variable
@@ -16,18 +18,34 @@
         android:layout_height="@dimen/dp_124">
 
         <com.makeramen.roundedimageview.RoundedImageView
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             android:id="@+id/iv_cover"
             app:riv_corner_radius="@dimen/dp_8"
             android:src="@drawable/btn_shape_bg"
             android:layout_width="@dimen/dp_124"
             android:layout_height="@dimen/dp_124"/>
         <ImageView
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             android:src="@mipmap/ic_home_hot_tag"
             android:layout_width="@dimen/dp_38"
             android:layout_height="@dimen/dp_19"/>
         <ImageView
-           app:layout_constraintRight_toRightOf="@id/iv_cover"
+            visibleWhen="@{vm.is_like==1}"
+            android:id="@+id/iv_like"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="@id/iv_cover"
             android:src="@mipmap/home_like_ck"
+            android:padding="@dimen/dp_8"
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="@dimen/dp_40"/>
+        <ImageView
+            visibleWhen="@{vm.is_like==0}"
+            android:id="@+id/iv_unlike"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="@id/iv_cover"
+            android:src="@mipmap/home_like_unck"
             android:padding="@dimen/dp_8"
             android:layout_width="@dimen/dp_40"
             android:layout_height="@dimen/dp_40"/>
@@ -38,7 +56,7 @@
             android:layout_marginTop="@dimen/dp_9"
             android:layout_marginStart="@dimen/dp_9"
             app:layout_constraintLeft_toRightOf="@id/iv_cover"
-            android:text="Chengdu panda and hot-pot tour"
+            android:text="@{vm.title}"
             android:textColor="@color/c_333333"
             android:layout_width="0dp"
             android:textSize="@dimen/sp_13"
@@ -51,7 +69,7 @@
             android:textColor="@color/txt_FF666666"
             android:textSize="@dimen/sp_11"
             app:layout_constraintLeft_toRightOf="@id/iv_cover"
-            android:text="Giant pandas, known for their endearing appearance and gentle demeanor their their…"
+            android:text="@{vm.introduce}"
             android:layout_width="0dp"
             android:lines="4"
             android:ellipsize="end"

@@ -19,7 +19,7 @@ object ARouterPathList {
     /**
      *home--浏览器
      */
-    const val WEB_HOME = "/app/web/home/"
+    const val WEB_HOME = "/web/web/home/"
 
 
     const val APP_MAIN= "/app/main"
@@ -37,7 +37,13 @@ object ARouterPathList {
 
 
     const val HOME_CITY= "/home/city"
+    const val HOME_CITY_DETAIL= "/home/city/detail"
+    const val HOME_SIGHTSEEING_DETAIL= "/home/sightseeing/detail"
+    const val HOME_RESTAURANT_DETAIL= "/home/restaurant/detail"
+    const val HOME_SHOP_DETAIL= "/home/shop/detail"
+    const val HOME_TRIP_DETAIL= "/home/trip/detail"
     const val HOME_SEARCH= "/home/search"
+    const val HOME_RECOMMEND= "/home/recommend"
 
 
 

@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.alibaba.android.arouter.launcher.ARouter
+import com.example.base.base.User
 import com.example.router.ARouterPathList
 
 class UserViewModel : ViewModel() {
@@ -24,6 +25,12 @@ class UserViewModel : ViewModel() {
     }
     fun navigationOrders(){
         ARouter.getInstance().build(ARouterPathList.USER_ORDERS)
+            .navigation()
+    }
+
+    fun logOut(){
+        User.logout()
+        ARouter.getInstance().build(ARouterPathList.USER_REGISTER)
             .navigation()
     }
 }

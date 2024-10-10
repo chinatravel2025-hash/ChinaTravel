@@ -56,4 +56,9 @@
         <item name="android:background">@drawable/white_rounded_dialog</item>
     </style>
 
+
+    <style name="TabLayoutTextStyle" parent="TextAppearance.Design.Tab">
+        <item name="textAllCaps">false</item>
+    </style>
+
 </resources>

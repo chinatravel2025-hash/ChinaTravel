@@ -226,6 +226,7 @@
         </LinearLayout>
 
         <TextView
+            android:onClick="@{()->vm.logOut()}"
             android:layout_marginHorizontal="@dimen/dp_30"
             android:layout_marginBottom="@dimen/dp_100"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -2,6 +2,7 @@ import com.coder.vincent.smart_toast.SmartToast
 import com.example.base.base.IMInfo
 import com.example.base.base.User
 import com.example.base.base.UserInfo
+import com.example.base.utils.AppCodeUtils
 
 import com.example.http.RequestManager
 import com.example.http.api.ResponseResult
@@ -37,6 +38,10 @@ class LoginRepository {
             ) {
                 if (response.body()?.isSuccessful == true) {
                     callback.invoke(true)
+                    //该邮箱已注册，请前往登录
+                } else if (response.body()?.code=="${AppCodeUtils.EMAIL_HAS_CREATE_ERROR}"){
+                    SmartToast.classic().showInCenter("该邮箱已注册")
+                    callback.invoke(false)
                 } else {
                     SmartToast.classic().showInCenter(response.body()?.message ?: "请重新尝试")
                 }

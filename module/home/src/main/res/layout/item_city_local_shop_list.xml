@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+
+
+        <import type="com.example.base.utils.CommonNumber" />
+        <variable
+            name="position"
+            type="java.lang.Integer" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_marginStart="@dimen/dp_12"
+        android:paddingBottom="@dimen/dp_7"
+        android:background="@drawable/shape_radius_dp8_e8e5e0"
+        android:layout_width="@dimen/dp_130"
+        android:layout_height="wrap_content">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/iv_cover"
+            app:riv_corner_radius="@dimen/dp_8"
+            android:scaleType="centerCrop"
+            android:src="@drawable/btn_shape_bg"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_105"/>
+
+        <ImageView
+            app:layout_constraintTop_toTopOf="parent"
+           app:layout_constraintRight_toRightOf="@id/iv_cover"
+            android:src="@mipmap/home_like_ck"
+            android:padding="@dimen/dp_8"
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="@dimen/dp_40"/>
+
+        <TextView
+            android:id="@+id/tv_title"
+            app:layout_constraintLeft_toLeftOf="parent"
+           app:layout_constraintTop_toBottomOf="@id/iv_cover"
+            android:layout_marginTop="@dimen/dp_7"
+            android:layout_marginStart="@dimen/dp_6"
+            android:text="Style Crayfish"
+            android:textColor="@color/c_333333"
+            android:layout_width="0dp"
+            android:singleLine="true"
+            android:ellipsize="end"
+            app:layout_constraintRight_toRightOf="parent"
+            android:textSize="@dimen/sp_13"
+            android:layout_height="wrap_content"/>
+        <TextView
+            app:layout_constraintTop_toBottomOf="@id/tv_title"
+            android:layout_marginTop="@dimen/dp_5"
+            android:layout_marginStart="@dimen/dp_6"
+            android:textColor="@color/txt_FF666666"
+            android:textSize="@dimen/sp_11"
+            android:text="Giant pandas, known for their endearing appearance and gentle demeanor their their…"
+            android:lines="2"
+            android:ellipsize="end"
+            android:lineHeight="@dimen/dp_14"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

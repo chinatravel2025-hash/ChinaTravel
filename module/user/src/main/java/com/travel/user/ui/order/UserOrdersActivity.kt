@@ -1,5 +1,6 @@
 package com.travel.user.ui.order
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
@@ -28,7 +29,7 @@ class UserOrdersActivity : BaseStatusBarActivity(), OnLoadMoreListener, OnRefres
     private lateinit var mVM: UserOrdersVM
     private var mAdapter: UserOrderAdapter? = null
     override val ivBack: Int
-        get() = 0
+        get() = R.id.iv_back
     override fun getLayoutId(): Int {
         return R.layout.user_activity_orders
     }
@@ -41,8 +42,16 @@ class UserOrdersActivity : BaseStatusBarActivity(), OnLoadMoreListener, OnRefres
         binding.lifecycleOwner = this
         binding.vm=mVM
         initRv()
+        initObserve()
+        mVM.getOrderList()
+    }
+    private fun initObserve(){
+        mVM.mDataSource.observe(this){
+            mAdapter?.setList(it)
+        }
     }
 
+    @SuppressLint("SuspiciousIndentation")
     private fun initRv(){
       val itemDecoration=  RecyclerViewDivider.linear()
             .dividerSize(22.dp2px())
@@ -59,7 +68,6 @@ class UserOrdersActivity : BaseStatusBarActivity(), OnLoadMoreListener, OnRefres
             listRv.layoutManager = manager
             listRv.addItemDecoration(itemDecoration)
             listRv.adapter=mAdapter
-            mAdapter?.setList(listOf("","","","","","","","","",""))
         }
 
     }
@@ -69,11 +77,11 @@ class UserOrdersActivity : BaseStatusBarActivity(), OnLoadMoreListener, OnRefres
 
 
     override fun onLoadMore(p0: RefreshLayout) {
-
+        p0.finishLoadMoreWithNoMoreData()
     }
 
     override fun onRefresh(p0: RefreshLayout) {
-
+        p0.finishRefresh()
     }
 
     override fun navigateToDetail(item: String) {

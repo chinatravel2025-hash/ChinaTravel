@@ -13,6 +13,7 @@ import com.tencent.qcloud.tuicore.util.ToastUtil
 
 class UserPasswordSettingVM : ViewModel() {
     var mail :String?=null
+    var actionType :Int?=1
     var originPw = MutableLiveData("")
     var confirmPw = MutableLiveData("")
     var showPw = MutableLiveData(false)
@@ -25,8 +26,14 @@ class UserPasswordSettingVM : ViewModel() {
         }else{
             LoginRepository.loginRepository.registerByEmail(mail?:"",
                 originPw.value?:"",confirmPw.value?:""){
-                ARouter.getInstance().build(ARouterPathList.APP_MAIN)
-                    .navigation()
+                //设置名称 actionType：1 注册流程 2 修改密码流程
+                if (actionType==1){
+                    ARouter.getInstance().build(ARouterPathList.USER_SET_NICKNAME)
+                        .navigation()
+                }else{
+                    ARouter.getInstance().build(ARouterPathList.APP_MAIN)
+                        .navigation()
+                }
             }
         }
 

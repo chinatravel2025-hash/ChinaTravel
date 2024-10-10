@@ -1,5 +1,8 @@
 <resources>
 
+    <item name="tag_key_data" type="id"/>
+    <item name="tag_key_position" type="id"/>
+
     <string name="common_permission_description_title">权限说明</string>
     <string name="common_permission_granted">授予</string>
     <string name="common_permission_denied">取消</string>

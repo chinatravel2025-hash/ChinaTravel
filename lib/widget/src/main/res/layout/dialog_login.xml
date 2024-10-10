@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dp_14"
+        android:background="@drawable/shape_main_dialog_bg"
+        android:paddingBottom="@dimen/dp_35">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dp_6"
+            android:layout_marginTop="@dimen/dp_2"
+            android:adjustViewBounds="true"
+            android:src="@mipmap/status_dialog_top_bg"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dp_40"
+            android:layout_marginTop="@dimen/dp_34"
+            android:gravity="center"
+            android:lineHeight="@dimen/dp_25"
+            android:textColor="@color/c_333333"
+            android:textSize="@dimen/sp_20"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="[Email地址] is already registed. Sign in with this Email?" />
+
+        <TextView
+            android:id="@+id/btn_cancel"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_56"
+            android:layout_marginHorizontal="@dimen/dp_18"
+            android:layout_marginTop="@dimen/dp_25"
+            android:gravity="center"
+            android:text="Cancel"
+            android:background="@drawable/shape_r28_b_ff12c286"
+            app:layout_constraintRight_toLeftOf="@id/btn_text"
+                app:layout_constraintLeft_toLeftOf="parent"
+            android:textColor="@color/c_333333"
+            android:textSize="@dimen/sp_18"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/tv_content" />
+
+
+        <TextView
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/btn_cancel"
+            android:id="@+id/btn_text"
+            android:layout_marginHorizontal="@dimen/dp_18"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_56"
+            android:layout_marginTop="@dimen/dp_25"
+            android:background="@drawable/shape_main_btn_ff12c286"
+            android:gravity="center"
+            android:text="Sign in"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_18"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/tv_content" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

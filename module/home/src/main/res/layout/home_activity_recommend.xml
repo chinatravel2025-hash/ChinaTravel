@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+<variable
+    name="vm"
+    type="com.travel.home.vm.HomeRecommendViewModel" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="@color/color_bg_F3FFF8"
+        android:layout_width="match_parent"  
+        android:layout_height="match_parent">
+        <ImageView
+            app:layout_constraintTop_toTopOf="parent"
+            android:adjustViewBounds="true"
+            android:src="@mipmap/home_top_bg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/cons_top"
+    app:layout_constraintTop_toTopOf="parent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.example.base.view.StatusBarHolderView
+        android:id="@+id/view_holder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent" />
+    <ImageView
+        android:id="@+id/iv_back"
+        android:layout_width="@dimen/dp_40"
+        android:layout_height="@dimen/dp_40"
+        android:padding="@dimen/dp_10"
+        android:src="@mipmap/ic_black_top_back"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view_holder" />
+
+    <TextView
+        android:text="Recommend"
+        android:textSize="@dimen/sp_24"
+        android:textColor="@color/c_333333"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/iv_back"
+        app:layout_constraintTop_toTopOf="@id/iv_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
+        <LinearLayout
+            android:id="@+id/ll_tab"
+            android:background="@color/white"
+            android:layout_marginTop="@dimen/dp_8"
+            android:gravity="center_vertical"
+            app:layout_constraintTop_toBottomOf="@id/cons_top"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40">
+
+            <LinearLayout
+                android:id="@+id/ll_filter"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:layout_marginStart="@dimen/dp_12"
+                    android:src="@mipmap/ic_location_tag"
+                    android:layout_width="@dimen/dp_9"
+                    android:layout_height="@dimen/dp_12"/>
+                <TextView
+                    android:layout_marginStart="@dimen/dp_2"
+                    android:text="@{vm.mSelectCity.city_name}"
+                    android:textSize="@dimen/sp_15"
+                    android:textColor="@color/c_333333"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <ImageView
+                    android:layout_marginEnd="@dimen/dp_4"
+                    android:layout_marginStart="@dimen/dp_4"
+                    android:src="@mipmap/ic_arrow_13"
+                    android:layout_width="@dimen/dp_13"
+                    android:layout_height="@dimen/dp_13"/>
+            </LinearLayout>
+
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:background="@color/transparent"
+                android:textSize="@dimen/dp_17"
+                app:tabBackground="@android:color/transparent"
+                app:tabIndicatorColor="@color/txt_12C286"
+                app:tabIndicatorFullWidth="false"
+                app:tabIndicatorHeight="@dimen/dp_2"
+                app:tabMode="scrollable"
+                app:tabTextAppearance="@style/TabLayoutTextStyle"
+                app:tabRippleColor="@android:color/transparent"
+                app:tabSelectedTextColor="@color/txt_12C286"
+                app:tabTextColor="@color/txt_FF666666" />
+
+
+        </LinearLayout>
+        <View
+            android:id="@+id/line"
+            app:layout_constraintTop_toBottomOf="@id/ll_tab"
+            android:background="@color/line_FFE7E7E7"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"/>
+
+        <androidx.viewpager2.widget.ViewPager2
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/line"
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

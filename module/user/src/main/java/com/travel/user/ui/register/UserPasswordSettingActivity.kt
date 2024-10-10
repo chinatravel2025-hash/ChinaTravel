@@ -34,6 +34,13 @@ class UserPasswordSettingActivity : BaseStatusBarActivity() {
     @JvmField
     @Autowired
     var mail: String? = null
+
+    /**
+     * actionType：1 注册 2 修改密码
+     */
+    @JvmField
+    @Autowired
+    var actionType: Int? = null
     override fun initView(savedInstanceState: Bundle?) {
         super.initView(savedInstanceState)
         ARouter.getInstance().inject(this)
@@ -44,6 +51,7 @@ class UserPasswordSettingActivity : BaseStatusBarActivity() {
         binding.vm = mVM
         binding.ac=this
         mVM.mail=mail
+        mVM.actionType=actionType
         registerInputListener()
         //默认不显示密码
         binding.edOrigin.apply {

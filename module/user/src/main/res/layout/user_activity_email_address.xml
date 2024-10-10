@@ -127,7 +127,7 @@
 
                 <TextView
                     android:clickable="@{vm.canNext}"
-                    android:onClick="@{()->vm.navigationVerificationEmail()}"
+                    android:onClick="@{()->ac.navigationVerificationEmail()}"
                     android:id="@+id/btn_next"
                     android:layout_marginTop="@dimen/dp_25"
                     android:background="@{vm.canNext?@drawable/shape_r100_ff12c286:@drawable/shape_r100_ff59d4aa}"

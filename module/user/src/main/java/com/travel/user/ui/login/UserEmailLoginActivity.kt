@@ -5,6 +5,7 @@ import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.view.ViewTreeObserver
 import androidx.lifecycle.ViewModelProvider
+import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.example.base.base.BaseStatusBarActivity
@@ -31,7 +32,9 @@ class UserEmailLoginActivity : BaseStatusBarActivity() {
     override fun getLayoutId(): Int {
         return R.layout.user_activity_email_login
     }
-
+    @JvmField
+    @Autowired
+    var mail: String? = null
     override fun initView(savedInstanceState: Bundle?) {
         super.initView(savedInstanceState)
         ARouter.getInstance().inject(this)
@@ -41,6 +44,9 @@ class UserEmailLoginActivity : BaseStatusBarActivity() {
         binding.lifecycleOwner = this
         binding.vm = mVM
         binding.ac=this
+        mail?.let {
+            mVM.email.value=it
+        }
         registerInputListener()
         //默认不显示密码
         binding.edConfirm.apply {

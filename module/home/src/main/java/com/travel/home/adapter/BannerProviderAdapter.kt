@@ -21,7 +21,7 @@ class BannerProviderAdapter: BaseItemProvider<BaseMultiQuickItem?>() {
     }
 
     private fun initBanner(binding: ProviderBannerBinding){
-        binding.banner.setAdapter(HomeBannerAdapter(listOf("","","")))
+        binding.banner.setAdapter(HomeBannerAdapter(listOf()))
         binding.banner.setIndicator(binding.circleIndicator,false)
 
     }

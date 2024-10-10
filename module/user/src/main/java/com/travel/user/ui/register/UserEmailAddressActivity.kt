@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.ViewTreeObserver
 import androidx.lifecycle.ViewModelProvider
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.android.arouter.launcher.ARouter
+import com.china.travel.widget.dialog.LoginDialog
 import com.example.base.base.BaseStatusBarActivity
 import com.example.base.utils.DisplayUtils
 import com.example.base.utils.InputMonitorHelpUtils
@@ -29,7 +31,7 @@ class UserEmailAddressActivity : BaseStatusBarActivity() {
     override fun initView(savedInstanceState: Bundle?) {
         super.initView(savedInstanceState)
 
-
+        ARouter.getInstance().inject(this)
         mVM = ViewModelProvider(this)[UserEmailAddressVM::class.java]
         binding = mBaseBinding as UserActivityEmailAddressBinding
         setContentView(binding.root)
@@ -75,6 +77,30 @@ class UserEmailAddressActivity : BaseStatusBarActivity() {
             KeyBoardUtil.hideKeyBoard(this, ed)
         }
         removeInputListener()
+    }
+
+    fun navigationVerificationEmail(){
+        mVM.emailContent.value?.let { mail->
+            LoginRepository.loginRepository.fetchCaptcha(mail){
+                if (it){
+                    ARouter.getInstance().build(ARouterPathList.USER_VERIFICATION_CODE)
+                        .withString("mail",mail)
+                        .navigation()
+                }else{
+                    val show = LoginDialog("$mail is already registered. Sign in with this Email?") {
+                        ARouter.getInstance().build(ARouterPathList.USER_EMAIL_LOGIN)
+                            .withString("mail",mail)
+                            .navigation()
+                        null
+                    }
+                    show.show(supportFragmentManager, "LoginDialog")
+
+
+                    //邮箱已经注册了
+                }
+            }
+        }
+
     }
 
 }

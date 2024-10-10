@@ -47,6 +47,9 @@ object User {
     val mail: String
         get() = currentUser.value?.mail ?: ""
 
+    val userName: String
+        get() = currentUser.value?.user_name ?: ""
+
     val token: String
         get() = tpToken.ifEmpty { currentUser.value?.token ?: "" }
 
@@ -68,6 +71,16 @@ object User {
     fun saveUserInfo(userInfo: UserInfo) {
         MMKVSpUtils.putString(MMKVConstanst.USER_INFO, GsonUtil.toJson(userInfo))
         currentUser.value = userInfo
+    }
+
+    fun setUserName(name: String) {
+        val userInfo = MMKVSpUtils.getString(MMKVConstanst.USER_INFO, "")
+        if (!userInfo.isNullOrEmpty()) {
+            val info =GsonUtil.fromJson(userInfo, UserInfo::class.java)
+            info.user_name=name
+            currentUser.value =info
+        }
+
     }
 
 }

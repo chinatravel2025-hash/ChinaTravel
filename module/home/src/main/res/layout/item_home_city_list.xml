@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
 
-
+        <variable
+            name="vm"
+            type="com.aws.bean.entities.home.CityItem" />
         <import type="com.example.base.utils.CommonNumber" />
         <variable
             name="position"
@@ -11,23 +13,53 @@
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_marginStart="@dimen/dp_12"
-        android:background="@drawable/shape_radius_dp16_9bacce"
         android:layout_width="@dimen/dp_190"
         android:layout_height="@dimen/dp_190">
-        <TextView
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/iv_bg"
+            app:riv_corner_radius="@dimen/dp_8"
+            android:src="@mipmap/banner"
+            android:scaleType="centerCrop"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+
+        <com.china.travel.widget.widget.LabelsView
+            android:id="@+id/label_list"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:labelTextSize="@dimen/sp_14"
+            app:labelTextPaddingBottom="@dimen/dp_2"
+            app:labelTextPaddingLeft="@dimen/dp_3"
+            app:labelTextPaddingRight="@dimen/dp_3"
+            app:labelTextPaddingTop="@dimen/dp_2"
+            app:labelBackground="@drawable/label_bg"
+            app:maxLines="3"
+            app:maxColumns="1"
+            app:selectType="NONE"
+            app:labelGravity="center"
             android:layout_marginTop="@dimen/dp_15"
             android:layout_marginStart="@dimen/dp_12"
-            android:text="City Walk"
-            android:textSize="@dimen/sp_14"
-            android:textColor="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <ImageView
+            visibleWhen="@{vm.is_like==1}"
+            android:id="@+id/iv_like"
+            app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="@dimen/dp_5"
             app:layout_constraintRight_toRightOf="parent"
             android:src="@mipmap/home_like_ck"
+            android:padding="@dimen/dp_8"
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="@dimen/dp_40"/>
+        <ImageView
+            visibleWhen="@{vm.is_like!=1}"
+            android:id="@+id/iv_unlike"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="@dimen/dp_5"
+            app:layout_constraintRight_toRightOf="parent"
+            android:src="@mipmap/home_like_unck"
             android:padding="@dimen/dp_8"
             android:layout_width="@dimen/dp_40"
             android:layout_height="@dimen/dp_40"/>
@@ -37,7 +69,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginStart="@dimen/dp_12"
             android:layout_marginBottom="@dimen/dp_12"
-            android:text="Shanghai"
+            android:text="@{vm.city_name}"
             android:textSize="@dimen/sp_22"
             android:textColor="@color/black"
             android:layout_width="wrap_content"
