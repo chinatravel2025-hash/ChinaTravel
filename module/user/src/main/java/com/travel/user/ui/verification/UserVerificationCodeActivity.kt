@@ -41,7 +41,6 @@ class UserVerificationCodeActivity : BaseStatusBarActivity() {
         setContentView(binding.root)
         binding.lifecycleOwner = this
         binding.vm=mVM
-
         LogUtils.d("lklklk", "mail =$mail")
         binding.ac=this
         mVM.startCountDown()

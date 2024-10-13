@@ -22,7 +22,16 @@ class UserEmailLoginVM:ViewModel() {
                     .navigation()
             }
         }
+    }
 
+    fun resetPassword(){
+        if (email.value.isNullOrEmpty()){
+            SmartToast.classic().showInCenter("请填写邮箱")
+            return
+        }
+        ARouter.getInstance().build(ARouterPathList.USER_VERIFICATION_EMAIL)
+            .withString("mail",email.value)
+            .navigation()
     }
 
     fun setOriginPw(content: CharSequence?) {

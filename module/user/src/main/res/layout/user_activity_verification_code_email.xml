@@ -99,7 +99,7 @@
                     android:textColor="@color/txt_12C286"
                     android:textSize="@dimen/sp_16"
                     android:lineHeight="@dimen/dp_21"
-                    android:text=""
+                    android:text="@{vm.email}"
                     tools:text="hez******@163.com"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>

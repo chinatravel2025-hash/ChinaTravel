@@ -13,6 +13,7 @@ class UserVerificationCodeVM:ViewModel() {
     var resultError = MutableLiveData(false)
     var resend = MutableLiveData(false)
     fun navigationLogin(mail:String,captcha:String){
+        //注册秘密发送的验证码
         LoginRepository.loginRepository.checkCaptcha(mail,captcha){
             ARouter.getInstance().build(ARouterPathList.USER_PASSWORD_SET)
                 .withString("mail",mail)

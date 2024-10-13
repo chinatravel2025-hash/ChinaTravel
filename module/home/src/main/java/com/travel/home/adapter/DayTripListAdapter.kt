@@ -1,9 +1,13 @@
 package com.travel.home.adapter
 
 
+import androidx.core.app.ActivityOptionsCompat
+import com.alibaba.android.arouter.launcher.ARouter
 import com.aws.bean.entities.home.TravelProductItem
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder
+import com.example.base.utils.SmartActivityUtils
+import com.example.router.ARouterPathList
 import com.travel.home.R
 import com.travel.home.databinding.ItemHomeDayTripListBinding
 
@@ -27,6 +31,13 @@ class DayTripListAdapter(
             }
             ivUnlike.setOnClickListener {
                 listener.addProductLike(holder.layoutPosition,item)
+            }
+            root.setOnClickListener {
+                val option=  ActivityOptionsCompat.makeSceneTransitionAnimation(SmartActivityUtils.getTopActivity(),ivCover,"share_trip")
+                ARouter.getInstance().build(ARouterPathList.HOME_TRIP_DETAIL)
+                    .withOptionsCompat(option)
+                    .withSerializable("travelProduct",item)
+                    .navigation(SmartActivityUtils.getTopActivity())
             }
 
             executePendingBindings()

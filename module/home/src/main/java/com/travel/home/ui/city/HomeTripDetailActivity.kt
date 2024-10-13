@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
+import com.aws.bean.entities.home.TravelProductItem
 import com.devs.readmoreoption.ReadMoreOption
 import com.example.base.base.BaseStatusBarActivity
 import com.example.base.utils.ResourceUtils
@@ -31,7 +32,7 @@ class HomeTripDetailActivity : BaseStatusBarActivity() {
 
     @JvmField
     @Autowired
-    var cityId: Long? = null
+    var travelProduct: TravelProductItem? = null
     override fun initView(savedInstanceState: Bundle?) {
         super.initView(savedInstanceState)
         ARouter.getInstance().inject(this)

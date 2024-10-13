@@ -87,7 +87,6 @@
                     android:layout_height="@dimen/dp_215"
                     android:layout_marginHorizontal="@dimen/dp_12"
                     app:layout_constraintTop_toTopOf="parent">
-
                     <com.youth.banner.Banner
                         android:transitionName="share_city"
                         android:id="@+id/banner"
@@ -96,14 +95,6 @@
                         app:banner_indicator_normal_color="@color/bg_FFD9D9D9"
                         app:banner_indicator_selected_color="@color/bg_7DAAB0"
                         app:layout_constraintTop_toTopOf="parent" />
-
-                   <!-- <com.youth.banner.indicator.RectangleIndicator
-                        android:id="@+id/circle_indicator"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="bottom|center_horizontal"
-                        android:layout_marginBottom="@dimen/dp_4"
-                        app:layout_constraintBottom_toBottomOf="@id/banner" />-->
                 </FrameLayout>
 
                 <TextView

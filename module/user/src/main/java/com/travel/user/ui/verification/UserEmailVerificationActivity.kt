@@ -3,7 +3,9 @@ package com.travel.user.ui.verification
 import android.os.Bundle
 import android.view.ViewTreeObserver
 import androidx.lifecycle.ViewModelProvider
+import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.android.arouter.launcher.ARouter
 import com.china.travel.widget.edtext.TravelVerifyEditText
 import com.example.base.base.BaseStatusBarActivity
 import com.example.base.utils.DisplayUtils
@@ -17,6 +19,10 @@ import com.travel.user.databinding.UserActivityVerificationCodeEmailBinding
 import com.travel.user.vm.UserEmailVerificationVM
 import com.travel.user.vm.UserVerificationCodeVM
 
+
+/**
+ * 修改密码时候发送邮箱验证页面
+ */
 @Route(path = ARouterPathList.USER_VERIFICATION_EMAIL)
 class UserEmailVerificationActivity : BaseStatusBarActivity() {
 
@@ -29,14 +35,19 @@ class UserEmailVerificationActivity : BaseStatusBarActivity() {
         return R.layout.user_activity_verification_code_email
     }
 
+    @JvmField
+    @Autowired
+    var mail: String? = null
     override fun initView(savedInstanceState: Bundle?) {
         super.initView(savedInstanceState)
+        ARouter.getInstance().inject(this)
         mVM = ViewModelProvider(this)[UserEmailVerificationVM::class.java]
         binding = mBaseBinding as UserActivityVerificationCodeEmailBinding
         setContentView(binding.root)
         binding.lifecycleOwner = this
         binding.vm=mVM
         binding.ac=this
+        mVM.email.value=mail
         mVM.startCountDown()
         registerInputListener()
         verityListener()

@@ -11,11 +11,17 @@ import com.example.router.ARouterPathList
 import java.util.concurrent.TimeUnit
 
 class UserEmailVerificationVM:ViewModel() {
+    var email = MutableLiveData("")
     var countDown = MutableLiveData("")
     var resultError = MutableLiveData(false)
     var resend = MutableLiveData(false)
     fun navigationMain(sms:String, fragmentManager: FragmentManager){
-        showDialog(fragmentManager)
+        //修改秘密发送的验证码
+        LoginRepository.loginRepository.checkCaptcha(email.value?:"",sms){
+            showDialog(fragmentManager)
+        }
+
+
 
     }
     private fun showDialog(fragmentManager: FragmentManager) {

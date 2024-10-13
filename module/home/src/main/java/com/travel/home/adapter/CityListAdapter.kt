@@ -30,7 +30,7 @@ class CityListAdapter(
        val option=  ActivityOptionsCompat.makeSceneTransitionAnimation(SmartActivityUtils.getTopActivity(),ivBg,"share_city")
                 ARouter.getInstance().build(ARouterPathList.HOME_CITY_DETAIL)
                     .withOptionsCompat(option)
-                    .withLong("cityId",item.id?:0)
+                    .withSerializable("city",item)
                     .navigation(SmartActivityUtils.getTopActivity())
             }
             labelList.setLabels(item.tags) { _, _, data -> data?.tag?.tag ?: "" }
