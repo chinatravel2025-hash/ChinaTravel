@@ -38,8 +38,8 @@ class HomeShopDetailActivity : BaseStatusBarActivity() {
         setContentView(binding.root)
         binding.lifecycleOwner = this
         initAboutContent()
-        binding.ivCity.setImageResource(R.mipmap.banner)
-        binding.ivCity.scaleType=ImageView.ScaleType.CENTER_CROP
+       // binding.ivCity.setImageResource(R.mipmap.banner)
+     //   binding.ivCity.scaleType=ImageView.ScaleType.CENTER_CROP
 
     }
 
