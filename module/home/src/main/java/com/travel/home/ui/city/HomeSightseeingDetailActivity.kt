@@ -42,8 +42,8 @@ class HomeSightseeingDetailActivity : BaseStatusBarActivity() {
         binding.lifecycleOwner = this
         binding.ac=this
         initAboutContent()
-        binding.ivCity.setImageResource(R.mipmap.banner)
-        binding.ivCity.scaleType=ImageView.ScaleType.CENTER_CROP
+      //  binding.ivCity.setImageResource(R.mipmap.banner)
+     //   binding.ivCity.scaleType=ImageView.ScaleType.CENTER_CROP
 
     }
 

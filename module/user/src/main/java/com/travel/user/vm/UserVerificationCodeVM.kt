@@ -14,10 +14,17 @@ class UserVerificationCodeVM:ViewModel() {
     var resend = MutableLiveData(false)
     fun navigationLogin(mail:String,captcha:String){
         //注册秘密发送的验证码
-        LoginRepository.loginRepository.checkCaptcha(mail,captcha){
-            ARouter.getInstance().build(ARouterPathList.USER_PASSWORD_SET)
-                .withString("mail",mail)
-                .navigation()
+        LoginRepository.loginRepository.checkCaptcha(mail,captcha){ result->
+            if (result){
+                resultError.value=false
+                ARouter.getInstance().build(ARouterPathList.USER_PASSWORD_SET)
+                    .withString("mail",mail)
+                    .withInt("actionType",0)
+                    .navigation()
+            }else{
+                resultError.value=true
+            }
+
         }
     }
 

@@ -71,11 +71,13 @@ class LoginRepository {
                 if (response.body()?.isSuccessful == true) {
                     callback.invoke(true)
                 } else {
+                    callback.invoke(false)
                     SmartToast.classic().showInCenter(response.body()?.message ?: "请重新尝试")
                 }
             }
 
             override fun onFailure(call: Call<ResponseResult<Any>>, t: Throwable) {
+                callback.invoke(false)
                 SmartToast.classic().showInCenter(t.message ?: "请重新尝试")
 
             }
