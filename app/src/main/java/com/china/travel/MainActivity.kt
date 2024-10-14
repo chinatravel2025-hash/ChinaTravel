@@ -2,6 +2,8 @@ package com.china.travel
 
 import android.content.res.ColorStateList
 import android.os.Bundle
+import android.text.TextUtils
+import android.util.Base64
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.NavController
@@ -16,10 +18,32 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.example.router.ARouterPathList
 import com.china.travel.databinding.ActivityMainBinding
 import com.example.base.base.User
+import com.example.base.common.v2t.IMCallback
+import com.example.base.common.v2t.V2TMessageManager
+import com.example.base.common.v2t.im.CommonIMManager
+import com.example.base.event.ChatCMDMsgType
+import com.example.base.localstore.MMKVConstanst
+import com.example.base.localstore.MMKVSpUtils
+import com.example.base.msg.i.TUIMessageBean
 import com.example.base.utils.LogUtils
 import com.example.base.utils.StatusBarUtil
+import com.example.base.utils.customDataToBean
+import com.example.base.utils.getCmdType
+import com.example.base.utils.isIgnore
+import com.example.base.utils.setLocalUnread
+import com.example.base.utils.toId
+import com.example.base.utils.toTUBean
+import com.example.base.utils.vibrator
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.tencent.imsdk.v2.V2TIMAdvancedMsgListener
+import com.tencent.imsdk.v2.V2TIMManager
+import com.tencent.imsdk.v2.V2TIMMessage
+import com.tencent.imsdk.v2.V2TIMMessageReceipt
+import com.tencent.imsdk.v2.V2TIMUserFullInfo
 import com.travel.guide.common.LoginRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 @Route(path = ARouterPathList.APP_MAIN)
@@ -49,6 +73,7 @@ class MainActivity : AppCompatActivity() {
         User.currentUser.observe(this){
             LoginRepository.repository.imLogin()
         }
+        imInit()
     }
 
     private fun setUpBottomNavigationBar() {
@@ -93,5 +118,57 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun imInit(){
+        V2TIMManager.getMessageManager()
+            .addAdvancedMsgListener(object : V2TIMAdvancedMsgListener() {
+                override fun onRecvNewMessage(msg: V2TIMMessage) {
+                    onNewMessage(msg)
+                }
+
+                override fun onRecvMessageReadReceipts(receiptList: List<V2TIMMessageReceipt>) {
+
+                }
+
+                override fun onRecvMessageRevoked(msgID: String) {
+                    //消息撤回
+
+                }
+
+                override fun onRecvMessageRevoked(
+                    msgID: String,
+                    operateUser: V2TIMUserFullInfo,
+                    reason: String
+                ) {
+                    //消息撤回
+                }
+
+                override fun onRecvMessageModified(msg: V2TIMMessage) {
+
+                    //消息被修改
+                }
+            })
+    }
+
+    private fun onNewMessage(msg: V2TIMMessage) {
+
+        val bean = msg.toTUBean(msg.groupID?.isNotEmpty() == true, false)
+        IMCallback.sendMessage(bean)
+        isMsgPush(bean)
+
+    }
+
+    private fun isMsgPush(bean: TUIMessageBean) {
+        CommonIMManager.getConversationById(
+            CommonIMManager.convertUserIdToConversationId(
+                bean.isGroup,
+                bean.userId
+            )
+        ) {
+            CoroutineScope(Dispatchers.Main).launch {
+                this@MainActivity.vibrator(70)
+            }
+            null
+        }
+    }
 
 }
