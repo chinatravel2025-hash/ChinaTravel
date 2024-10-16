@@ -97,7 +97,7 @@ class SingleChatFragment : Fragment(), MsgBaseHolder.OnChatItemClickListener,
                     binding,
                     mViewModel,
                     mAdapter,
-                    User.uid,
+                    "002",
                     layoutManager
                 )
             mController.bindEditText()
