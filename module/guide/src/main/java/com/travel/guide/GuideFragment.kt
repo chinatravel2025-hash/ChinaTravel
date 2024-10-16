@@ -5,8 +5,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.base.utils.LogUtils
 import com.travel.guide.databinding.FragmentGuideBinding
 import com.travel.guide.fragment.SingleChatFragment
 
@@ -17,6 +19,8 @@ class GuideFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater,

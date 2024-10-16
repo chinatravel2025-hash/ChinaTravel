@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
+import com.aws.bean.entities.home.CityItem
+import com.aws.bean.entities.home.PlaceItem
 import com.devs.readmoreoption.ReadMoreOption
 import com.example.base.base.BaseStatusBarActivity
 import com.example.base.utils.ResourceUtils
@@ -29,7 +31,7 @@ class HomeRestaurantDetailActivity : BaseStatusBarActivity() {
 
     @JvmField
     @Autowired
-    var cityId: Long? = null
+    var cityId: Long? = 0L
     override fun initView(savedInstanceState: Bundle?) {
         super.initView(savedInstanceState)
         ARouter.getInstance().inject(this)

@@ -5,20 +5,18 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.example.router.ARouterPathList
 import com.china.travel.databinding.ActivityMainBinding
+import com.coder.vincent.smart_toast.SmartToast
 import com.example.base.base.User
 import com.example.base.utils.LogUtils
 import com.example.base.utils.StatusBarUtil
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.example.router.ARouterPathList
 import com.travel.guide.common.LoginRepository
 
 
@@ -35,6 +33,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -49,6 +49,7 @@ class MainActivity : AppCompatActivity() {
         User.currentUser.observe(this){
             LoginRepository.repository.imLogin()
         }
+
     }
 
     private fun setUpBottomNavigationBar() {
@@ -75,8 +76,22 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp(appBarConfiguration)
+        return  navController.navigateUp(appBarConfiguration)
     }
+
+
+    private var exitTime: Long = 0
+    override fun finish() {
+        if (System.currentTimeMillis() - exitTime > 2000) {
+            //弹出提示，可以有多种方式
+            SmartToast.classic().showInCenter( "Press again to exit")
+            exitTime = System.currentTimeMillis()
+            return
+        }
+        super.finish()
+    }
+
+
 
     private fun setupToolbar() {
         toolbar = findViewById(R.id.arch_toolbar)
@@ -92,6 +107,11 @@ class MainActivity : AppCompatActivity() {
             supportActionBar?.hide()
         }
     }
+
+
+
+
+
 
 
 }

@@ -34,10 +34,33 @@ class ThingsListAdapter(
                 listener.addThingLike(holder.layoutPosition,item)
             }
             root.setOnClickListener {
-                val option=  ActivityOptionsCompat.makeSceneTransitionAnimation(SmartActivityUtils.getTopActivity(),ivCover,"share_trip")
-                ARouter.getInstance().build(ARouterPathList.HOME_TRIP_DETAIL)
-                    .withOptionsCompat(option)
-                    .navigation(SmartActivityUtils.getTopActivity())
+                when (item.type){
+                    1->{
+                        val option=  ActivityOptionsCompat.makeSceneTransitionAnimation(SmartActivityUtils.getTopActivity(),ivCover,"share_sightseeing")
+                        ARouter.getInstance().build(ARouterPathList.HOME_SIGHTSEEING_DETAIL)
+                            .withOptionsCompat(option)
+                            .withLong("cityId",item.city_id?:0L)
+                            .navigation(SmartActivityUtils.getTopActivity())
+
+                    }
+                    2->{
+
+                        val option=  ActivityOptionsCompat.makeSceneTransitionAnimation(SmartActivityUtils.getTopActivity(),ivCover,"share_shop")
+                        ARouter.getInstance().build(ARouterPathList.HOME_SHOP_DETAIL)
+                            .withOptionsCompat(option)
+                            .withLong("cityId",item.city_id?:0L)
+                            .navigation(SmartActivityUtils.getTopActivity())
+                    }
+                    else->{
+                        val option=  ActivityOptionsCompat.makeSceneTransitionAnimation(SmartActivityUtils.getTopActivity(),ivCover,"share_restaurant")
+                        ARouter.getInstance().build(ARouterPathList.HOME_RESTAURANT_DETAIL)
+                            .withOptionsCompat(option)
+                            .withLong("cityId",item.city_id?:0L)
+                            .navigation(SmartActivityUtils.getTopActivity())
+                    }
+                }
+
+
             }
             executePendingBindings()
         }

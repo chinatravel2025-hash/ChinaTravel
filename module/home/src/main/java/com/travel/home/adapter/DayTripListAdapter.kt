@@ -36,7 +36,7 @@ class DayTripListAdapter(
                 val option=  ActivityOptionsCompat.makeSceneTransitionAnimation(SmartActivityUtils.getTopActivity(),ivCover,"share_trip")
                 ARouter.getInstance().build(ARouterPathList.HOME_TRIP_DETAIL)
                     .withOptionsCompat(option)
-                    .withSerializable("travelProduct",item)
+                    .withLong("tripId",item.id?:0L)
                     .navigation(SmartActivityUtils.getTopActivity())
             }
 

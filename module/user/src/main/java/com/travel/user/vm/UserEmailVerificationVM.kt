@@ -1,5 +1,6 @@
 package com.travel.user.vm
 
+import android.content.Intent
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

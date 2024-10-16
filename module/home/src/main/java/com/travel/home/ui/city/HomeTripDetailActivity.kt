@@ -32,7 +32,7 @@ class HomeTripDetailActivity : BaseStatusBarActivity() {
 
     @JvmField
     @Autowired
-    var travelProduct: TravelProductItem? = null
+    var tripId: Long? = 0L
     override fun initView(savedInstanceState: Bundle?) {
         super.initView(savedInstanceState)
         ARouter.getInstance().inject(this)

@@ -1,5 +1,6 @@
 package com.travel.user.vm
 
+import android.content.Intent
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.alibaba.android.arouter.launcher.ARouter
@@ -19,6 +20,7 @@ class UserEmailLoginVM:ViewModel() {
         }else{
             LoginRepository.loginRepository.loginByEmail(email.value?:"",originPw.value?:""){
                 ARouter.getInstance().build(ARouterPathList.APP_MAIN)
+                    .withFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
                     .navigation()
             }
         }

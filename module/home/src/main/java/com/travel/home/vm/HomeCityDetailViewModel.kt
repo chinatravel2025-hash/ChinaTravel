@@ -44,6 +44,7 @@ class HomeCityDetailViewModel : ViewModel() {
             ) {
                 if (response.body()?.isSuccessful == true) {
                     mCityDetail.value=response.body()?.data
+                    cityItem=response.body()?.data
                 }
             }
 
@@ -103,6 +104,14 @@ class HomeCityDetailViewModel : ViewModel() {
             .withString("type",ObjectTypeUtil.getObjectType(type))
             .withSerializable("city",cityItem)
             .navigation()
+    }
+
+
+    fun addFavorite(objectType: ObjectType, id:Long, callback: (Boolean) -> Unit){
+        HomeRepository.homeRepository.addFavorite(objectType, id, callback)
+    }
+    fun cancelFavorite(objectType: ObjectType, id:Long, callback: (Boolean) -> Unit){
+        HomeRepository.homeRepository.cancelFavorite(objectType, id, callback)
     }
 
 

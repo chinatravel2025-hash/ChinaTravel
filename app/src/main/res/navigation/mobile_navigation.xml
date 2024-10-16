@@ -7,7 +7,7 @@
     <include app:graph="@navigation/navigation_home"/>
     <include app:graph="@navigation/navigation_guide"/>
 
-<!--    <include app:graph="@navigation/navigation_community"/>-->
+   <!-- <include app:graph="@navigation/navigation_community"/>-->
 
     <include app:graph="@navigation/navigation_profile"/>
 </navigation>

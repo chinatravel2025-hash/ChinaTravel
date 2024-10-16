@@ -1,8 +1,11 @@
 package com.china.travel.ui.launch
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import com.alibaba.android.arouter.facade.Postcard
+import com.alibaba.android.arouter.facade.callback.NavCallback
 import com.alibaba.android.arouter.launcher.ARouter
 import com.china.travel.R
 import com.china.travel.databinding.ActivityLaunchBinding
@@ -29,10 +32,20 @@ class LaunchActivity : BaseStatusBarActivity() {
         binding.tvTitle.postDelayed({
             if (User.isLogin){
                 ARouter.getInstance().build(ARouterPathList.APP_MAIN)
-                    .navigation()
+                    .navigation(this, object : NavCallback() {
+                        override fun onArrival(p0: Postcard?) {
+                         finish()
+                        }
+
+                    })
             }else{
                 ARouter.getInstance().build(ARouterPathList.USER_REGISTER)
-                    .navigation()
+                    .navigation(this, object : NavCallback() {
+                        override fun onArrival(p0: Postcard?) {
+                            finish()
+                        }
+
+                    })
             }
         },500)
     }

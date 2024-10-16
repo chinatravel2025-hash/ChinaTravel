@@ -2,6 +2,9 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
+        <variable
+            name="vm"
+            type="com.aws.bean.entities.home.PlaceItem" />
 
 
         <import type="com.example.base.utils.CommonNumber" />
@@ -26,12 +29,24 @@
             android:layout_height="@dimen/dp_105"/>
 
         <ImageView
+            visibleWhen="@{vm.is_like==1}"
+            android:id="@+id/iv_like"
             app:layout_constraintTop_toTopOf="parent"
-           app:layout_constraintRight_toRightOf="@id/iv_cover"
-            android:src="@mipmap/home_like_ck"
-            android:padding="@dimen/dp_8"
             android:layout_width="@dimen/dp_40"
-            android:layout_height="@dimen/dp_40"/>
+            android:layout_height="@dimen/dp_40"
+            android:padding="@dimen/dp_8"
+            android:src="@mipmap/home_like_ck"
+            app:layout_constraintRight_toRightOf="@id/iv_cover" />
+
+        <ImageView
+            visibleWhen="@{vm.is_like!=1}"
+            android:id="@+id/iv_unlike"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="@dimen/dp_40"
+            android:padding="@dimen/dp_8"
+            android:src="@mipmap/home_like_unck"
+            app:layout_constraintRight_toRightOf="@id/iv_cover" />
 
         <TextView
             android:id="@+id/tv_title"

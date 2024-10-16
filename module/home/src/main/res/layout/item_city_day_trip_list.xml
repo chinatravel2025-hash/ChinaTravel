@@ -3,6 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
 
+        <variable
+            name="vm"
+            type="com.aws.bean.entities.home.TravelProductItem" />
 
         <import type="com.example.base.utils.CommonNumber" />
         <variable
@@ -24,14 +27,25 @@
             android:src="@drawable/btn_shape_bg"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_105"/>
-
         <ImageView
+            visibleWhen="@{vm.is_like==1}"
+            android:id="@+id/iv_like"
             app:layout_constraintTop_toTopOf="parent"
-           app:layout_constraintRight_toRightOf="@id/iv_cover"
+            app:layout_constraintRight_toRightOf="@id/iv_cover"
             android:src="@mipmap/home_like_ck"
             android:padding="@dimen/dp_8"
             android:layout_width="@dimen/dp_40"
             android:layout_height="@dimen/dp_40"/>
+        <ImageView
+            visibleWhen="@{vm.is_like==0}"
+            android:id="@+id/iv_unlike"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="@id/iv_cover"
+            android:src="@mipmap/home_like_unck"
+            android:padding="@dimen/dp_8"
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="@dimen/dp_40"/>
+
 
         <TextView
             android:id="@+id/tv_title"
@@ -39,7 +53,7 @@
            app:layout_constraintTop_toBottomOf="@id/iv_cover"
             android:layout_marginTop="@dimen/dp_7"
             android:layout_marginStart="@dimen/dp_6"
-            android:text="Style Crayfish"
+            android:text="@{vm.title}"
             android:textColor="@color/c_333333"
             android:layout_width="0dp"
             android:singleLine="true"
