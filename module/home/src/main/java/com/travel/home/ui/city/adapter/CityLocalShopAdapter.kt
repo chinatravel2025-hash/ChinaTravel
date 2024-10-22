@@ -36,7 +36,7 @@ class CityLocalShopAdapter(
                 val option=  ActivityOptionsCompat.makeSceneTransitionAnimation(SmartActivityUtils.getTopActivity(),ivCover,"share_shop")
                 ARouter.getInstance().build(ARouterPathList.HOME_SHOP_DETAIL)
                     .withOptionsCompat(option)
-                    .withLong("cityId",item.city_id?:0L)
+                    .withLong("placeId",item.id?:0L)
                     .navigation(SmartActivityUtils.getTopActivity())
             }
 

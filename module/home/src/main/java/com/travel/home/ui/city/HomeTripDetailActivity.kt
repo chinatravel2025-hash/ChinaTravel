@@ -13,6 +13,7 @@ import com.example.base.utils.ResourceUtils
 
 import com.example.router.ARouterPathList
 import com.travel.home.R
+import com.travel.home.adapter.NormalBannerAdapter
 import com.travel.home.databinding.HomeActivityShopDetailBinding
 import com.travel.home.databinding.HomeActivityTripDetailBinding
 import com.travel.home.vm.HomeShopDetailViewModel
@@ -41,8 +42,9 @@ class HomeTripDetailActivity : BaseStatusBarActivity() {
         setContentView(binding.root)
         binding.lifecycleOwner = this
         initAboutContent()
-      //  binding.ivCity.setImageResource(R.mipmap.banner)
-     //   binding.ivCity.scaleType=ImageView.ScaleType.CENTER_CROP
+        binding.banner.setAdapter(NormalBannerAdapter(listOf("", "")))
+        mVM.getHomeTravelProducts(tripId?:0)
+
 
     }
 

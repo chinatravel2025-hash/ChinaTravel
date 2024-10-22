@@ -74,10 +74,9 @@
                     android:id="@+id/fl_banner"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_215"
-                    android:layout_marginHorizontal="@dimen/dp_12"
                     app:layout_constraintTop_toTopOf="parent">
                     <com.youth.banner.Banner
-                        android:transitionName="share_city"
+                        android:transitionName="share_shop"
                         android:id="@+id/banner"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"

@@ -208,16 +208,38 @@ class HomeFragment : Fragment(), CityListAdapterClickListener, TravelProductClic
     }
 
     override fun addThingLike(position: Int, item: PlaceItem) {
-        homeVM.addFavorite(ObjectType.TRAVEL_PRODUCTS, item.id ?: 0) {
+        val type =when(item.type){
+            1->{
+                ObjectType.SIGHT
+            }
+            2->{
+                ObjectType.SHOP
+            }
+            else->{
+                ObjectType.RESTAURANT
+            }
+        }
+        homeVM.addFavorite(type, item.id ?: 0) {
             item.is_like = 1
-            mDayTripListAdapter?.notifyItemChanged(position, ThingsListAdapter.ITEM_2_PAYLOAD)
+            mThingsListAdapter?.notifyItemChanged(position, ThingsListAdapter.ITEM_2_PAYLOAD)
         }
     }
 
     override fun cancelThingLike(position: Int, item: PlaceItem) {
-        homeVM.cancelFavorite(ObjectType.TRAVEL_PRODUCTS, item.id ?: 0) {
+        val type =when(item.type){
+            1->{
+                ObjectType.SIGHT
+            }
+            2->{
+                ObjectType.SHOP
+            }
+            else->{
+                ObjectType.RESTAURANT
+            }
+        }
+        homeVM.cancelFavorite(type, item.id ?: 0) {
             item.is_like = 0
-            mDayTripListAdapter?.notifyItemChanged(position, ThingsListAdapter.ITEM_2_PAYLOAD)
+            mThingsListAdapter?.notifyItemChanged(position, ThingsListAdapter.ITEM_2_PAYLOAD)
         }
     }
 

@@ -9,12 +9,14 @@ import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.aws.bean.entities.home.PlaceItem
+import com.aws.bean.entities.home.PlaceType
 import com.devs.readmoreoption.ReadMoreOption
 import com.example.base.base.BaseStatusBarActivity
 import com.example.base.utils.ResourceUtils
 
 import com.example.router.ARouterPathList
 import com.travel.home.R
+import com.travel.home.adapter.NormalBannerAdapter
 import com.travel.home.databinding.HomeActivitySightseeingDetailBinding
 import com.travel.home.view.ScenicSpotBottomSheetDialog
 import com.travel.home.vm.HomeSightDetailViewModel
@@ -33,7 +35,7 @@ class HomeSightseeingDetailActivity : BaseStatusBarActivity() {
 
     @JvmField
     @Autowired
-    var cityId: Long? = 0L
+    var placeId: Long? = 0L
     override fun initView(savedInstanceState: Bundle?) {
         super.initView(savedInstanceState)
         ARouter.getInstance().inject(this)
@@ -43,8 +45,8 @@ class HomeSightseeingDetailActivity : BaseStatusBarActivity() {
         binding.lifecycleOwner = this
         binding.ac=this
         initAboutContent()
-      //  binding.ivCity.setImageResource(R.mipmap.banner)
-     //   binding.ivCity.scaleType=ImageView.ScaleType.CENTER_CROP
+        binding.banner.setAdapter(NormalBannerAdapter(listOf("", "")))
+        mVM.getPlaceList(PlaceType.SIGHT,placeId?:0)
 
     }
 
@@ -69,7 +71,6 @@ class HomeSightseeingDetailActivity : BaseStatusBarActivity() {
         readMoreOption.addReadMoreTo(binding.tvAboutContent,sss)
 
     }
-
 
 
      fun showLocation(){
