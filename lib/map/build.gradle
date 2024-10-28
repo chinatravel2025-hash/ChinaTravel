@@ -40,20 +40,19 @@ android {
 }
 
 dependencies {
-
+   // api fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.1'
     implementation 'com.google.android.material:material:1.8.0'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.4.1'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.4.1'
-    api project(':common:common_router')
     api project(':common:common_base')
-    api project(':common:common_bean')
-    api project(":common:common_http")
-    api project(":lib:widget")
-    api project(":lib:map")
-    kapt Libs.arouter_compiler
+    //定位
+    // api 'com.amap.api:location:latest.integration'
+      api 'com.amap.api:location:6.4.7'
+    //搜索
+    //  api 'com.amap.api:search:latest.integration'
+      api 'com.amap.api:search:9.7.0'
+      api 'com.amap.api:map2d:6.0.0'
 }

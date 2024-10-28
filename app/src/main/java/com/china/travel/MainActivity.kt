@@ -1,5 +1,6 @@
 package com.china.travel
 
+import android.Manifest
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.text.TextUtils
@@ -24,6 +25,7 @@ import com.example.base.localstore.MMKVConstanst
 import com.example.base.localstore.MMKVSpUtils
 import com.example.base.msg.i.TUIMessageBean
 import com.example.base.utils.LogUtils
+import com.example.base.utils.PermissionCheckUtil
 import com.example.base.utils.StatusBarUtil
 import com.example.router.ARouterPathList
 import com.example.base.utils.customDataToBean
@@ -34,6 +36,9 @@ import com.example.base.utils.toId
 import com.example.base.utils.toTUBean
 import com.example.base.utils.vibrator
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.hjq.permissions.OnPermissionCallback
+import com.hjq.permissions.XXPermissions
+import com.permissionx.guolindev.PermissionX
 import com.tencent.imsdk.v2.V2TIMAdvancedMsgListener
 import com.tencent.imsdk.v2.V2TIMManager
 import com.tencent.imsdk.v2.V2TIMMessage
@@ -60,6 +65,15 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
 
 
+    /*************************************** 权限检查 */
+    /**
+     * 需要进行检测的权限数组
+     */
+     var needPermissions: Array<String> = arrayOf(
+        Manifest.permission.ACCESS_COARSE_LOCATION,
+        Manifest.permission.ACCESS_FINE_LOCATION,
+        Manifest.permission.READ_PHONE_STATE,
+    )
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -75,6 +89,13 @@ class MainActivity : AppCompatActivity() {
             LoginRepository.repository.imLogin()
         }
         imInit()
+       XXPermissions.with(this).permission(needPermissions)
+           .request(object: OnPermissionCallback{
+               override fun onGranted(p0: MutableList<String>, p1: Boolean) {
+
+               }
+
+           })
     }
 
     private fun setUpBottomNavigationBar() {

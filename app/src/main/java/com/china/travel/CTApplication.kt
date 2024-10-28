@@ -3,6 +3,8 @@ package com.china.travel
 import android.app.Application
 import android.content.Context
 import androidx.multidex.MultiDex
+import com.amap.api.maps2d.MapsInitializer
+import com.amap.api.services.core.ServiceSettings
 import com.china.travel.init.RouteModule
 import com.example.base.base.App
 import com.example.base.base.User
@@ -37,7 +39,8 @@ class CTApplication : Application() {
      //   API.env=environment
         APIService.initRetrofit(this,"dev")
         RouteModule.init(this)
-
+        ServiceSettings.updatePrivacyShow(this,true,true)
+        ServiceSettings.updatePrivacyAgree(this,true)
     }
 
 

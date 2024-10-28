@@ -6,6 +6,12 @@ import androidx.lifecycle.ViewModelProvider
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
+import com.amap.api.maps2d.AMap
+import com.amap.api.maps2d.CameraUpdateFactory
+import com.amap.api.maps2d.model.BitmapDescriptorFactory
+import com.amap.api.maps2d.model.LatLng
+import com.amap.api.maps2d.model.MarkerOptions
+import com.amap.api.maps2d.model.MyLocationStyle
 import com.aws.bean.entities.home.CityItem
 import com.aws.bean.entities.home.PlaceItem
 import com.aws.bean.entities.home.PlaceType
@@ -44,11 +50,31 @@ class HomeRestaurantDetailActivity : BaseStatusBarActivity() {
         initAboutContent()
         binding.banner.setAdapter(NormalBannerAdapter(listOf("", "")))
         mVM.getPlaceList(PlaceType.RESTAURANT,placeId?:0)
-
-
+        binding.space.onCreate(savedInstanceState)
+        initMap()
 
     }
-
+    private fun initMap() {
+        val latLng = LatLng(31.238068, 121.501654)
+        //标记 https://blog.csdn.net/w794840800/article/details/80017220
+        val myLocationStyle = MyLocationStyle()
+        myLocationStyle.apply {
+            myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATE)
+            showMyLocation(true)
+        }
+        binding.space.map.apply {
+            setMapLanguage(AMap.ENGLISH)
+            uiSettings.isZoomControlsEnabled = false
+            uiSettings.isScaleControlsEnabled = false
+            uiSettings.isMyLocationButtonEnabled = false
+            uiSettings.setAllGesturesEnabled(false)
+            isMyLocationEnabled = true
+            setMyLocationStyle(myLocationStyle)
+            //城市 15
+            moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16f))
+            invalidate();// 刷新地图
+        }
+    }
 
 
 
@@ -72,7 +98,25 @@ class HomeRestaurantDetailActivity : BaseStatusBarActivity() {
     }
 
 
+    override fun onResume() {
+        super.onResume()
+        binding.space.onResume()
+    }
 
+    override fun onPause() {
+        super.onPause()
+        binding.space.onPause()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        binding.space.onSaveInstanceState(outState)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding.space.onDestroy()
+    }
 
 
 

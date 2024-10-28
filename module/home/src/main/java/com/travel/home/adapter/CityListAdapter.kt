@@ -52,7 +52,6 @@ class CityListAdapter(
             if (payload == ITEM_1_PAYLOAD) {
                 holder.setVisible(R.id.iv_like, item.is_like==1)
                 holder.setVisible(R.id.iv_unlike, item.is_like==0)
-
             }
         }
     }

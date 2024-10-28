@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
+import com.devs.readmoreoption.ReadMoreOption
 import com.example.base.base.bean.BlocksBean
+import com.example.base.utils.ResourceUtils
 import com.travel.home.R
 import com.travel.home.databinding.ItemPlaceBlockHeadBinding
 import com.travel.home.databinding.ItemPlaceBlockImageBinding
@@ -63,6 +65,15 @@ class PlaceBlockAdapter() :
                 val addHolder = holder as BlockParagraphHolder
                 addHolder.dataBinding?.apply {
                     vm = item
+                    val readMoreOption = ReadMoreOption.Builder(context)
+                        .textLength(3, ReadMoreOption.TYPE_LINE)
+                        .moreLabel("Read more")
+                        .lessLabel("  Read less")
+                        .moreLabelColor(ResourceUtils.getColor(com.example.peanutmusic.base.R.color.txt_12C286))
+                        .lessLabelColor(ResourceUtils.getColor(com.example.peanutmusic.base.R.color.txt_12C286))
+                        .expandAnimation(true)
+                        .build()
+                    readMoreOption.addReadMoreTo(tvContent, item.data?.text)
                     executePendingBindings()
                 }
             }

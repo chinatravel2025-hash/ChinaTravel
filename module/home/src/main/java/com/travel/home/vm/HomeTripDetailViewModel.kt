@@ -6,6 +6,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.aws.bean.entities.home.TravelProductDTO
 import com.aws.bean.entities.home.TravelProductItem
+import com.aws.bean.util.GsonUtil
+import com.example.base.base.bean.BlockDTO
+import com.example.base.utils.BlockUtils
 import com.example.base.utils.LogUtils
 import com.example.http.RequestManager
 import com.example.http.api.ResponseResult
@@ -30,6 +33,10 @@ class HomeTripDetailViewModel : ViewModel() {
             ) {
                 if (response.body()?.isSuccessful == true) {
                     mTravelProduct.value=response.body()?.data
+                    response.body()?.data?.introduce?.let {
+                      //  LogUtils.d("ssssss","introduce=${BlockUtils.getBlockDto(it)}")
+
+                    }
                 }
             }
 

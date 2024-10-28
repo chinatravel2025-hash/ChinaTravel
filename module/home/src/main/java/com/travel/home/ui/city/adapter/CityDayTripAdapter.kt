@@ -15,7 +15,7 @@ import com.travel.home.databinding.ItemCityDayTripListBinding
 import com.travel.home.databinding.ItemHomeDayTripListBinding
 
 
-class CityDayTripAdapter(
+class    CityDayTripAdapter(
     val listener: TravelProductClickListener
 ) :
     BaseQuickAdapter<TravelProductItem, BaseDataBindingHolder<ItemCityDayTripListBinding>>(
@@ -26,6 +26,7 @@ class CityDayTripAdapter(
         item: TravelProductItem
     ) {
         holder.dataBinding?.apply {
+            vm=item
             ivLike.setOnClickListener {
                 listener.cancelProductLike(holder.layoutPosition,item)
             }

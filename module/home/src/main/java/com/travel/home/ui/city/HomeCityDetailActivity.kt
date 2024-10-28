@@ -13,14 +13,18 @@ import com.aws.bean.entities.home.CityItem
 import com.aws.bean.entities.home.ObjectType
 import com.aws.bean.entities.home.PlaceItem
 import com.aws.bean.entities.home.TravelProductItem
+import com.aws.bean.util.GsonUtil
 import com.devs.readmoreoption.ReadMoreOption
 import com.example.base.base.BaseStatusBarActivity
+import com.example.base.utils.BlockUtils
+import com.example.base.utils.LogUtils
 import com.example.base.utils.ResourceUtils
 
 import com.example.router.ARouterPathList
 import com.travel.home.R
 import com.travel.home.adapter.DayTripListAdapter
 import com.travel.home.adapter.NormalBannerAdapter
+import com.travel.home.adapter.PlaceBlockAdapter
 import com.travel.home.adapter.ThingClickListener
 import com.travel.home.adapter.ThingsListAdapter
 import com.travel.home.adapter.TravelProductClickListener
@@ -38,7 +42,7 @@ import com.travel.home.vm.HomeCityDetailViewModel
 
 
 @Route(path = ARouterPathList.HOME_CITY_DETAIL)
-class HomeCityDetailActivity : BaseStatusBarActivity(), TravelProductClickListener, ThingClickListener {
+class  HomeCityDetailActivity : BaseStatusBarActivity(), TravelProductClickListener, ThingClickListener {
 
     private lateinit var binding: HomeActivityCityDetailBinding
     private lateinit var mVM: HomeCityDetailViewModel
@@ -55,7 +59,7 @@ class HomeCityDetailActivity : BaseStatusBarActivity(), TravelProductClickListen
     private var mCityLocalShopAdapter: CityLocalShopAdapter? = null
     private var mCityRestaurantAdapter: CityRestaurantAdapter? = null
 
-
+    private var mPlaceBlockAdapter: PlaceBlockAdapter? = null
     @JvmField
     @Autowired
     var cityId: Long? = 0L
@@ -76,9 +80,28 @@ class HomeCityDetailActivity : BaseStatusBarActivity(), TravelProductClickListen
         mVM.getPlaceList(ObjectType.SIGHT, cityId ?: 0)
         mVM.getPlaceList(ObjectType.SHOP, cityId ?: 0)
         mVM.getPlaceList(ObjectType.RESTAURANT, cityId ?: 0)
+        initObserve()
 
     }
-
+    private fun initObserve(){
+        mVM.mCityDetail.observe(this){ city->
+            val data =BlockUtils.getBlocksList(city?.about?:"")
+            //LogUtils.d("msmakdsakj","dat= ${GsonUtil.toJson(data)}")
+           mPlaceBlockAdapter?.setList(data)
+        }
+        mVM.mTravelProducts.observe(this){
+            mCityDayTripAdapter?.setList(it)
+        }
+        mVM.mSightPlace.observe(this){
+            mCitySightseeingAdapter?.setList(it)
+        }
+        mVM.mShopPlace.observe(this){
+            mCityLocalShopAdapter?.setList(it)
+        }
+        mVM.mRestaurantPlace.observe(this){
+            mCityRestaurantAdapter?.setList(it)
+        }
+    }
     private fun initScrollView() {
         var y = 0
         var y2 = 0
@@ -112,16 +135,6 @@ class HomeCityDetailActivity : BaseStatusBarActivity(), TravelProductClickListen
         }
         binding.apply {
             nestScrollView.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { _, _, scrollY, _, oldScrollY ->
-//                LogUtils.d("lsjsks", "sy = $scrollY")
-//                LogUtils.d("lsjsks", "y = $y")
-//                LogUtils.d("lsjsks", "y2 = $y2")
-//                LogUtils.d("lsjsks", "y3 = $y3")
-//                LogUtils.d("lsjsks", "h = $h")
-//                LogUtils.d("lsjsks", "h2 = $h2")
-//                LogUtils.d("lsjsks", "h3 = $h3")
-//                LogUtils.d("lsjsks", "1 =0 -- $h")
-//                LogUtils.d("lsjsks", "2 =$h ---${y + h2}")
-//                LogUtils.d("lsjsks", "2 =${y + h2} ---${y2 + h3}")
                 when (scrollY) {
                     in 0 until h -> {
                         mCityColumnListAdapter?.quickSelect(0)
@@ -211,16 +224,13 @@ class HomeCityDetailActivity : BaseStatusBarActivity(), TravelProductClickListen
     }
 
     private fun initAboutContent() {
-        val about = ""//city?.about
-        val readMoreOption = ReadMoreOption.Builder(this)
-            .textLength(3, ReadMoreOption.TYPE_LINE)
-            .moreLabel("Read more")
-            .lessLabel("  Read less")
-            .moreLabelColor(ResourceUtils.getColor(com.example.peanutmusic.base.R.color.txt_12C286))
-            .lessLabelColor(ResourceUtils.getColor(com.example.peanutmusic.base.R.color.txt_12C286))
-            .expandAnimation(true)
-            .build()
-        readMoreOption.addReadMoreTo(binding.tvAboutContent, about)
+        binding.rvAboutContent.apply {
+            val manager = LinearLayoutManager(context)
+            manager.orientation = LinearLayoutManager.VERTICAL
+            layoutManager = manager
+            mPlaceBlockAdapter = PlaceBlockAdapter()
+            adapter = mPlaceBlockAdapter
+        }
 
     }
 

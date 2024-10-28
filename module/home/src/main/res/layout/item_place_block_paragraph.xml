@@ -8,15 +8,15 @@
             type="com.example.base.base.bean.BlocksBean" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_marginTop="@dimen/dp_12"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
         <TextView
+            android:id="@+id/tv_content"
+            android:lineHeight="@dimen/dp_15"
+            android:textColor="@color/c_333333"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{vm.data.text}"
-            android:textSize="@dimen/sp_15"
+            android:textSize="@dimen/sp_12"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

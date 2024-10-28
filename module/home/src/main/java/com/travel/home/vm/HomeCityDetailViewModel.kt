@@ -23,7 +23,6 @@ import retrofit2.Response
 
 class HomeCityDetailViewModel : ViewModel() {
 
-    var cityItem: CityItem?=null
     var mCityDetail = MutableLiveData<CityItem>()
     var mTravelProducts = MutableLiveData<List<TravelProductItem>>(emptyList())
 
@@ -44,7 +43,6 @@ class HomeCityDetailViewModel : ViewModel() {
             ) {
                 if (response.body()?.isSuccessful == true) {
                     mCityDetail.value=response.body()?.data
-                    cityItem=response.body()?.data
                 }
             }
 
@@ -102,7 +100,7 @@ class HomeCityDetailViewModel : ViewModel() {
     fun moreContent(type:ObjectType){
         ARouter.getInstance().build(ARouterPathList.HOME_RECOMMEND)
             .withString("type",ObjectTypeUtil.getObjectType(type))
-            .withSerializable("city",cityItem)
+            .withSerializable("city",mCityDetail.value)
             .navigation()
     }
 
