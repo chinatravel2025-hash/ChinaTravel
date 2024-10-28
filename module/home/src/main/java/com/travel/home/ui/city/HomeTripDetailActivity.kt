@@ -3,6 +3,7 @@ package com.travel.home.ui.city
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import androidx.lifecycle.ViewModelProvider
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
@@ -73,15 +74,17 @@ class HomeTripDetailActivity : BaseStatusBarActivity(), LocationSource, AMapLoca
         //val latLng = LatLng(31.075867780515686, 121.59554847645956)
         val latLng = LatLng(31.238068, 121.501654)
         //标记 https://blog.csdn.net/w794840800/article/details/80017220
+
+    val markerView=    LayoutInflater.from(this).inflate(com.china.travel.widget.R.layout.marker_layout,binding.space,false)
         val markerOptions = MarkerOptions()
         markerOptions.apply {
             position(latLng)
             snippet("DefaultMarker")
-            icon(BitmapDescriptorFactory.fromResource(com.china.travel.widget.R.mipmap.marker_other_highlight))
+            icon(BitmapDescriptorFactory.fromView(markerView))
             draggable(false)
                 .visible(true)
         }
-     //  binding.space.map.addMarker(markerOptions)
+       binding.space.map.addMarker(markerOptions)
 
         val myLocationStyle = MyLocationStyle()
         myLocationStyle.apply {
