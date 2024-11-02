@@ -1,12 +1,15 @@
 package com.travel.user.ui.support
 
+import android.Manifest
 import android.os.Build
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.aws.bean.util.GsonUtil
 import com.china.travel.widget.bottomsheet.TakePhotoDialog
 import com.china.travel.widget.permission.PermissionInterceptor
 import com.example.base.base.BaseStatusBarActivity
+import com.example.base.utils.LogUtils
 import com.example.router.ARouterPathList
 import com.hjq.permissions.OnPermissionCallback
 import com.hjq.permissions.Permission
@@ -43,7 +46,7 @@ class UserSupportActivity : BaseStatusBarActivity() {
         setContentView(binding.root)
         binding.lifecycleOwner = this
         binding.vm = mVM
-        binding.ac=this
+        binding.ac = this
 
     }
 
@@ -56,7 +59,7 @@ class UserSupportActivity : BaseStatusBarActivity() {
             }
 
             override fun pickImage() {
-              requestPhotoPermission()
+                requestPhotoPermission()
             }
 
         })
@@ -64,14 +67,17 @@ class UserSupportActivity : BaseStatusBarActivity() {
 
     }
 
-    private fun requestPhotoPermission(){
+    private fun requestPhotoPermission() {
+
         val permissionList =
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            mutableListOf(Permission.READ_MEDIA_IMAGES)
-            mutableListOf(Permission.READ_MEDIA_VIDEO)
-        }else{
-            mutableListOf(Permission.READ_EXTERNAL_STORAGE)
-        }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                listOf(Permission.READ_MEDIA_IMAGES,
+                    Permission.READ_MEDIA_VIDEO,
+                    Permission.READ_MEDIA_AUDIO)
+            } else {
+                listOf(Permission.READ_EXTERNAL_STORAGE)
+            }
+
         XXPermissions.with(this)
             .permission(permissionList)
             .interceptor(PermissionInterceptor("相册授权说明", "需要您授权开启相册，以便于我们能选择图片上传。"))
@@ -117,8 +123,6 @@ class UserSupportActivity : BaseStatusBarActivity() {
                 }
             })
     }
-
-
 
 
 }

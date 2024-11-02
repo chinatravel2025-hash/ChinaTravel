@@ -76,7 +76,7 @@ dependencies {
     api 'io.github.meetsl:SCardView:1.2'
     api 'io.reactivex.rxjava2:rxjava:2.2.6'
     api 'io.reactivex.rxjava2:rxandroid:2.1.0'
-    api 'com.github.getActivity:XXPermissions:18.63'
+    api 'com.github.getActivity:XXPermissions:18.68'
     api 'androidx.multidex:multidex:2.0.1'
     api 'com.guolindev.permissionx:permissionx:1.7.1'
     // Glide集成OkHttp时需要使用的库
