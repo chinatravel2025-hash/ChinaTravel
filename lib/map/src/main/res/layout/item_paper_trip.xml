@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_110"
+            android:background="@drawable/item_pager_bg"
+         >
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/iv_img"
+                android:src="@color/cardview_dark_background"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginStart="@dimen/dp_2"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:riv_corner_radius="@dimen/dp_8"
+                android:scaleType="centerCrop"
+                android:adjustViewBounds="true"
+                android:layout_width="@dimen/dp_106"
+                android:layout_height="@dimen/dp_106"/>
+
+            <com.travel.TravelTextView
+                android:layout_marginEnd="@dimen/dp_5"
+                android:layout_marginStart="@dimen/dp_10"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="@dimen/dp_12"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/iv_img"
+                android:id="@+id/tv_title"
+                android:layout_width="0dp"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:textSize="@dimen/sp_13"
+                android:textColor="@color/c_333333"
+                android:textFontWeight="600"
+                android:text="Shanghai Oriental Pear 上海的城市遥遥领先"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_4"
+                android:layout_marginEnd="@dimen/dp_5"
+                android:lineHeight="@dimen/dp_18"
+                android:textSize="@dimen/dp_12"
+                android:textColor="@color/c_333333"
+                android:text="Reserve now  pay later \nAges 0~99\nTue~Sun,10:00am~17:00pm\nDuration:8h "
+                app:layout_constraintLeft_toRightOf="@id/iv_img"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>

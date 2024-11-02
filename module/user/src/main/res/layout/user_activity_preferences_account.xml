@@ -20,11 +20,12 @@
         android:layout_height="match_parent"
       >
 
-        <View
+        <ImageView
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_130"
-            android:background="@drawable/user_home_top_bg" />
-
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:src="@mipmap/user_top_bg"
+            app:layout_constraintTop_toTopOf="parent" />
         <com.example.base.view.StatusBarHolderView
             android:id="@+id/view_holder"
             android:layout_width="match_parent"

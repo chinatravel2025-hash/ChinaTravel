@@ -38,6 +38,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name="com.travel.user.ui.preferences.UserPreferencesAccountActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name="com.travel.user.ui.preferences.UserPreferencesActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name="com.travel.user.ui.order.UserOrdersActivity"
             android:screenOrientation="portrait"/>
     </application>

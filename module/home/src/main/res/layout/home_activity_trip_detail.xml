@@ -165,6 +165,12 @@
                     android:id="@+id/space"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_110"/>
+
+                <View
+                    android:onClick="@{()->vm.navigatorMapPage()}"
+                    app:layout_constraintTop_toTopOf="@id/space"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_110"/>
                 <TextView
                     android:id="@+id/tv_address"
                     android:layout_width="wrap_content"

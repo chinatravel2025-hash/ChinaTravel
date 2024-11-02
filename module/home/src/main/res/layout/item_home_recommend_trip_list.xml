@@ -4,7 +4,9 @@
 
     <data>
 
-
+        <variable
+            name="vm"
+            type="com.aws.bean.entities.home.TravelProductItem" />
         <import type="com.example.base.utils.CommonNumber" />
 
         <variable

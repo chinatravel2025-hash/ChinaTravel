@@ -1,9 +1,7 @@
 package com.travel.home.ui.city
 
-import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import androidx.lifecycle.ViewModelProvider
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
@@ -19,9 +17,9 @@ import com.amap.api.maps2d.LocationSource
 import com.amap.api.maps2d.LocationSource.OnLocationChangedListener
 import com.amap.api.maps2d.model.BitmapDescriptorFactory
 import com.amap.api.maps2d.model.LatLng
+import com.amap.api.maps2d.model.LatLngBounds
 import com.amap.api.maps2d.model.MarkerOptions
 import com.amap.api.maps2d.model.MyLocationStyle
-import com.amap.api.services.core.ServiceSettings
 import com.devs.readmoreoption.ReadMoreOption
 import com.example.base.base.BaseStatusBarActivity
 import com.example.base.utils.ResourceUtils
@@ -72,19 +70,36 @@ class HomeTripDetailActivity : BaseStatusBarActivity(), LocationSource, AMapLoca
 
     private fun initMap() {
         //val latLng = LatLng(31.075867780515686, 121.59554847645956)
-        val latLng = LatLng(31.238068, 121.501654)
+      //  val latLng = LatLng(31.238068, 121.501654)
         //标记 https://blog.csdn.net/w794840800/article/details/80017220
 
-    val markerView=    LayoutInflater.from(this).inflate(com.china.travel.widget.R.layout.marker_layout,binding.space,false)
-        val markerOptions = MarkerOptions()
-        markerOptions.apply {
-            position(latLng)
-            snippet("DefaultMarker")
-            icon(BitmapDescriptorFactory.fromView(markerView))
-            draggable(false)
-                .visible(true)
+        val builder = LatLngBounds.builder()
+        builder.include(LatLng(31.234521, 121.530699))
+        builder.include(LatLng(31.075867780515686, 121.59554847645956))
+        builder.include(LatLng(31.238068, 121.501654))
+
+        val latLngs= mutableListOf<LatLng>()
+        latLngs.add(LatLng(31.234521, 121.530699)) // 上海市政府
+        latLngs.add(LatLng(31.075867780515686, 121.59554847645956)) // 北京天安门
+        latLngs.add(LatLng(31.238068, 121.501654)) // 天津市政府
+//    val markerView=    LayoutInflater.from(this).inflate(com.china.travel.widget.R.layout.marker_layout,binding.space,false)
+//        val markerOptions = MarkerOptions()
+//        markerOptions.apply {
+//            position(latLng)
+//            snippet("DefaultMarker")
+//            icon(BitmapDescriptorFactory.fromView(markerView))
+//            draggable(false)
+//                .visible(true)
+//        }
+      // binding.space.map.addMarker(markerOptions)
+
+        for (latLng in latLngs) {
+             binding.space.map.addMarker(MarkerOptions()
+                .position(latLng)
+                .snippet("DefaultMarker")
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))) // 标记的图标
+            // 可以添加监听器等操作
         }
-       binding.space.map.addMarker(markerOptions)
 
         val myLocationStyle = MyLocationStyle()
         myLocationStyle.apply {
@@ -105,8 +120,9 @@ class HomeTripDetailActivity : BaseStatusBarActivity(), LocationSource, AMapLoca
             setMyLocationStyle(myLocationStyle)
 
             //城市 15
-            moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16f))
-            invalidate();// 刷新地图
+          //  moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16f))
+           moveCamera(CameraUpdateFactory.newLatLngBounds(builder.build(),50))
+        //    invalidate();// 刷新地图
         }
     }
 

@@ -1,5 +1,6 @@
 package com.travel.home.ui.more
 
+import android.graphics.fonts.FontStyle
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -46,7 +47,6 @@ class HomeRecommendActivity : BaseStatusBarActivity(), (CityItem) -> Unit {
     override fun initView(savedInstanceState: Bundle?) {
         super.initView(savedInstanceState)
         binding = mBaseBinding as HomeActivityRecommendBinding
-
         ARouter.getInstance().inject(this)
         mVM = ViewModelProvider(this)[HomeRecommendViewModel::class.java]
         setContentView(binding.root)

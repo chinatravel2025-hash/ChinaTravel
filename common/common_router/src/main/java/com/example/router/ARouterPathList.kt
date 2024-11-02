@@ -32,6 +32,7 @@ object ARouterPathList {
     const val USER_VERIFICATION_EMAIL= "/user/verification/email"
     const val USER_SUPPORT= "/user/support"
     const val USER_ORDERS= "/user/orders"
+    const val USER_PREFERENCES_HOME= "/user/preferences/home"
     const val USER_PREFERENCES_ACCOUNT= "/user/preferences/account"
 
 
@@ -44,6 +45,11 @@ object ARouterPathList {
     const val HOME_TRIP_DETAIL= "/home/trip/detail"
     const val HOME_SEARCH= "/home/search"
     const val HOME_RECOMMEND= "/home/recommend"
+
+
+    const val MAP_HOME_VIEW= "/map/map/home/"
+
+
 
 
 

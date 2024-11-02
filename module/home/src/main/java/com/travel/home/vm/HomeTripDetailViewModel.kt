@@ -4,14 +4,18 @@ import HomeAPI
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.alibaba.android.arouter.launcher.ARouter
 import com.aws.bean.entities.home.TravelProductDTO
 import com.aws.bean.entities.home.TravelProductItem
 import com.aws.bean.util.GsonUtil
+import com.aws.bean.util.ObjectTypeUtil
+import com.coder.vincent.smart_toast.SmartToast
 import com.example.base.base.bean.BlockDTO
 import com.example.base.utils.BlockUtils
 import com.example.base.utils.LogUtils
 import com.example.http.RequestManager
 import com.example.http.api.ResponseResult
+import com.example.router.ARouterPathList
 import com.travel.home.api.HomeImpApi
 import retrofit2.Call
 import retrofit2.Callback
@@ -45,5 +49,10 @@ class HomeTripDetailViewModel : ViewModel() {
 
             }
         })
+    }
+
+    fun navigatorMapPage(){
+        ARouter.getInstance().build(ARouterPathList.MAP_HOME_VIEW)
+            .navigation()
     }
 }

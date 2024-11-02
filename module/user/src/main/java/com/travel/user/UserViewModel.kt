@@ -20,7 +20,7 @@ class UserViewModel : ViewModel() {
     }
 
     fun navigationPreferences(){
-        ARouter.getInstance().build(ARouterPathList.USER_PREFERENCES_ACCOUNT)
+        ARouter.getInstance().build(ARouterPathList.USER_PREFERENCES_HOME)
             .navigation()
     }
     fun navigationOrders(){

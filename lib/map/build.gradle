@@ -48,6 +48,8 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     api project(':common:common_base')
+    api project(':common:common_router')
+    kapt Libs.arouter_compiler
     //定位
     // api 'com.amap.api:location:latest.integration'
       api 'com.amap.api:location:6.4.7'
