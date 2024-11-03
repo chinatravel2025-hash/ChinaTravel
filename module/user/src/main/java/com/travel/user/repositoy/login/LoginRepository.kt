@@ -24,11 +24,11 @@ class LoginRepository {
     /**
      * 获取邮箱
      */
-    fun fetchCaptcha(mail: String, callback: (Boolean) -> Unit) {
+    fun fetchCaptcha(mail: String,style: String, callback: (Boolean) -> Unit) {
         loginAPI.fetchCaptcha(
             hashMapOf(
                 "mail" to mail,
-                "tag" to "register",
+                "tag" to style,
             )
         ).enqueue(object :
             Callback<ResponseResult<Any>> {
@@ -55,11 +55,11 @@ class LoginRepository {
     }
 
 
-    fun checkCaptcha(mail: String, captcha: String, callback: (Boolean) -> Unit) {
+    fun checkCaptcha(mail: String, captcha: String, style: String, callback: (Boolean) -> Unit) {
         loginAPI.checkCaptcha(
             hashMapOf(
                 "mail" to mail,
-                "tag" to "register",
+                "tag" to  style,
                 "captcha" to captcha,
             )
         ).enqueue(object :
@@ -118,6 +118,44 @@ class LoginRepository {
             }
         })
     }
+
+    /**
+     * 重置密码
+     */
+    fun resetPwdByEmail(
+        mail: String,
+        password: String,
+        confirmPassword: String,
+        callback: (Boolean) -> Unit
+    ) {
+        loginAPI.resetPwdByEmail(
+            hashMapOf(
+                "mail" to mail,
+                "password" to password,
+                "confirm_password" to confirmPassword,
+            )
+        ).enqueue(object :
+            Callback<ResponseResult<UserInfo?>> {
+            override fun onResponse(
+                call: Call<ResponseResult<UserInfo?>>,
+                response: Response<ResponseResult<UserInfo?>>
+            ) {
+                if (response.body()?.isSuccessful == true) {
+                    response.body()?.data?.let {
+                        imSigh(it, callback)
+                    }
+                } else {
+                    SmartToast.classic().showInCenter(response.body()?.message ?: "请重新尝试")
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseResult<UserInfo?>>, t: Throwable) {
+                SmartToast.classic().showInCenter(t.message ?: "请重新尝试")
+
+            }
+        })
+    }
+
 
     /**
      *  {"mail":"852436078@qq.com","password":"qwer1234"}

@@ -2,9 +2,11 @@ package com.travel.user.vm
 
 import LoginRepository
 import android.content.Intent
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.alibaba.android.arouter.launcher.ARouter
+import com.china.travel.widget.dialog.StatusDialog
 import com.coder.vincent.smart_toast.SmartToast
 import com.example.base.ext.showToast
 import com.example.base.utils.LogUtils
@@ -14,7 +16,7 @@ import com.tencent.qcloud.tuicore.util.ToastUtil
 
 class UserPasswordSettingVM : ViewModel() {
     var mail :String?=null
-    var actionType :Int?=1
+    var actionType :Int?=0
     var originPw = MutableLiveData("")
     var confirmPw = MutableLiveData("")
     var showPw = MutableLiveData(false)
@@ -25,19 +27,33 @@ class UserPasswordSettingVM : ViewModel() {
             SmartToast.classic().showInCenter("密码不符合规则")
 
         }else{
-            LoginRepository.loginRepository.registerByEmail(mail?:"",
-                originPw.value?:"",confirmPw.value?:""){
-                //设置名称 actionType：1 注册流程 2 修改密码流程
-                if (actionType==1){
+            //设置名称 actionType：0 注册流程 1 修改密码流程
+            if (actionType==0){
+                LoginRepository.loginRepository.registerByEmail(mail?:"",
+                    originPw.value?:"",confirmPw.value?:""){
                     ARouter.getInstance().build(ARouterPathList.USER_SET_NICKNAME)
                         .navigation()
-                }else{
+                }
+            }else{
+                LoginRepository.loginRepository.resetPwdByEmail(mail?:"",
+                    originPw.value?:"",confirmPw.value?:""){
                     ARouter.getInstance().build(ARouterPathList.APP_MAIN)
                         .navigation()
                 }
             }
+
+
         }
 
+    }
+
+    private fun showDialog(fragmentManager: FragmentManager) {
+        val show = StatusDialog() {
+            ARouter.getInstance().build(ARouterPathList.APP_MAIN)
+                .navigation()
+            null
+        }
+        show.show(fragmentManager, "StatusDialog")
     }
 
     fun setOriginPw(content: CharSequence?) {

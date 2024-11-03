@@ -62,7 +62,7 @@ class UserEmailVerificationActivity : BaseStatusBarActivity() {
             }
             override fun textCompleted(text: CharSequence?) {
                 text?.toString()?.let {
-                   mVM.navigationMain(it,supportFragmentManager)
+                   mVM.navigationMain(mail?:"",it,this@UserEmailVerificationActivity)
                 }
             }
 

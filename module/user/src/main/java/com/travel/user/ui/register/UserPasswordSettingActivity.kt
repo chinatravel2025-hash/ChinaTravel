@@ -36,11 +36,11 @@ class UserPasswordSettingActivity : BaseStatusBarActivity() {
     var mail: String? = null
 
     /**
-     * actionType：1 注册 2 修改密码
+     * actionType：0 注册 1 修改密码
      */
     @JvmField
     @Autowired
-    var actionType: Int? = null
+    var actionType: Int? = 0
     override fun initView(savedInstanceState: Bundle?) {
         super.initView(savedInstanceState)
         ARouter.getInstance().inject(this)
