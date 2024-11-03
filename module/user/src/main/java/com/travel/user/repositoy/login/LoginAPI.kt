@@ -22,6 +22,10 @@ interface LoginAPI {
     @POST("/user/mail/register")
     fun registerByEmail(@Body params: Map<String,String>): Call<ResponseResult<UserInfo?>>
 
+    @POST("/user/mail/reset_pwd")
+    fun resetPwdByEmail(@Body params: Map<String,String>): Call<ResponseResult<UserInfo?>>
+
+
     @POST("/user/mail/login")
     fun loginByEmail(@Body params: Map<String,String>): Call<ResponseResult<UserInfo?>>
 

@@ -41,7 +41,6 @@ class UserVerificationCodeActivity : BaseStatusBarActivity() {
         setContentView(binding.root)
         binding.lifecycleOwner = this
         binding.vm=mVM
-        LogUtils.d("lklklk", "mail =$mail")
         binding.ac=this
         mVM.startCountDown()
         registerInputListener()
@@ -57,7 +56,7 @@ class UserVerificationCodeActivity : BaseStatusBarActivity() {
             }
             override fun textCompleted(text: CharSequence?) {
                 text?.toString()?.let {
-                   mVM.navigationLogin(mail?:"",it)
+                   mVM.navigationLogin(mail?:"",it,this@UserVerificationCodeActivity)
                 }
             }
 

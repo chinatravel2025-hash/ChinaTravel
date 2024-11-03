@@ -81,7 +81,7 @@ class UserEmailAddressActivity : BaseStatusBarActivity() {
 
     fun navigationVerificationEmail(){
         mVM.emailContent.value?.let { mail->
-            LoginRepository.loginRepository.fetchCaptcha(mail){
+            LoginRepository.loginRepository.fetchCaptcha(mail,"register"){
                 if (it){
                     ARouter.getInstance().build(ARouterPathList.USER_VERIFICATION_CODE)
                         .withString("mail",mail)
