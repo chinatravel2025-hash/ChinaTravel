@@ -56,7 +56,7 @@ class SingleChatFragmentController constructor(
     init {
         mFragmentWeakReference = WeakReference(fragment)
         mId = userId ?: ""
-        mConversationId = "c2c_${mId}"
+        mConversationId = "group_${mId}"
         mViewModel = viewModel
         mAdapter = adapter
         mLayoutManager = layoutManager
@@ -87,7 +87,7 @@ class SingleChatFragmentController constructor(
 
     fun revokeMessage(mUserId: String, message: V2TIMMessage) {
         if (userId == mUserId) {
-            mAdapter.revokeMessage(message, false)
+            mAdapter.revokeMessage(message, true)
         }
     }
 
@@ -97,8 +97,8 @@ class SingleChatFragmentController constructor(
                 userId ?: "",
                 messages,
                 isSender || !rvList.isActionDownMove,
-                false,
-                false
+                true,
+                true
             )
         }
     }

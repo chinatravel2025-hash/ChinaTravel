@@ -1,14 +1,32 @@
 package com.travel.guide.common
 
+import ChatAPI
 import android.text.TextUtils
+import androidx.lifecycle.MutableLiveData
+import com.aws.bean.util.GsonUtil
+import com.coder.vincent.smart_toast.SmartToast
 import com.example.base.base.App
 import com.example.base.base.SDKConstant
 import com.example.base.base.User
+import com.example.base.base.UserInfo
+import com.example.base.common.v2t.V2TGroupManager
 import com.example.base.common.v2t.im.CommonIMManager
+import com.example.base.common.v2t.im.commom.util.MessageBuilder
 import com.example.base.common.v2t.im.core.interfaces.IMUICallback
 import com.example.base.common.v2t.im.core.interfaces.UILoginListener
+import com.example.base.localstore.MMKVSpUtils
 import com.example.base.utils.LogUtils
+import com.example.base.utils.LogUtils.e
 import com.example.base.utils.ThreadUtils
+import com.example.http.RequestManager
+import com.example.http.api.ResponseResult
+import com.google.gson.JsonSyntaxException
+import com.tencent.imsdk.v2.V2TIMCreateGroupMemberInfo
+import com.travel.guide.api.ChatImpApi
+import com.travel.guide.api.IMChatInfo
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class LoginRepository {
 
@@ -16,6 +34,7 @@ class LoginRepository {
     companion object {
         val repository = LoginRepository()
         val TAG = "LoginRepository"
+        val IMCHATLIST = "im_chat_list"
     }
 
 
@@ -23,6 +42,11 @@ class LoginRepository {
     private val imLoginStatusListeners = arrayListOf<IMLoginStatusListener>()
     private val loginStatusListeners = arrayListOf<LoginStatusListener>()
     private val kickedOfflineListeners = arrayListOf<KickedOfflineListener>()
+
+
+    private val loginAPI = RequestManager.build(ChatImpApi().host()).create(ChatAPI::class.java)
+    val imInfo = MutableLiveData<IMChatInfo?>(null)
+    var mGroupId = ""
 
 
     interface KickedOfflineListener {
@@ -162,10 +186,10 @@ class LoginRepository {
             super.onConnectSuccess()
             LogUtils.i(TAG, "IMLogin onConnectSuccess")
             //已登录发起重试.
-            if(isCurrentUserLogined()){
+            if (isCurrentUserLogined()) {
                 //FriendsRepository.repository.initFriendRespository()
-            }else {  //如果没有登录重试重连.
-                if(isFirstTryImlogin){
+            } else {  //如果没有登录重试重连.
+                if (isFirstTryImlogin) {
                     isFirstTryImlogin = false
                     return
                 }
@@ -195,10 +219,13 @@ class LoginRepository {
         override fun onKickedOffline() {
             super.onKickedOffline()
             //相同的用户id 才会被踢掉.
-            if(TextUtils.equals(CommonIMManager.getLoginUser(),User.uid)){
+            if (TextUtils.equals(CommonIMManager.getLoginUser(), User.uid)) {
 
             }
-            LogUtils.i(TAG, "IMLogin 被踢用户 loginUser = ${CommonIMManager.getLoginUser()} ridStr = ${User.uid}")
+            LogUtils.i(
+                TAG,
+                "IMLogin 被踢用户 loginUser = ${CommonIMManager.getLoginUser()} ridStr = ${User.uid}"
+            )
 
             for (l in kickedOfflineListeners) {
                 l.onKickedOff()
@@ -216,9 +243,13 @@ class LoginRepository {
     }
 
 
-    fun isCurrentUserLogined():Boolean{
+    fun isCurrentUserLogined(): Boolean {
 
-        if(CommonIMManager.isLogin() && TextUtils.equals(CommonIMManager.getLoginUser(),User.uid)){
+        if (CommonIMManager.isLogin() && TextUtils.equals(
+                CommonIMManager.getLoginUser(),
+                User.uid
+            )
+        ) {
             return true
         }
 
@@ -226,12 +257,11 @@ class LoginRepository {
     }
 
 
-
-
     /**
      * im登录，正常启动后走账号切换和退登流程，再登录就是这个； app 刚启动时候走quickImLogin 流程...为了快速获取数据初始化.
      */
     fun imLogin() {
+        //getChatList {}
         if (!User.isLogin) {
             return
         }
@@ -240,7 +270,7 @@ class LoginRepository {
     }
 
     private var isIMLogining = false
-    fun tryImLogin(){
+    fun tryImLogin() {
 
         if (!User.isLogin || User.imLoginStatus.value == true) {
             LogUtils.i(TAG, "IMLogin tryImLogin imgLoginStatus = ${User.imLoginStatus.value} ")
@@ -250,20 +280,20 @@ class LoginRepository {
 
         LogUtils.i(TAG, "IMLogin tryImLogin isIMLogining = ${isIMLogining} ")
 
-        if(isIMLogining){
-           return
+        if (isIMLogining) {
+            return
         }
         isIMLogining = true
 
         LogUtils.i(TAG, "IMLogin tryImLogin ")
-        if(isCurrentUserLogined()){
+        if (isCurrentUserLogined()) {
             LogUtils.i(TAG, "IMLogin hasLogin = true 直接执行下面的.")
             afterIMLogin()
             isIMLogining = false
             return
         }
 
-        Thread{
+        Thread {
             var userSig = User.hxToken
             /*if (imLoginInfoStr != "") {
                 val imLoginInfo = GsonUtil.fromJson(imLoginInfoStr, IMLoginInfo::class.java)
@@ -308,7 +338,7 @@ class LoginRepository {
                         }
 
                         override fun sdkInitFinish(isSuccess: Boolean) {
-                            if(isSuccess){
+                            if (isSuccess) {
                                 imLogining()
                             }
                         }
@@ -330,53 +360,136 @@ class LoginRepository {
 
     private fun afterIMLogin() {
         LogUtils.i(TAG, "TIMPushManager afterIMLogin")
-        imLoginOnSuccess()
-        //V2TMPush.registerPush(App.getContext())
+        getChatList {
+            if (it) {
+                val callback: ((String) -> Unit?) = { groupId ->
+                    //拉人进群
+                    mGroupId = groupId
+                    val ids = ArrayList<String>()
+                    imInfo.value?.list?.forEach { info ->
+                        ids.add(info.customer_id ?: "")
+                    }
+                    V2TGroupManager.inviteUserToGroup(groupId, ids) {
+                        imLoginOnSuccess()
+                    }
+                }
+                //登录成功后获取群组列表
+                V2TGroupManager.getJoinedGroupList { groupList ->
+                    if (groupList?.isNotEmpty() == true) {
+                        //群组列表size>0 直接拉客服id
+                        callback.invoke(groupList[0].groupID)
+                    } else {
+                        //群组列表size<=0 去创建
+                        val users = ArrayList<V2TIMCreateGroupMemberInfo>().apply {
+                            imInfo.value?.list?.forEach { info ->
+                                add(V2TIMCreateGroupMemberInfo().apply {
+                                    setUserID(info.customer_id ?: "")
+                                })
+                            }
+                        }
+                        if (users.isNotEmpty()) {
+                            V2TGroupManager.createGroup("用户${User.uid}", "", users) { groupId ->
+                                //群组创建成功 直接拉客服id
+                                if (groupId?.isNotEmpty() == true) {
+                                    callback.invoke(groupId)
+                                } else {
+                                    imLoginOnFailed(-3, "群组创建失败")
+                                }
+                            }
+                        } else {
+                            imLoginOnFailed(-2, "未获取到客服列表")
+                        }
+                    }
+
+                }
+            }
+        }
+    }
+
+    /**
+     * 获取客服人员
+     */
+    fun getChatList(callback: (Boolean) -> Unit) {
+        if (imInfo.value?.list?.isNotEmpty() == true) {
+            callback.invoke(true)
+            return
+        }
+        try {
+            MMKVSpUtils.getString(IMCHATLIST, "")?.let { info ->
+                if (info.isNotEmpty()) {
+                    imInfo.value = GsonUtil.fromJson(info, IMChatInfo::class.java)
+                }
+            }
+        } catch (e: Exception) {
+
+        }
+        loginAPI.customerList().enqueue(object :
+            Callback<ResponseResult<IMChatInfo?>> {
+            override fun onResponse(
+                call: Call<ResponseResult<IMChatInfo?>>,
+                response: Response<ResponseResult<IMChatInfo?>>
+            ) {
+                if (response.body()?.isSuccessful == true) {
+                    imInfo.value = response.body()?.data
+                    imInfo.value?.let { imChatInfo ->
+                        MMKVSpUtils.putString(IMCHATLIST, GsonUtil.toJson(imChatInfo))
+                    }
+                    callback.invoke(true)
+                } else {
+                    callback.invoke(false)
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseResult<IMChatInfo?>>, t: Throwable) {
+                callback.invoke(imInfo.value?.list?.isNotEmpty() == true)
+            }
+        })
     }
 
 
     private var isImLogin = false
+
     /**
      * im 快速登录..为了提前拉到首页列表数据.
      */
     fun quickIMLogin() {
-/*        if (!User.isLoginRole) {
-            return
-        }
-        val imLoginInfoStr = MMKVStore.getString(MMKVConstanst.IM_LOGIN_INFO_KEY)
-        if (imLoginInfoStr != "") {
-            val imLoginInfo = GsonUtil.fromJson(imLoginInfoStr, IMLoginInfo::class.java)
-            if (imLoginInfo != null && !TextUtils.isEmpty(imLoginInfo.userId) && !TextUtils.isEmpty(
-                    imLoginInfo.userSig
-                )
-            ) {
-                var userId = imLoginInfo.userId
-                var userSig = imLoginInfo.userSig
-                CommonIMManager.login(App.getContext(), userId, userSig,
-                    SDKConstant.HX_APP_ID_TEST, uiIMUICallback = object :
-                        IMUICallback() {
-                        override fun onSuccess() {
-                            //去掉eventbus 使用liveData 和 接口监听去做事件处理
-                            User.imgLoginStatus.value = true
-                            LogUtils.i(TAG, "IMLogin Success")
-                            isImLogin = true
-                        }
+        /*        if (!User.isLoginRole) {
+                    return
+                }
+                val imLoginInfoStr = MMKVStore.getString(MMKVConstanst.IM_LOGIN_INFO_KEY)
+                if (imLoginInfoStr != "") {
+                    val imLoginInfo = GsonUtil.fromJson(imLoginInfoStr, IMLoginInfo::class.java)
+                    if (imLoginInfo != null && !TextUtils.isEmpty(imLoginInfo.userId) && !TextUtils.isEmpty(
+                            imLoginInfo.userSig
+                        )
+                    ) {
+                        var userId = imLoginInfo.userId
+                        var userSig = imLoginInfo.userSig
+                        CommonIMManager.login(App.getContext(), userId, userSig,
+                            SDKConstant.HX_APP_ID_TEST, uiIMUICallback = object :
+                                IMUICallback() {
+                                override fun onSuccess() {
+                                    //去掉eventbus 使用liveData 和 接口监听去做事件处理
+                                    User.imgLoginStatus.value = true
+                                    LogUtils.i(TAG, "IMLogin Success")
+                                    isImLogin = true
+                                }
 
-                        override fun onError(errorCode: Int, errorMessage: String?) {
-                            User.imgLoginStatus.value = false
-                            isImLogin = false
-                            LogUtils.i(
-                                TAG,
-                                "IMLogin failed errorCode = ${errorCode} error = ${errorMessage} userId = ${userId}" +
-                                        " userSig = ${userSig}"
-                            )
-                            imLoginOnFailed(errorCode, errorMessage ?: "未知错误")
-                        }
-                    })
-            }
-            friendPresenter = FriendConversationPresenter()
-            friendPresenter?.preLoad()
-        }*/
+                                override fun onError(errorCode: Int, errorMessage: String?) {
+                                    User.imgLoginStatus.value = false
+                                    isImLogin = false
+                                    LogUtils.i(
+                                        TAG,
+                                        "IMLogin failed errorCode = ${errorCode} error = ${errorMessage} userId = ${userId}" +
+                                                " userSig = ${userSig}"
+                                    )
+                                    imLoginOnFailed(errorCode, errorMessage ?: "未知错误")
+                                }
+                            })
+                    }
+                    friendPresenter = FriendConversationPresenter()
+                    friendPresenter?.preLoad()
+                }*/
     }
 
 

@@ -21,6 +21,7 @@ class SingleChatViewModel : ChatViewModel() {
     var content = MutableLiveData("")
 
     fun loadData() {
+        isGroup.value = true
         CoroutineScope(Dispatchers.IO).launch {
             CoroutineScope(Dispatchers.Main).launch {
                 /*if (item != null) {

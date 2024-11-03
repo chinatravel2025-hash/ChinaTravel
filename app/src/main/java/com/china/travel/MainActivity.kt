@@ -14,6 +14,7 @@ import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupWithNavController
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.android.arouter.launcher.ARouter
 import com.china.travel.databinding.ActivityMainBinding
 import com.coder.vincent.smart_toast.SmartToast
 import com.example.base.base.User
@@ -26,6 +27,7 @@ import com.example.base.localstore.MMKVSpUtils
 import com.example.base.msg.i.TUIMessageBean
 import com.example.base.utils.LogUtils
 import com.example.base.utils.PermissionCheckUtil
+import com.example.base.utils.SmartActivityUtils
 import com.example.base.utils.StatusBarUtil
 import com.example.router.ARouterPathList
 import com.example.base.utils.customDataToBean
@@ -83,6 +85,11 @@ class MainActivity : AppCompatActivity() {
         statusBarDarkTheme = true
         setUpBottomNavigationBar()
         binding.navView.setOnItemSelectedListener { item ->
+            if(item.title == "Guide"){
+                ARouter.getInstance().build(ARouterPathList.HOME_CHAT)
+                    .navigation(SmartActivityUtils.getTopActivity())
+                return@setOnItemSelectedListener true
+            }
             NavigationUI.onNavDestinationSelected(item, navController)
         }
         User.currentUser.observe(this){

@@ -35,10 +35,10 @@ object V2TGroupManager {
     ) {
 
         val v2TIMGroupInfo = V2TIMGroupInfo()
-        v2TIMGroupInfo.groupType = V2TIMManager.GROUP_TYPE_PUBLIC
+        v2TIMGroupInfo.groupType = V2TIMManager.GROUP_TYPE_WORK
         v2TIMGroupInfo.groupName = groupName
-        v2TIMGroupInfo.groupAddOpt = V2TIMGroupInfo.V2TIM_GROUP_ADD_ANY
-        v2TIMGroupInfo.groupApproveOpt = V2TIMGroupInfo.V2TIM_GROUP_ADD_ANY
+        //v2TIMGroupInfo.groupAddOpt = V2TIMGroupInfo.V2TIM_GROUP_ADD_ANY
+        //v2TIMGroupInfo.groupApproveOpt = V2TIMGroupInfo.V2TIM_GROUP_ADD_ANY
         v2TIMGroupInfo.faceUrl = faceUrl
         V2TIMManager.getGroupManager().createGroup(
             v2TIMGroupInfo,

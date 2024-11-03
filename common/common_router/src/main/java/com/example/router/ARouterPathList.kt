@@ -49,6 +49,8 @@ object ARouterPathList {
 
     const val MAP_HOME_VIEW= "/map/map/home/"
 
+    const val HOME_CHAT= "/home/im/chat/"
+
 
 
 
