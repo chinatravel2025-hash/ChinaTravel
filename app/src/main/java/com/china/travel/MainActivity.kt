@@ -141,6 +141,7 @@ class MainActivity : AppCompatActivity() {
             exitTime = System.currentTimeMillis()
             return
         }
+        SmartActivityUtils.finishAllActivities()
         super.finish()
     }
 

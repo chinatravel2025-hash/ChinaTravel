@@ -141,9 +141,7 @@ class LoginRepository {
                 response: Response<ResponseResult<UserInfo?>>
             ) {
                 if (response.body()?.isSuccessful == true) {
-                    response.body()?.data?.let {
-                        imSigh(it, callback)
-                    }
+                    callback.invoke(true)
                 } else {
                     SmartToast.classic().showInCenter(response.body()?.message ?: "请重新尝试")
                 }

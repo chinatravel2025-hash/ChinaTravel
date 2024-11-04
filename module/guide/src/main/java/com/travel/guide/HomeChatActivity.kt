@@ -1,14 +1,17 @@
-package com.travel.home.ui
+package com.travel.guide
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.view.ViewTreeObserver
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.example.base.base.BaseStatusBarActivity
+import com.example.base.utils.DisplayUtils
+import com.example.base.utils.InputMonitorHelpUtils
+import com.example.base.utils.KeyBoardUtil
 
 import com.example.router.ARouterPathList
+import com.travel.guide.databinding.HomeActivityChatBinding
 import com.travel.guide.fragment.SingleChatFragment
-import com.travel.home.R
-import com.travel.home.databinding.HomeActivityChatBinding
 
 
 @Route(path = ARouterPathList.HOME_CHAT)
@@ -20,7 +23,6 @@ class HomeChatActivity : BaseStatusBarActivity() {
     override fun getLayoutId(): Int {
         return R.layout.home_activity_chat
     }
-
     @SuppressLint("CommitTransaction")
     override fun initView(savedInstanceState: Bundle?) {
         super.initView(savedInstanceState)
@@ -30,6 +32,7 @@ class HomeChatActivity : BaseStatusBarActivity() {
         supportFragmentManager.beginTransaction().replace(R.id.fl_container, SingleChatFragment())
             .commitNowAllowingStateLoss()
     }
+
 
 
 

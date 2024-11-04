@@ -2,15 +2,19 @@ package com.travel.user.vm
 
 import LoginRepository
 import android.content.Intent
+import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.alibaba.android.arouter.facade.Postcard
+import com.alibaba.android.arouter.facade.callback.NavCallback
 import com.alibaba.android.arouter.launcher.ARouter
 import com.china.travel.widget.dialog.StatusDialog
 import com.coder.vincent.smart_toast.SmartToast
 import com.example.base.ext.showToast
 import com.example.base.utils.LogUtils
 import com.example.base.utils.PasswordUtil
+import com.example.base.utils.SmartActivityUtils
 import com.example.router.ARouterPathList
 import com.tencent.qcloud.tuicore.util.ToastUtil
 
@@ -37,8 +41,7 @@ class UserPasswordSettingVM : ViewModel() {
             }else{
                 LoginRepository.loginRepository.resetPwdByEmail(mail?:"",
                     originPw.value?:"",confirmPw.value?:""){
-                    ARouter.getInstance().build(ARouterPathList.APP_MAIN)
-                        .navigation()
+                showDialog((SmartActivityUtils.getTopActivity() as FragmentActivity).supportFragmentManager)
                 }
             }
 
@@ -49,8 +52,14 @@ class UserPasswordSettingVM : ViewModel() {
 
     private fun showDialog(fragmentManager: FragmentManager) {
         val show = StatusDialog() {
-            ARouter.getInstance().build(ARouterPathList.APP_MAIN)
-                .navigation()
+            ARouter.getInstance().build(ARouterPathList.USER_EMAIL_LOGIN)
+                .withString("mail",mail?:"")
+                .navigation(SmartActivityUtils.getTopActivity(), object : NavCallback() {
+                    override fun onArrival(p0: Postcard?) {
+                        SmartActivityUtils.getTopActivity().finish()
+                    }
+
+                })
             null
         }
         show.show(fragmentManager, "StatusDialog")

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -20,6 +21,9 @@ import com.example.base.common.v2t.IMCallback
 import com.example.base.common.v2t.V2TMessageManager
 import com.example.base.event.*
 import com.example.base.msg.i.TUIMessageBean
+import com.example.base.utils.DisplayUtils
+import com.example.base.utils.InputMonitorHelpUtils
+import com.example.base.utils.KeyBoardUtil
 import com.example.base.weiget.LongTimerAndMoveButton
 import com.example.base.weiget.OursLinearLayoutManager
 import com.tencent.imsdk.v2.V2TIMMessage
@@ -44,7 +48,7 @@ class SingleChatFragment : Fragment(), MsgBaseHolder.OnChatItemClickListener,
     private lateinit var mAdapter: IMChatAdapter
     private lateinit var mViewModel: SingleChatViewModel
     private lateinit var mController: SingleChatFragmentController
-
+    private var softInputListener: ViewTreeObserver.OnGlobalLayoutListener? = null
     protected lateinit var inflater: LayoutInflater
 
     val rootLayout: Int
@@ -74,12 +78,34 @@ class SingleChatFragment : Fragment(), MsgBaseHolder.OnChatItemClickListener,
             binding.viewBottomChat.f = this@SingleChatFragment
             binding.viewBottomChat.vm = mViewModel
         }
+        registerInputListener()
         IMCallback.addICallback(this)
         mViewModel.isSmallWindow.value = false
         initView()
         initList()
         return binding.root
     }
+
+    private fun registerInputListener() {
+        binding.apply {
+            softInputListener = InputMonitorHelpUtils.softInputListener(requireActivity(), object :
+                InputMonitorHelpUtils.SoftInputListener {
+                override fun onSoftKeyBoardVisible(visible: Boolean, keyBroadHeight: Int) {
+                    if (visible) {
+                        binding.viewBottomChat.flRoot.translationY = (-keyBroadHeight).toFloat()
+                    } else {
+                        binding.viewBottomChat.flRoot.translationY = 0f
+                    }
+                }
+            })
+        }
+    }
+    private fun removeInputListener() {
+        InputMonitorHelpUtils.removeSoftInputListener(requireActivity(), softInputListener)
+    }
+
+
+
 
     private fun initView() {
         binding.rvList.let { rvList ->
@@ -209,6 +235,11 @@ class SingleChatFragment : Fragment(), MsgBaseHolder.OnChatItemClickListener,
 
     override fun onDestroy() {
         super.onDestroy()
+
+        binding.viewBottomChat.etContent.let { ed ->
+            KeyBoardUtil.hideKeyBoard(context, ed)
+        }
+        removeInputListener()
         //mController.onDestroy()
         //EventBus.getDefault().unregister(this)
     }

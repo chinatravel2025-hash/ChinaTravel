@@ -1,4 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"  package="com.travel.guide">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.travel.guide">
+    <application
+        android:requestLegacyExternalStorage="true"
+        android:allowBackup="true"
+        android:supportsRtl="true"
+        android:theme="@style/BaseTheme">
 
+        <activity android:name="com.travel.guide.HomeChatActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            android:screenOrientation="portrait"/>
+
+
+    </application>
 </manifest>

@@ -24,7 +24,5 @@
         <activity android:name=".ui.city.HomeTripDetailActivity"
             android:screenOrientation="portrait"/>
 
-        <activity android:name="com.travel.home.ui.HomeChatActivity"
-            android:screenOrientation="portrait"/>
     </application>
 </manifest>
