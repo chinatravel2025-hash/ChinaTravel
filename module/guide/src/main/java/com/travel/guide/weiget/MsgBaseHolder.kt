@@ -12,7 +12,6 @@ import com.example.base.common.SkinResourceManager
 import com.example.base.common.v2t.V2TMessageManager
 import com.example.base.databing.ImageViewBindAdapter
 import com.example.base.databing.clickWithTrigger
-import com.example.base.ext.setVisible
 import com.example.base.msg.i.TUIMessageBean
 import com.example.base.utils.localCustomDataToBean
 import com.example.base.utils.setHidden

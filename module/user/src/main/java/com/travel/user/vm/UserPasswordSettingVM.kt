@@ -11,12 +11,9 @@ import com.alibaba.android.arouter.facade.callback.NavCallback
 import com.alibaba.android.arouter.launcher.ARouter
 import com.china.travel.widget.dialog.StatusDialog
 import com.coder.vincent.smart_toast.SmartToast
-import com.example.base.ext.showToast
-import com.example.base.utils.LogUtils
 import com.example.base.utils.PasswordUtil
 import com.example.base.utils.SmartActivityUtils
 import com.example.router.ARouterPathList
-import com.tencent.qcloud.tuicore.util.ToastUtil
 
 class UserPasswordSettingVM : ViewModel() {
     var mail :String?=null

@@ -29,6 +29,7 @@ class LaunchActivity : BaseStatusBarActivity() {
         binding = mBaseBinding as ActivityLaunchBinding
         setContentView(binding.root)
         binding.lifecycleOwner = this
+        HomeRepository.homeRepository.getAppConfig()
         binding.tvTitle.postDelayed({
             if (User.isLogin){
                 ARouter.getInstance().build(ARouterPathList.APP_MAIN)

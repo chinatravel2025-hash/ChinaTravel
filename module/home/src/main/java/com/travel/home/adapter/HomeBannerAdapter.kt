@@ -8,8 +8,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.launcher.ARouter
 import com.aws.bean.entities.home.BannerItem
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import com.example.base.base.App
 import com.example.base.glide.GlideApp
+import com.example.base.utils.AppConfig
 import com.example.router.ARouterPathList
 import com.travel.home.R
 import com.youth.banner.adapter.BannerAdapter
@@ -23,15 +26,15 @@ class HomeBannerAdapter(mDatas: List<BannerItem?>?) : BannerAdapter<BannerItem?,
     }
 
     override fun onBindView(holder: BannerViewHolder?, data: BannerItem?, position: Int, size: Int) {
-
         holder?.imageView?.let {
             GlideApp.with(App.getContext())
-                .load(data?.picUrl)
+                .load(AppConfig.appBaseImg(data?.picUrl))
                 .dontAnimate()
                 .diskCacheStrategy(DiskCacheStrategy.ALL) // 设置缓存的策略
                 .into(it)
             it.setOnClickListener {
                 ARouter.getInstance().build(ARouterPathList.WEB_HOME)
+                    .withString("url",data?.linkUrl)
                     .navigation()
             }
         }

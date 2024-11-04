@@ -19,7 +19,7 @@
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/iv_bg"
             app:riv_corner_radius="@dimen/dp_8"
-            android:src="@mipmap/banner"
+            urlList="@{vm.pic_url_list}"
             android:scaleType="centerCrop"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>

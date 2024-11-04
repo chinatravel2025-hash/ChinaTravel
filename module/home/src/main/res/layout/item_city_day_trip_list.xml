@@ -24,7 +24,7 @@
             android:id="@+id/iv_cover"
             app:riv_corner_radius="@dimen/dp_8"
             android:scaleType="centerCrop"
-            android:src="@drawable/btn_shape_bg"
+            urlList="@{vm.pic_url_list}"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_105"/>
         <ImageView

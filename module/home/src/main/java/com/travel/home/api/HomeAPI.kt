@@ -9,6 +9,7 @@ import com.aws.bean.entities.home.TravelProductItem
 import com.example.base.base.IMInfo
 import com.example.base.base.UserInfo
 import com.example.http.api.ResponseResult
+import com.google.gson.internal.LinkedTreeMap
 import org.checkerframework.checker.units.qual.A
 import retrofit2.Call
 import retrofit2.http.Body
@@ -18,6 +19,8 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface HomeAPI {
+    @GET("/config")
+    fun getAppConfig(): Call<ResponseResult<LinkedTreeMap<String, String>?>>
 
     @GET("/banner")
     fun getHomeBannerList(@Query("page") page: Int, @Query("size") size: Int ): Call<ResponseResult<BannerDTO>>
