@@ -11,6 +11,7 @@ import com.aws.bean.entities.home.PlaceType
 import com.devs.readmoreoption.ReadMoreOption
 import com.example.base.base.BaseStatusBarActivity
 import com.example.base.utils.ResourceUtils
+import com.example.base.utils.SmartActivityUtils
 
 import com.example.router.ARouterPathList
 import com.travel.home.R
@@ -26,6 +27,7 @@ class HomeShopDetailActivity : BaseStatusBarActivity() {
     private lateinit var mVM: HomeShopDetailViewModel
     override val ivBack: Int
         get() = R.id.iv_back
+
     override fun getLayoutId(): Int {
         return R.layout.home_activity_shop_detail
     }
@@ -41,41 +43,40 @@ class HomeShopDetailActivity : BaseStatusBarActivity() {
         setContentView(binding.root)
         binding.lifecycleOwner = this
         initAboutContent()
-        binding.banner.setAdapter(NormalBannerAdapter(listOf("", "")))
-        mVM.getPlaceList(PlaceType.SHOP,placeId?:0)
-
-
+        initObserve()
+        mVM.getPlaceList(PlaceType.SHOP, placeId ?: 0)
+        binding.btnNext.setOnClickListener {
+            ARouter.getInstance().build(ARouterPathList.HOME_CHAT)
+                .navigation(SmartActivityUtils.getTopActivity())
+        }
 
     }
 
+    private fun initObserve() {
+        mVM.mDataPlace.observe(this) { city ->
+            binding.banner.setAdapter(NormalBannerAdapter(city.pic_url_list))
+        }
+    }
 
 
+    private fun initAboutContent() {
 
-    private fun initAboutContent(){
-
-        val sss= "Shanghai is the economic, financial, commercial, and cultural " +
+        val sss = "Shanghai is the economic, financial, commercial, and cultural " +
             "center of China. It serves as a major global financial hub," +
             "center of China. It serves as a major global financial hub," +
             "center of China. It serves as a major global financial hub," +
             " boasting the world’s busiest container port. The city i"
         val readMoreOption = ReadMoreOption.Builder(this)
-            .textLength(3,ReadMoreOption.TYPE_LINE)
+            .textLength(3, ReadMoreOption.TYPE_LINE)
             .moreLabel("Read more")
             .lessLabel("  Read less")
             .moreLabelColor(ResourceUtils.getColor(com.example.peanutmusic.base.R.color.txt_12C286))
             .lessLabelColor(ResourceUtils.getColor(com.example.peanutmusic.base.R.color.txt_12C286))
             .expandAnimation(true)
             .build()
-        readMoreOption.addReadMoreTo(binding.tvAboutContent,sss)
+        readMoreOption.addReadMoreTo(binding.tvAboutContent, sss)
 
     }
-
-
-
-
-
-
-
 
 
 }

@@ -13,6 +13,7 @@ import com.aws.bean.entities.home.PlaceType
 import com.devs.readmoreoption.ReadMoreOption
 import com.example.base.base.BaseStatusBarActivity
 import com.example.base.utils.ResourceUtils
+import com.example.base.utils.SmartActivityUtils
 
 import com.example.router.ARouterPathList
 import com.travel.home.R
@@ -45,11 +46,18 @@ class HomeSightseeingDetailActivity : BaseStatusBarActivity() {
         binding.lifecycleOwner = this
         binding.ac=this
         initAboutContent()
-        binding.banner.setAdapter(NormalBannerAdapter(listOf("", "")))
+        initObserve()
         mVM.getPlaceList(PlaceType.SIGHT,placeId?:0)
-
+        binding.btnNext.setOnClickListener {
+            ARouter.getInstance().build(ARouterPathList.HOME_CHAT)
+                .navigation(SmartActivityUtils.getTopActivity())
+        }
     }
-
+    private fun initObserve(){
+        mVM.mDataPlace.observe(this){ city->
+            binding.banner.setAdapter(NormalBannerAdapter(city.pic_url_list))
+        }
+    }
 
 
 

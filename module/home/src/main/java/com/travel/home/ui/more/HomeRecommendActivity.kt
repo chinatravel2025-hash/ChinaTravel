@@ -108,19 +108,19 @@ class HomeRecommendActivity : BaseStatusBarActivity(), (CityItem) -> Unit {
             override fun createFragment(position: Int): Fragment {
                 return when (position) {
                     1 -> {
-                        HomeRecommendTripFragment.newInstance("Shanghai")
+                        HomeRecommendTripFragment.newInstance(city?.id?:0L)
                     }
                     2 -> {
-                        HomeRecommendPlaceFragment.newInstance("Shanghai", "sight")
+                        HomeRecommendPlaceFragment.newInstance(city?.id?:0L, "sight")
                     }
                     3 -> {
-                        HomeRecommendPlaceFragment.newInstance("Shanghai", "shop")
+                        HomeRecommendPlaceFragment.newInstance(city?.id?:0L, "shop")
                     }
                     4 -> {
-                        HomeRecommendPlaceFragment.newInstance("Shanghai", "restaurant")
+                        HomeRecommendPlaceFragment.newInstance(city?.id?:0L, "restaurant")
                     }
                     else -> {
-                        HomeRecommendPlaceFragment.newInstance("Shanghai", "")
+                        HomeRecommendPlaceFragment.newInstance(city?.id?:0L, "")
                     }
                 }
 

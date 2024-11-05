@@ -13,6 +13,7 @@ import com.aws.bean.entities.home.TravelProductDTO
 import com.aws.bean.entities.home.TravelProductItem
 import com.aws.bean.util.ObjectTypeUtil
 import com.example.base.utils.LogUtils
+import com.example.base.utils.SmartActivityUtils
 import com.example.http.RequestManager
 import com.example.http.api.ResponseResult
 import com.example.router.ARouterPathList
@@ -102,6 +103,11 @@ class HomeCityDetailViewModel : ViewModel() {
             .withString("type",ObjectTypeUtil.getObjectType(type))
             .withSerializable("city",mCityDetail.value)
             .navigation()
+    }
+
+    fun myTrip(){
+        ARouter.getInstance().build(ARouterPathList.HOME_CHAT)
+            .navigation(SmartActivityUtils.getTopActivity())
     }
 
 

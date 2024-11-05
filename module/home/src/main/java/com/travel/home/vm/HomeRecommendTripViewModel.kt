@@ -29,7 +29,7 @@ class HomeRecommendTripViewModel : ViewModel() {
     private val homeApi = RequestManager.build(HomeImpApi().host()).create(HomeAPI::class.java)
 
     fun getHomeTravelProducts(){
-        homeApi.getHomeTravelProducts(1,10).enqueue(object :
+        homeApi.getHomeTravelProducts(mPlacePageNum,10).enqueue(object :
             Callback<ResponseResult<TravelProductDTO?>> {
             override fun onResponse(
                 call: Call<ResponseResult<TravelProductDTO?>>,

@@ -24,12 +24,14 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
 
-class HomeRecommendPlaceFragment : Fragment(), OnLoadMoreListener, OnRefreshListener {
+class HomeRecommendPlaceFragment : Fragment(), OnLoadMoreListener {
 
 
     private lateinit var binding: FragmentHomeRecommendBinding
     private var mAdapter: RecommendListAdapter? = null
     private lateinit var mVM: HomeRecommendPlaceViewModel
+    var cityId =0L
+    var type =""
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,14 +45,28 @@ class HomeRecommendPlaceFragment : Fragment(), OnLoadMoreListener, OnRefreshList
 
         EventBus.getDefault().register(this)
         arguments?.let {
-            val city = it.getString(FILTER_CITY) ?: ""
-            val type = it.getString(FILTER_TYPE) ?: ""
+            cityId = it.getLong(FILTER_CITY)
+             type = it.getString(FILTER_TYPE) ?: ""
         }
         initRv()
-       // mVM.getPlaceList()
+        initObserve()
+        mVM.getPlaceList(type)
         return binding.root
     }
-
+    private fun initObserve(){
+        mVM.mDataPlace.observe(viewLifecycleOwner) {
+            if (mVM.mPlacePageNum == 1) {
+                mAdapter?.setList(it)
+            } else {
+                mAdapter?.addData(it)
+            }
+            if (mVM.currentSize < mVM.maxSize) {
+                binding.smartRefreshLayout.finishLoadMore()
+            } else {
+                binding.smartRefreshLayout.finishLoadMoreWithNoMoreData()
+            }
+        }
+    }
     private fun initRv() {
         val itemDecoration = RecyclerViewDivider.linear()
             .dividerSize(22.dp2px())
@@ -60,7 +76,6 @@ class HomeRecommendPlaceFragment : Fragment(), OnLoadMoreListener, OnRefreshList
             smartRefreshLayout.setEnableRefresh(true)
             smartRefreshLayout.setEnableLoadMore(true)
             smartRefreshLayout.setOnLoadMoreListener(this@HomeRecommendPlaceFragment)
-            smartRefreshLayout.setOnRefreshListener(this@HomeRecommendPlaceFragment)
             mAdapter = RecommendListAdapter()
             val manager = LinearLayoutManager(context)
             manager.orientation = LinearLayoutManager.VERTICAL
@@ -74,10 +89,10 @@ class HomeRecommendPlaceFragment : Fragment(), OnLoadMoreListener, OnRefreshList
     companion object {
         private const val FILTER_CITY = "filter_city"
         private const val FILTER_TYPE = "filter_type"
-        fun newInstance(cityId: String?,type: String?): HomeRecommendPlaceFragment {
+        fun newInstance(cityId: Long,type: String?): HomeRecommendPlaceFragment {
             val fragment = HomeRecommendPlaceFragment()
             fragment.arguments = Bundle().apply {
-                putString(FILTER_CITY, cityId)
+                putLong(FILTER_CITY, cityId)
                 putString(FILTER_TYPE, type)
             }
             return fragment
@@ -87,8 +102,7 @@ class HomeRecommendPlaceFragment : Fragment(), OnLoadMoreListener, OnRefreshList
     override fun onLoadMore(p0: RefreshLayout) {
     }
 
-    override fun onRefresh(p0: RefreshLayout) {
-    }
+
 
     //切换了城市通知
     @Subscribe(threadMode = ThreadMode.MAIN)

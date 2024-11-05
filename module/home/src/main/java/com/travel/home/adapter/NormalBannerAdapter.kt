@@ -10,6 +10,7 @@ import com.aws.bean.entities.home.BannerItem
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.base.base.App
 import com.example.base.glide.GlideApp
+import com.example.base.utils.AppConfig
 import com.example.router.ARouterPathList
 import com.travel.home.R
 import com.youth.banner.adapter.BannerAdapter
@@ -23,14 +24,12 @@ class NormalBannerAdapter(mDatas: List<String?>?) : BannerAdapter<String?, Norma
     }
 
     override fun onBindView(holder: BannerViewHolder?, data: String?, position: Int, size: Int) {
-
         holder?.imageView?.let {
-            it.setImageResource(R.mipmap.banner)
-        /*    GlideApp.with(App.getContext())
-                .load(data)
+            GlideApp.with(App.getContext())
+                .load(AppConfig.appBaseImg(data))
                 .dontAnimate()
                 .diskCacheStrategy(DiskCacheStrategy.ALL) // 设置缓存的策略
-                .into(it)*/
+                .into(it)
 
         }
     }

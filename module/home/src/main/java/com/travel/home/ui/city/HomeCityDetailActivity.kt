@@ -74,7 +74,7 @@ class  HomeCityDetailActivity : BaseStatusBarActivity(), TravelProductClickListe
         initRv()
         initAboutContent()
         initScrollView()
-        binding.banner.setAdapter(NormalBannerAdapter(listOf("", "")))
+
         mVM.getHomeCityDetail(cityId ?: 0)
         mVM.getHomeTravelProducts()
         mVM.getPlaceList(ObjectType.SIGHT, cityId ?: 0)
@@ -88,6 +88,7 @@ class  HomeCityDetailActivity : BaseStatusBarActivity(), TravelProductClickListe
             val data =BlockUtils.getBlocksList(city?.about?:"")
             //LogUtils.d("msmakdsakj","dat= ${GsonUtil.toJson(data)}")
            mPlaceBlockAdapter?.setList(data)
+            binding.banner.setAdapter(NormalBannerAdapter(city.pic_url_list))
         }
         mVM.mTravelProducts.observe(this){
             mCityDayTripAdapter?.setList(it)

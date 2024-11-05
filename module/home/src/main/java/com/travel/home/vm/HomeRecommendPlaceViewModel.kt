@@ -26,8 +26,8 @@ class HomeRecommendPlaceViewModel : ViewModel() {
 
     private val homeApi = RequestManager.build(HomeImpApi().host()).create(HomeAPI::class.java)
 
-    fun getPlaceList(objectType: ObjectType){
-        homeApi.getHomePlaceType(ObjectTypeUtil.getObjectType(objectType),mPlacePageNum,10,defaultCityId).enqueue(object :
+    fun getPlaceList(objectType: String){
+        homeApi.getHomePlaceType(objectType,mPlacePageNum,10,defaultCityId).enqueue(object :
             Callback<ResponseResult<PlaceDTO?>> {
             override fun onResponse(
                 call: Call<ResponseResult<PlaceDTO?>>,

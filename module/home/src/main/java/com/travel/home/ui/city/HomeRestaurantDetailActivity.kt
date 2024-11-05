@@ -17,7 +17,9 @@ import com.aws.bean.entities.home.PlaceItem
 import com.aws.bean.entities.home.PlaceType
 import com.devs.readmoreoption.ReadMoreOption
 import com.example.base.base.BaseStatusBarActivity
+import com.example.base.utils.BlockUtils
 import com.example.base.utils.ResourceUtils
+import com.example.base.utils.SmartActivityUtils
 
 import com.example.router.ARouterPathList
 import com.travel.home.R
@@ -52,7 +54,17 @@ class HomeRestaurantDetailActivity : BaseStatusBarActivity() {
         mVM.getPlaceList(PlaceType.RESTAURANT,placeId?:0)
         binding.space.onCreate(savedInstanceState)
         initMap()
+        initObserve()
+        binding.btnNext.setOnClickListener {
+            ARouter.getInstance().build(ARouterPathList.HOME_CHAT)
+                .navigation(SmartActivityUtils.getTopActivity())
+        }
 
+    }
+    private fun initObserve(){
+        mVM.mDataPlace.observe(this){ city->
+            binding.banner.setAdapter(NormalBannerAdapter(city.pic_url_list))
+        }
     }
     private fun initMap() {
         val latLng = LatLng(31.238068, 121.501654)
