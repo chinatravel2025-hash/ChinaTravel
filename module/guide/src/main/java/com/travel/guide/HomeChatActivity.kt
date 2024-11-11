@@ -19,7 +19,7 @@ class HomeChatActivity : BaseStatusBarActivity() {
 
     private lateinit var binding: HomeActivityChatBinding
     override val ivBack: Int
-        get() = 0
+        get() = R.id.iv_back
     override fun getLayoutId(): Int {
         return R.layout.home_activity_chat
     }

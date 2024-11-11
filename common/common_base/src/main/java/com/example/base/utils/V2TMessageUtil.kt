@@ -16,7 +16,6 @@ import com.example.base.msg.V2TDiyDataVO
 import com.example.base.msg.V2TDiyPhoneVO
 import com.example.base.msg.V2TImageBean
 import com.example.base.msg.V2TMsgCustom
-import com.example.base.msg.V2TMsgResultCustom
 import com.example.base.msg.V2TSoundBean
 import com.example.base.msg.V2TTextBean
 import com.example.base.msg.V2TVideoBean
@@ -101,6 +100,11 @@ fun V2TIMMessage.bodyToIMChatType(): Int {
 
         V2TIMMessage.V2TIM_ELEM_TYPE_CUSTOM -> {
             when (customDataToBean()?.type ?: 0) {
+
+                ChatCMDMsgType.TYPE_MSG_SYSTEM_TRIPS -> {
+                    if (isSelf) TYPE_MSG_SELF_CARD else TYPE_MSG_TA_CARD
+                }
+
                 TYPE_MSG_SYSTEM_TIME -> {
                     TYPE_MSG_TIME
                 }
@@ -162,17 +166,6 @@ fun V2TIMMessage.cloudCustomDataToBean(): V2TMsgExtCloud? {
     }
     return try {
         GsonUtil.fromJson(cloudCustomData ?: "{}", V2TMsgExtCloud::class.java)
-    } catch (e: Exception) {
-        null
-    }
-}
-
-fun V2TIMMessage.customDataToMap(): V2TMsgResultCustom? {
-    return try {
-        GsonUtil.fromJson(
-            String(customElem?.data ?: byteArrayOf()),
-            V2TMsgResultCustom::class.java
-        )
     } catch (e: Exception) {
         null
     }
@@ -396,7 +389,7 @@ fun V2TIMMessage.toTitle(isSend: Boolean, isGroup: Boolean, isTopic: Boolean): S
                         return "[个人名片]"
                     }
 
-                    ChatCMDMsgType.TYPE_MSG_PHONE -> {
+                    /*ChatCMDMsgType.TYPE_MSG_PHONE -> {
                         if (bean.data != null) {
                             val data = bean.data
                             when (data?.phoneType) {
@@ -407,7 +400,7 @@ fun V2TIMMessage.toTitle(isSend: Boolean, isGroup: Boolean, isTopic: Boolean): S
                         } else {
                             "[未知消息类型]"
                         }
-                    }
+                    }*/
 
                     else -> {
                         return customMsgToTxt(isSend, isGroup, isTopic)
@@ -456,7 +449,6 @@ fun V2TIMMessage.customMsgToTxt(
     }
     val customBean = customDataToBean()
     if (elemType == V2TIMMessage.V2TIM_ELEM_TYPE_CUSTOM) {
-        val groupType = if (isTopic) "话题" else "群"
         when (customBean?.type) {
             ChatCMDMsgType.TYPE_MSG_OZ_QA, ChatCMDMsgType.TYPE_MSG_OZ_TEXT -> {
                 return "[提问]"
@@ -469,171 +461,15 @@ fun V2TIMMessage.customMsgToTxt(
             ChatCMDMsgType.TYPE_MSG_SEND_FAIL -> {
                 return "消息已发出，但被对方拒收了。"
             }
-
+            ChatCMDMsgType.TYPE_MSG_SYSTEM_TRIPS -> {
+                return "[行程消息]"
+            }
             ChatCMDMsgType.TYPE_MSG_SYSTEM_TIME -> {
                 customBean.data?.let { data ->
                     return WxTimeUtil.getNewChatTime(data.time ?: 0L)
                 }
             }
 
-            ChatCMDMsgType.TYPE_MSG_SYSTEM_ADD -> {
-
-                customBean.data?.let { data ->
-                    val source = data?.source ?: 0
-                    data.userList?.let { userList ->
-                        when (isGroup) {
-                            false -> {
-                                userList?.forEach {
-                                    //return if (isSend) "你们已经是好友了，打个招呼吧。" else "对方已同意了你的好友申请，现在可以开始聊天了。"
-                                    return "你们已经是好友了，打个招呼吧。"
-                                }
-                            }
-
-                            else -> {
-                                when (source) {
-                                    V2TDiyAddVO.qc -> {
-                                        return "${if (isSend) "你" else data.sender?.nickName ?: "XX"}通过扫码加入${groupType}${if (isTopic) "" else "聊"}。"
-                                    }
-
-                                    else -> {
-                                        var isHasSelf = false
-                                        var endContent = ""
-                                        var isFlag = false
-
-                                        userList?.forEach {
-                                            if (it.ridStr == User.uid) {
-                                                isHasSelf = true
-                                            } else {
-                                                endContent += if (isFlag) "、\"${it.nickName ?: ""}\"" else "\"${it.nickName ?: ""}\""
-                                                isFlag = true
-                                            }
-                                        }
-                                        var content =
-                                            if (isSend) "你" else "\"${data?.sender?.nickName ?: ""}\""
-                                        if (userList.isEmpty()) {
-                                            content += "加入${groupType}${if (isTopic) "" else "聊"}。"
-                                        } else {
-                                            if (isSend) {
-                                                content += "${if (endContent.isNotEmpty()) "邀请${endContent}" else "已"}加入${groupType}${if (isTopic) "" else "聊"}。"
-
-                                            } else {
-                                                content += if (isHasSelf) {//包含自己
-                                                    if (source == V2TDiyAddVO.create) {
-                                                        "邀请你加入${groupType}${if (isTopic) "" else "聊"}${
-                                                            when {
-                                                                userList.size > 0 -> "，${groupType}${if (isTopic) "" else "聊"}参与人还有：$endContent"
-                                                                else -> ""
-                                                            }
-                                                        }"
-                                                    } else {
-                                                        "邀请你${if (endContent.isNotEmpty()) "和" else ""}${endContent}加入${groupType}${if (isTopic) "" else "聊"}"
-                                                    }
-                                                } else if (userList?.isNotEmpty() == true && data?.sender?.ridStr == userList.get(
-                                                        0
-                                                    ).ridStr
-                                                ) {
-                                                    "加入${groupType}${if (isTopic) "" else "聊"}"
-                                                } else {
-                                                    "邀请${endContent}加入${groupType}${if (isTopic) "" else "聊"}"
-                                                }
-                                            }
-                                        }
-                                        return content
-                                    }
-                                }
-
-                            }
-                        }
-                    }
-                }
-            }
-
-
-            ChatCMDMsgType.TYPE_MSG_APPLY -> {
-                customBean.data?.let { data ->
-                    data.userList?.let { userList ->
-                        return if (isSend) "你申请添加Ta为好友。" else "${data.sender?.nickName?:"Ta"}向你发起了好友申请。"
-                    }
-                }
-            }
-
-            ChatCMDMsgType.TYPE_MSG_PHONE -> {
-                customBean.data?.let { data ->
-                    return doPhoneTypeText(data)
-                }
-            }
-
-            ChatCMDMsgType.TYPE_MSG_GROUP_CHOSE -> {
-                return "${groupType}已解散。"
-            }
-
-            else -> {
-                customBean?.data?.let { data ->
-                    when (customBean.type) {
-                        ChatCMDMsgType.TYPE_MSG_GROUP_EXIT_OUT -> {
-                            var names = ""
-                            data.userList?.forEach { user ->
-                                val isSelf = user.ridStr == User.uid
-                                if (isSelf) {
-                                    return "你已经被移出${groupType}${if (isTopic) "" else "聊"}。"
-                                }
-                                names += if (names.isNotEmpty()) ",${user.nickName}" else user.nickName
-                            }
-
-                            return "你已将${names}移出${groupType}${if (isTopic) "" else "聊"}。"
-
-                        }
-
-                        ChatCMDMsgType.TYPE_MSG_FALLBACK -> {
-                            var nickname =
-                                if (data.sender?.ridStr == User.uid) "你" else data.sender?.nickName
-                                    ?: ""
-                            return "${nickname}撤回了一条消息。"
-                        }
-
-                        else -> {
-
-                            val content = data.content ?: ""
-                            when (customBean.type) {
-                                ChatCMDMsgType.TYPE_MSG_SYSTEM_NOTICE -> {
-                                    return "${if (isSend) "你" else data.sender?.nickName ?: ""}将公告更改为：${content}。"
-                                }
-
-                                ChatCMDMsgType.TYPE_MSG_GROUP_NAME -> {
-                                    return "${if (isSend) "你" else data.sender?.nickName ?: ""}将${groupType}名更改为：${content}。"
-                                }
-
-                                ChatCMDMsgType.TYPE_MSG_GROUP_EXIT_ACTIVE -> {
-                                    return "${if (isSend) "你" else data.sender?.nickName ?: ""}已经退出${groupType}${if (isTopic) "" else "聊"}。"
-                                }
-
-                                ChatCMDMsgType.TYPE_MSG_GROUP_SET_ADMIN -> {
-                                    return "${if (isSend) "你" else data.sender?.nickName}已经被设置为管理员。"
-                                }
-
-                                ChatCMDMsgType.TYPE_MSG_GROUP_OUT_ADMIN -> {
-                                    return "${if (isSend) "你" else data.sender?.nickName}已经被取消管理员身份。"
-                                }
-
-                                ChatCMDMsgType.TYPE_MSG_GROUP_OWNER -> {
-                                    return if(data.userList?.isNotEmpty() == true){
-                                        "${if (data.userList?.get(0)?.ridStr == User.uid) "你" else data.userList?.get(0)?.nickName}已成为新的群主。"
-                                    }else{
-                                        "群主已经变更。"
-                                    }
-                                }
-
-                                ChatCMDMsgType.TYPE_MSG_TOPIC_NEW -> {
-                                    return "#${content}"
-                                }
-
-                                else -> {}
-                            }
-                        }
-                    }
-                }
-
-            }
         }
     }
     return "未知消息类型"
@@ -724,9 +560,11 @@ fun V2TIMMessage.getPushDesc(isSend: Boolean, isGroup: Boolean, isTopic: Boolean
 
 fun V2TIMMessage.getConversationDesc(isTopic: Boolean): String {
     var isSend = isSelf
+/*
     customDataToBean()?.let { data ->
         isSend = data.data?.sender?.ridStr == User.uid
     }
+*/
 
     return getPushDesc(
         isSend,

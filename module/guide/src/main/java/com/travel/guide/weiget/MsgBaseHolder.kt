@@ -145,9 +145,7 @@ open class MsgBaseHolder(val binding: ViewDataBinding) : RecyclerView.ViewHolder
             true
         }
         rootView.clickWithTrigger {
-            if (isDoubleCheckMode()) {
-                contentView?.performClick()
-            }
+            contentView?.performClick()
 
         }
 

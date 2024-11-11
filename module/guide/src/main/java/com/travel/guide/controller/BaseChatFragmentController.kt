@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_DRAGGING
 import androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE
+import com.alibaba.android.arouter.launcher.ARouter
 import com.travel.guide.weiget.IMChatAdapter
 import com.example.base.base.App
 import com.example.base.common.v2t.V2TMessageManager
@@ -34,6 +35,7 @@ import com.example.base.utils.*
 import com.example.base.weiget.LongTimerAndMoveButton
 import com.example.base.weiget.NoAnimationRecyclerView
 import com.example.base.weiget.OursLinearLayoutManager
+import com.example.router.ARouterPathList
 import com.permissionx.guolindev.PermissionX
 import com.tencent.imsdk.v2.V2TIMAdvancedMsgListener
 import com.tencent.imsdk.v2.V2TIMManager
@@ -438,7 +440,16 @@ open class BaseChatFragmentController constructor(
 
                     }
 
-                    V2TIMMessage.V2TIM_ELEM_TYPE_CUSTOM -> {}
+                    V2TIMMessage.V2TIM_ELEM_TYPE_CUSTOM -> {
+                        emMessage.customDataToBean()?.let {
+                            if(it.tripsId?.isNotEmpty() == true){
+                                ARouter.getInstance().build(ARouterPathList.HOME_TRIP_DETAIL)
+                                    //.withOptionsCompat(option)
+                                    .withLong("tripId",it.tripsId?.toLong()?:0L)
+                                    .navigation(SmartActivityUtils.getTopActivity())
+                            }
+                        }
+                    }
                 }
             }
         }
