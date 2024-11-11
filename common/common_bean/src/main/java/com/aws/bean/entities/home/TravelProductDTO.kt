@@ -18,7 +18,11 @@ data class TravelProductItem(
     var tags: List<TagDTO>? = listOf(),
     var title: String? = "",
     var trip_rate: Double? = null
-): Serializable
+): Serializable{
+    fun hotLevel():String{
+        return "$trip_rate"
+    }
+}
 
 data class TagDTO(
     var id: Long? = null,
