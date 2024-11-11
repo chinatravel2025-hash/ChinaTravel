@@ -27,6 +27,7 @@ class NormalBannerAdapter(mDatas: List<String?>?) : BannerAdapter<String?, Norma
         holder?.imageView?.let {
             GlideApp.with(App.getContext())
                 .load(AppConfig.appBaseImg(data))
+               // .load(R.mipmap.banner)
                 .dontAnimate()
                 .diskCacheStrategy(DiskCacheStrategy.ALL) // 设置缓存的策略
                 .into(it)

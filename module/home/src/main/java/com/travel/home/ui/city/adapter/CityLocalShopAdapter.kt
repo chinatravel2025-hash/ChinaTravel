@@ -33,9 +33,9 @@ class CityLocalShopAdapter(
             }
 
             root.setOnClickListener {
-                val option=  ActivityOptionsCompat.makeSceneTransitionAnimation(SmartActivityUtils.getTopActivity(),ivCover,"share_shop")
+               // val option=  ActivityOptionsCompat.makeSceneTransitionAnimation(SmartActivityUtils.getTopActivity(),ivCover,"share_shop")
                 ARouter.getInstance().build(ARouterPathList.HOME_SHOP_DETAIL)
-                    .withOptionsCompat(option)
+                   // .withOptionsCompat(option)
                     .withLong("placeId",item.id?:0L)
                     .navigation(SmartActivityUtils.getTopActivity())
             }

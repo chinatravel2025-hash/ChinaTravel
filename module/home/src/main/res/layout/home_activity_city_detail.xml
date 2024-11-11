@@ -393,7 +393,19 @@
 
         </androidx.core.widget.NestedScrollView>
 
-
+        <com.china.travel.widget.widget.RatingBar
+            android:visibility="gone"
+            app:starCount="5"
+            app:starStep="2.5"
+            app:starImageSize="@dimen/dp_12"
+            app:starPadding="@dimen/dp_5"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="wrap_content"
+            app:starEmpty="@mipmap/ic_rating_off"
+            app:starFill="@mipmap/ic_rating_on"
+            app:starHalf="@mipmap/ic_rating_on"
+            android:layout_height="wrap_content" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

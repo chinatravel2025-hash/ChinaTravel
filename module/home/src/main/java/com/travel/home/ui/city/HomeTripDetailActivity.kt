@@ -2,6 +2,8 @@ package com.travel.home.ui.city
 
 import android.os.Bundle
 import android.util.Log
+import android.view.MotionEvent
+import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
@@ -69,6 +71,7 @@ class HomeTripDetailActivity : BaseStatusBarActivity(), LocationSource, AMapLoca
             ARouter.getInstance().build(ARouterPathList.HOME_CHAT)
                 .navigation(SmartActivityUtils.getTopActivity())
         }
+  
     }
 
     private fun initObserve() {

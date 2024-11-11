@@ -32,9 +32,9 @@ class CityRestaurantAdapter(
                 listener.addThingLike(holder.layoutPosition,item)
             }
             root.setOnClickListener {
-                val option=  ActivityOptionsCompat.makeSceneTransitionAnimation(SmartActivityUtils.getTopActivity(),ivCover,"share_restaurant")
+              //  val option=  ActivityOptionsCompat.makeSceneTransitionAnimation(SmartActivityUtils.getTopActivity(),ivCover,"share_restaurant")
                 ARouter.getInstance().build(ARouterPathList.HOME_RESTAURANT_DETAIL)
-                    .withOptionsCompat(option)
+                 //   .withOptionsCompat(option)
                     .withLong("placeId",item.id?:0L)
                     .navigation(SmartActivityUtils.getTopActivity())
             }

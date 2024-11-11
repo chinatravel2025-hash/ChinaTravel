@@ -35,9 +35,9 @@ class    CityDayTripAdapter(
             }
 
             root.setOnClickListener {
-                val option=  ActivityOptionsCompat.makeSceneTransitionAnimation(SmartActivityUtils.getTopActivity(),ivCover,"share_trip")
+            //    val option=  ActivityOptionsCompat.makeSceneTransitionAnimation(SmartActivityUtils.getTopActivity(),ivCover,"share_trip")
                 ARouter.getInstance().build(ARouterPathList.HOME_TRIP_DETAIL)
-                    .withOptionsCompat(option)
+                 //   .withOptionsCompat(option)
                     .withLong("tripId",item.id?:0L)
                     .navigation(SmartActivityUtils.getTopActivity())
             }

@@ -27,9 +27,9 @@ class CityListAdapter(
         holder.dataBinding?.apply {
             vm=item
             root.setOnClickListener {
-       val option=  ActivityOptionsCompat.makeSceneTransitionAnimation(SmartActivityUtils.getTopActivity(),ivBg,"share_city")
+     //  val option=  ActivityOptionsCompat.makeSceneTransitionAnimation(SmartActivityUtils.getTopActivity(),ivBg,"share_city")
                 ARouter.getInstance().build(ARouterPathList.HOME_CITY_DETAIL)
-                    .withOptionsCompat(option)
+               //     .withOptionsCompat(option)
                     .withLong("cityId",item.id?:0L)
                     .navigation(SmartActivityUtils.getTopActivity())
             }

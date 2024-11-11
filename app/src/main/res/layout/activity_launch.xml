@@ -13,16 +13,12 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         >
-        <TextView
-            android:id="@+id/tv_title"
-            android:text=" Welcome China Travel"
-            android:textSize="@dimen/sp_30"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+       <ImageView
+           android:id="@+id/iv_cover"
+           android:src="@mipmap/splash_bg"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"/>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

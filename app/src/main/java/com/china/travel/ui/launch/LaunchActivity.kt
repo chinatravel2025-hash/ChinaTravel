@@ -30,7 +30,7 @@ class LaunchActivity : BaseStatusBarActivity() {
         setContentView(binding.root)
         binding.lifecycleOwner = this
         HomeRepository.homeRepository.getAppConfig()
-        binding.tvTitle.postDelayed({
+        binding.ivCover.postDelayed({
             if (User.isLogin){
                 ARouter.getInstance().build(ARouterPathList.APP_MAIN)
                     .navigation(this, object : NavCallback() {

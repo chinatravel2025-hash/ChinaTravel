@@ -81,7 +81,7 @@ class  HomeCityDetailActivity : BaseStatusBarActivity(), TravelProductClickListe
         mVM.getPlaceList(ObjectType.SHOP, cityId ?: 0)
         mVM.getPlaceList(ObjectType.RESTAURANT, cityId ?: 0)
         initObserve()
-
+    //    binding.banner.setAdapter(NormalBannerAdapter(listOf("")))
     }
     private fun initObserve(){
         mVM.mCityDetail.observe(this){ city->
