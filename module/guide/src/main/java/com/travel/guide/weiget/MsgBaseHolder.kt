@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.databinding.ViewDataBinding
 import androidx.databinding.adapters.TextViewBindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.base.base.User
 import com.example.base.common.SkinResourceManager
 import com.example.base.common.v2t.V2TMessageManager
 import com.example.base.databing.ImageViewBindAdapter
@@ -255,10 +256,12 @@ open class MsgBaseHolder(val binding: ViewDataBinding) : RecyclerView.ViewHolder
             val isSend = message.isSelf
             tvName?.visibility =
                 if (bean.isGroup && !isSend) View.VISIBLE else View.GONE
-            ImageViewBindAdapter.setImageDrawable(
+
+            ivAvatar?.setImageResource(if(!isSend)R.mipmap.ic_ct else R.mipmap.ic_me)
+            /*ImageViewBindAdapter.setImageDrawable(
                 ivAvatar, message.faceUrl ?: "",
                 R.mipmap.ic_default_head_icon, isCircle = true
-            )
+            )*/
 
             var showName = ""
             if (!TextUtils.isEmpty(message.nameCard)) {

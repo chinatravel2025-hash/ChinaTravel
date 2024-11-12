@@ -6,6 +6,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
 import android.text.Editable
 import android.text.TextWatcher
@@ -23,7 +24,6 @@ import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_DRAGGING
 import androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE
 import com.alibaba.android.arouter.launcher.ARouter
-import com.travel.guide.weiget.IMChatAdapter
 import com.example.base.base.App
 import com.example.base.common.v2t.V2TMessageManager
 import com.example.base.common.v2t.V2TMessageManager.doubleCheckerMap
@@ -45,10 +45,12 @@ import com.travel.guide.common.V2TMsgHomeCacheManager
 import com.travel.guide.fragment.SingleChatFragment
 import com.travel.guide.viewmodel.ChatViewModel
 import com.travel.guide.viewmodel.SingleChatViewModel
+import com.travel.guide.weiget.IMChatAdapter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.lang.ref.WeakReference
+
 
 /**
  * 单聊界面Controller
@@ -295,33 +297,10 @@ open class BaseChatFragmentController constructor(
                         )
                     }
                     OursDialogHelper.hidePermission()
-                    /*if (allGranted) {
-                        if (type == 0) {
-                            QuickPhotoResult.quickPhoto(this@run)
-                        } else {
-                            Gallery.apply {
-                                choose(MimeType.ofAll(), true)
-                                countable(false)//勾选时显示数字
-                                setGallery(GalleryType.CAPTURE)
-                                captureStrategy(
-                                    CaptureStrategy(
-                                        true,
-                                        "com.aws.ours.fileprovider",
-                                        "ours_images"
-                                    )
-                                )
-                                thumbnailScale(0.85f)
-                                //   .addFilter(GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))
-                                maxSelectable(9)
-                                spanCount(3)
-                                originalEnable(true)
-                                showPreview(false)
-                                maxOriginalSize(80)
-                                forResult(this@run, SingleChatFragment.CAMERA_REQUEST_CODE)
-                            }
-                        }
+                    if (allGranted) {
+                        //upload(arrayListOf(it.path?:"") )
 
-                    }*/
+                    }
                 }
 
             }

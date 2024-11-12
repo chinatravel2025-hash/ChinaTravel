@@ -589,7 +589,7 @@ object V2TMessageManager {
         }
 
         V2TIMManager.getMessageManager().sendMessage(
-            message, if (isGroupTarget) toId else null, if (isGroup) toId else "", 0,
+            message, null, if (isGroup) toId else "", 0,
             false, message.setPushDesc(toId, showName, isGroup, isTopic, oursUrl), v2Callback
         )
 

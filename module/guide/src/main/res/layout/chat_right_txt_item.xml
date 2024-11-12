@@ -83,7 +83,7 @@
                         app:layout_constraintWidth_default="wrap"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/dp_4"
-                        android:background="@drawable/shape_radius_im_right_dp16_f1f1f1"
+                        android:background="@drawable/shape_radius_im_right_dp16_78e792"
                         android:ellipsize="end"
                         android:gravity="center_vertical"
                         android:lineHeight="@dimen/dp_22"
