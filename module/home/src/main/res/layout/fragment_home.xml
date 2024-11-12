@@ -31,6 +31,7 @@
 
 
         <LinearLayout
+            android:visibility="gone"
             android:id="@+id/ll_search"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_50"
@@ -38,7 +39,6 @@
             android:layout_marginTop="@dimen/dp_10"
             android:background="@drawable/shape_r8_fff"
             android:gravity="center_vertical"
-            android:onClick="@{()->vm.navigationSearch()}"
             android:orientation="horizontal"
             app:layout_constraintTop_toBottomOf="@id/view_holder">
 
@@ -62,6 +62,7 @@
             android:id="@+id/nest_scroll_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginTop="@dimen/dp_20"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ll_search">
 
@@ -262,6 +263,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <TextView
+                    android:onClick="@{()->vm.myTrip()}"
                     android:id="@+id/btn_next"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_56"

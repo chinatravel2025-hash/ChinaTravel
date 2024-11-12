@@ -19,6 +19,7 @@ import com.aws.bean.entities.home.TravelProductItem
 import com.aws.bean.util.GsonUtil
 import com.coder.vincent.smart_toast.SmartToast
 import com.example.base.utils.LogUtils
+import com.example.base.utils.SmartActivityUtils
 import com.example.base.utils.TLog
 import com.example.http.RequestManager
 import com.example.http.api.ResponseResult
@@ -136,7 +137,10 @@ class HomeViewModel : ViewModel() {
             }
         })
     }
-
+    fun myTrip(){
+        ARouter.getInstance().build(ARouterPathList.HOME_CHAT)
+            .navigation(SmartActivityUtils.getTopActivity())
+    }
 
     fun addFavorite(objectType: ObjectType, id:Long, callback: (Boolean) -> Unit){
         HomeRepository.homeRepository.addFavorite(objectType, id, callback)
