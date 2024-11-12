@@ -6,6 +6,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.ViewDataBinding
 import com.example.base.msg.i.TUIMessageBean
+import com.example.base.utils.AppConfig
 import com.example.base.utils.customDataToBean
 import com.tencent.imsdk.v2.V2TIMMessage
 import com.travel.guide.databinding.ChatLeftCardItemBinding
@@ -13,6 +14,7 @@ import com.travel.guide.databinding.ChatRightCardItemBinding
 import com.travel.guide.utils.GlideUtils
 import org.libpag.PAGImageView
 import org.libpag.PAGScaleMode
+
 //148dp
 class MsgCardHolder(binding: ViewDataBinding) : MsgBaseHolder(binding) {
     var clickListener: OnChatItemClickListener? = null
@@ -20,7 +22,7 @@ class MsgCardHolder(binding: ViewDataBinding) : MsgBaseHolder(binding) {
         position: Int,
         list: ArrayList<TUIMessageBean>,
         cl: OnChatItemClickListener?,
-        resourceMessages : ArrayList<V2TIMMessage>
+        resourceMessages: ArrayList<V2TIMMessage>
     ) {
         clickListener = cl
         if (position >= 0) {
@@ -29,11 +31,10 @@ class MsgCardHolder(binding: ViewDataBinding) : MsgBaseHolder(binding) {
                     position,
                     list,
                     binding.tvName,
-                    binding.tvContentTopic,
+                    binding.tvTitle,
+                    binding.tvAbout,
                     binding.includeAvatar.ivAvatar,
-                    binding.ivAvatarTopic,
-                    binding.flTopic,
-                    binding.includeAvatar.vipTag
+                    binding.ivBg,
                 )
             }
             if (binding is ChatRightCardItemBinding) {
@@ -41,11 +42,10 @@ class MsgCardHolder(binding: ViewDataBinding) : MsgBaseHolder(binding) {
                     position,
                     list,
                     null,
-                    binding.tvContentTopic,
+                    binding.tvTitle,
+                    binding.tvAbout,
                     binding.includeAvatar.ivAvatar,
-                    binding.ivAvatarTopic,
-                    binding.flTopic,
-                    binding.includeAvatar.vipTag
+                    binding.ivBg,
                 )
             }
         }
@@ -58,34 +58,38 @@ class MsgCardHolder(binding: ViewDataBinding) : MsgBaseHolder(binding) {
         list: ArrayList<TUIMessageBean>,
         tvName: TextView?,
         tvTitle: TextView,
+        tvAbout: TextView,
         ivAvatar: ImageView,
-        ivAvatarLite: ImageView,
-        flTopic: View,
-        vipTag: PAGImageView
+        ivBg: ImageView
     ) {
         list[position].let { vo ->
             if (vo.message?.elemType == V2TIMMessage.V2TIM_ELEM_TYPE_CUSTOM) {
                 vo.message?.let { message ->
                     initView(vo, tvName, ivAvatar)
                     message.customDataToBean()?.run {
-                            data?.let {
-                                tvTitle.text = it.sender?.nickName?:""
-                                val isSend = message.isSelf
-                                GlideUtils.loadNormalPic(itemView.context, it.sender?.avatarUrl?:"", ivAvatarLite)
 
-                                initDoubleCheckerView(
-                                    message.sender,
-                                    position,
-                                    vo.message,
-                                    list,
-                                    ivAvatar,
-                                    flTopic,
-                                    binding.root,
-                                    null,
-                                    null,
-                                    clickListener
-                                )
+                        tvTitle.text = title ?: ""
+                        tvAbout.text = about ?: ""
+                        val isSend = message.isSelf
+                        image?.forEach {
+                            if(it.toString().isEmpty()){
+                                GlideUtils.loadNormalPic(itemView.context, AppConfig.appBaseImg(it.toString()), ivBg)
                             }
+                        }
+
+                        initDoubleCheckerView(
+                            message.sender,
+                            position,
+                            vo.message,
+                            list,
+                            ivAvatar,
+                            ivBg,
+                            binding.root,
+                            null,
+                            null,
+                            clickListener
+                        )
+
 
                     }
                 }

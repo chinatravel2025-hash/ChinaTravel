@@ -17,6 +17,11 @@ class ChatCMDMsgType {
         const val TYPE_MSG_SYSTEM_TIME = -1001
 
         /**
+         * 行程消息
+         */
+        const val TYPE_MSG_SYSTEM_TRIPS = 0
+
+        /**
          * 被添加消息
          */
         const val TYPE_MSG_SYSTEM_ADD = 1000
