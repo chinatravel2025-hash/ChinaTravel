@@ -59,7 +59,15 @@ class UserSupportActivity : BaseStatusBarActivity() {
             }
 
             override fun pickImage() {
-                requestPhotoPermission()
+
+                val config = ImagePickerConfig(
+                    isLightStatusBar = true,
+                    isMultipleMode = true,
+                    isShowNumberIndicator = false,
+                    maxSize = 1,
+                )
+                imagePickerLauncher.launch(config)
+              //  requestPhotoPermission()
             }
 
         })
