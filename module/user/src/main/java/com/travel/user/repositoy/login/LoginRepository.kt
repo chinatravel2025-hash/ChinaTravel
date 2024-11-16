@@ -3,6 +3,7 @@ import com.example.base.base.IMInfo
 import com.example.base.base.User
 import com.example.base.base.UserInfo
 import com.example.base.utils.AppCodeUtils
+import com.example.base.utils.MD5Util
 
 import com.example.http.RequestManager
 import com.example.http.api.ResponseResult
@@ -91,11 +92,14 @@ class LoginRepository {
         confirmPassword: String,
         callback: (Boolean) -> Unit
     ) {
+        val md5 = MD5Util.md5(password)?:""
+        val cmd5 = MD5Util.md5(confirmPassword)?:""
+
         loginAPI.registerByEmail(
             hashMapOf(
                 "mail" to mail,
-                "password" to password,
-                "confirm_password" to confirmPassword,
+                "password" to md5,
+                "confirm_password" to cmd5,
             )
         ).enqueue(object :
             Callback<ResponseResult<UserInfo?>> {
@@ -128,11 +132,13 @@ class LoginRepository {
         confirmPassword: String,
         callback: (Boolean) -> Unit
     ) {
+        val md5 = MD5Util.md5(password)?:""
+        val cmd5 = MD5Util.md5(confirmPassword)?:""
         loginAPI.resetPwdByEmail(
             hashMapOf(
                 "mail" to mail,
-                "password" to password,
-                "confirm_password" to confirmPassword,
+                "password" to md5,
+                "confirm_password" to cmd5,
             )
         ).enqueue(object :
             Callback<ResponseResult<UserInfo?>> {
@@ -159,10 +165,11 @@ class LoginRepository {
      *  {"mail":"852436078@qq.com","password":"qwer1234"}
      */
     fun loginByEmail(mail: String, password: String, callback: (Boolean) -> Unit) {
+        val md5 = MD5Util.md5(password)?:""
         loginAPI.loginByEmail(
             hashMapOf(
                 "mail" to mail,
-                "password" to password,
+                "password" to md5,
             )
         ).enqueue(object :
             Callback<ResponseResult<UserInfo?>> {
