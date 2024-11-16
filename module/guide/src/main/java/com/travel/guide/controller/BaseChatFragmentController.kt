@@ -8,6 +8,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
+import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -24,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_DRAGGING
 import androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE
 import com.alibaba.android.arouter.launcher.ARouter
+import com.china.travel.widget.permission.PermissionInterceptor
 import com.example.base.base.App
 import com.example.base.common.v2t.V2TMessageManager
 import com.example.base.common.v2t.V2TMessageManager.doubleCheckerMap
@@ -36,6 +38,12 @@ import com.example.base.weiget.LongTimerAndMoveButton
 import com.example.base.weiget.NoAnimationRecyclerView
 import com.example.base.weiget.OursLinearLayoutManager
 import com.example.router.ARouterPathList
+import com.hjq.permissions.OnPermissionCallback
+import com.hjq.permissions.Permission
+import com.hjq.permissions.XXPermissions
+import com.nguyenhoanglam.imagepicker.helper.DeviceHelper
+import com.nguyenhoanglam.imagepicker.model.ImagePickerConfig
+import com.nguyenhoanglam.imagepicker.ui.imagepicker.registerImagePicker
 import com.permissionx.guolindev.PermissionX
 import com.tencent.imsdk.v2.V2TIMAdvancedMsgListener
 import com.tencent.imsdk.v2.V2TIMManager
@@ -65,6 +73,8 @@ open class BaseChatFragmentController constructor(
 ) {
 
     protected val TAG = this.javaClass.simpleName
+    protected val CAMERA_REQUEST_CODE = 999
+
 
     protected var mFragmentWeakReference: WeakReference<SingleChatFragment>? = null
     protected var mViewModel: ChatViewModel
@@ -162,7 +172,10 @@ open class BaseChatFragmentController constructor(
                 val findFirstVisibleItemPosition =
                     mLayoutManager.findFirstVisibleItemPosition()
 
-                LogUtils.w(TAG, "findFirstVisibleItemPosition--${findFirstVisibleItemPosition},,mAdapter.msgModules.size-${mAdapter.msgModules.size}")
+                LogUtils.w(
+                    TAG,
+                    "findFirstVisibleItemPosition--${findFirstVisibleItemPosition},,mAdapter.msgModules.size-${mAdapter.msgModules.size}"
+                )
                 if (!isLoadMore) {
                     if (findFirstVisibleItemPosition <= 5) {
                         //if (findFirstVisibleItemPosition >= mAdapter.msgModules.size * maxLoadMore) {
@@ -236,6 +249,14 @@ open class BaseChatFragmentController constructor(
     }
 
 
+    private val imagePickerLauncher =
+        mFragmentWeakReference?.get()?.activity?.registerImagePicker { images ->
+            if (images.isNotEmpty()) {
+                val path = images[0].path
+                upload(arrayListOf(path))
+            }
+        }
+
     open fun onSend(ext: String? = null) {
         if (CheckDoubleClick.isFastDoubleClick()) {
             return
@@ -255,7 +276,7 @@ open class BaseChatFragmentController constructor(
                 onCancelQuoteClick()
             }
         } else {
-            ToastHelper.createToastToFail(App.getContext(), "请输入内容")
+            ToastHelper.createToastToFail(App.getContext(), "Please enter the content!")
         }
     }
 
@@ -265,58 +286,75 @@ open class BaseChatFragmentController constructor(
 
     open fun onSendImg(type: Int) {
         mFragmentWeakReference?.get()?.activity?.run {
-            val has = PermissionX.isGranted(
-                this,
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) Manifest.permission.READ_MEDIA_IMAGES else Manifest.permission.READ_EXTERNAL_STORAGE
-            )
-            if (!has) {
-                OursDialogHelper.showPermission(
-                    this,
-                    "发送图片/视频消息的授权说明",
-                    "需要您授权读取相册，以便于您可以正常从相册选择图片/视频发送。"
-                )
-            }
-            val px =
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) PermissionX.init(this)
-                    .permissions(
-                        Manifest.permission.READ_MEDIA_IMAGES,
-                        Manifest.permission.READ_MEDIA_VIDEO,
-                        Manifest.permission.READ_MEDIA_AUDIO
-                    ) else PermissionX.init(this)
-                    .permissions(
-                        Manifest.permission.READ_EXTERNAL_STORAGE,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE
-                    )
-            px.request { allGranted, grantedList, deniedList ->
-                CoroutineScope(Dispatchers.Main).launch {
-                    if (deniedList.isNotEmpty()) {
-                        OursDialogHelper.showNoPermission(
-                            this@run,
-                            "读取相册权限未开启",
-                            "无法正常从相册选择图片/视频发送,前往【设置>OURS】中打开读取相册权限"
-                        )
-                    }
-                    OursDialogHelper.hidePermission()
-                    if (allGranted) {
-                        //upload(arrayListOf(it.path?:"") )
-
-                    }
+            if (type == 0) {
+                val permissionList = mutableListOf(Permission.CAMERA)
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+                    permissionList.add(Permission.WRITE_EXTERNAL_STORAGE)
                 }
+                XXPermissions.with(this)
+                    .permission(permissionList)
+                    .interceptor(
+                        PermissionInterceptor(
+                            "Camera Authorization Instructions",
+                            "需要您授权开启相机，以便于我们能拍照上传。"
+                        )
+                    )
+                    .request(object : OnPermissionCallback {
+                        override fun onGranted(
+                            permissions: MutableList<String>,
+                            allGranted: Boolean
+                        ) {
+                            if (allGranted) {
+                                val config = ImagePickerConfig(
+                                    isCameraOnly = true
+                                )
+                                imagePickerLauncher?.launch(config)
+                            }
+                        }
 
+                        override fun onDenied(
+                            permissions: MutableList<String>,
+                            doNotAskAgain: Boolean
+                        ) {
+
+                        }
+                    })
+            } else {
+                val config = ImagePickerConfig(
+                    isLightStatusBar = true,
+                    isMultipleMode = true,
+                    isShowNumberIndicator = false,
+                    maxSize = 1,
+                )
+                imagePickerLauncher?.launch(config)
             }
+
         }
     }
 
 
+    @SuppressLint("Recycle")
     open fun onFragmentResult(requestCode: Int, resultCode: Int, data: Intent?) {
         mFragmentWeakReference?.get()?.activity?.run {
             when (requestCode) {
                 SingleChatFragment.CAMERA_REQUEST_CODE -> if (resultCode == AppCompatActivity.RESULT_OK) {
-                    val paths = data?.getStringArrayListExtra("extra_result_selection_path")
-                    if (paths?.isNotEmpty() == true
-                    ) {
-                        upload(paths)
-                    }
+                    /*try {
+                        data?.data?.run {
+                            val filePathColumn = arrayOf(MediaStore.Images.Media.DATA)
+                            val cursor = contentResolver?.query(
+                                this,
+                                filePathColumn,
+                                null,
+                                null,
+                                null
+                            );
+                            cursor?.moveToFirst()
+                            val columnIndex = cursor?.getColumnIndex(filePathColumn[0]) ?: 0
+                            upload(arrayListOf(cursor?.getString(columnIndex) ?: ""))
+                        }
+                    } catch (e: Exception) {
+
+                    }*/
                 }
 
                 SingleChatFragment.QUICK_CAPTURE_CODE -> {
@@ -394,7 +432,7 @@ open class BaseChatFragmentController constructor(
                                 when (message.elemType) {
                                     V2TIMMessage.V2TIM_ELEM_TYPE_VIDEO, V2TIMMessage.V2TIM_ELEM_TYPE_IMAGE -> {
                                         V2TMessageManager.resourceMessages.add(message)
-                                        if(endIndex == -1){
+                                        if (endIndex == -1) {
                                             if (emMessage.msgID == message.msgID) {
                                                 endIndex = startIndex
                                             } else {
@@ -421,10 +459,10 @@ open class BaseChatFragmentController constructor(
 
                     V2TIMMessage.V2TIM_ELEM_TYPE_CUSTOM -> {
                         emMessage.customDataToBean()?.let {
-                            if(it.tripsId?.isNotEmpty() == true){
+                            if (it.tripsId?.isNotEmpty() == true) {
                                 ARouter.getInstance().build(ARouterPathList.HOME_TRIP_DETAIL)
                                     //.withOptionsCompat(option)
-                                    .withLong("tripId",it.tripsId?.toLong()?:0L)
+                                    .withLong("tripId", it.tripsId?.toLong() ?: 0L)
                                     .navigation(SmartActivityUtils.getTopActivity())
                             }
                         }
@@ -721,7 +759,7 @@ open class BaseChatFragmentController constructor(
         if (V2TMessageManager.msgModuleMap.containsKey(mConversationId)) {
             V2TMessageManager.msgModuleMap.put(mConversationId, mAdapter.msgModules)
         }
-        CommonIMManager.clearUnreadMessageCount(mConversationId,null)
+        CommonIMManager.clearUnreadMessageCount(mConversationId, null)
         V2TMessageManager.doubleCheckerMode.value = false
         doubleCheckerMap.value?.clear()
         loadingMsgID.clear()
@@ -843,7 +881,6 @@ open class BaseChatFragmentController constructor(
         val callback: ((ArrayList<TUIMessageBean>) -> Unit?) = { msgModules ->
 
 
-
 //            for (msg in mAdapter.msgModules){
 //                val item = msgModules.find { it.message?.msgID == msg.message?.msgID }
 //                if(item != null){
@@ -863,19 +900,19 @@ open class BaseChatFragmentController constructor(
                         notifyItemInserted(itemCount)
                         notifyItemRangeChanged(itemCount, msgModules.size + 1)
                     } else {
-                        if(isInit){
+                        if (isInit) {
                             LogUtils.w("loadList", "notifyDataSetChanged")
                             notifyDataSetChanged()
-                        }else{
+                        } else {
 
                             // 记录当前的位置
-                            val currentPosition = mAdapter.msgModules.size-20
+                            val currentPosition = mAdapter.msgModules.size - 20
                             //notifyDataSetChanged()
                             // 恢复到之前的位置
                             //mLayoutManager.setScrollPosition(currentPosition)
                             //rvList.scrollToPosition(currentPosition.minus(1))
 
-                            notifyItemRangeInserted(0,msgModules.size)
+                            notifyItemRangeInserted(0, msgModules.size)
                             LogUtils.i(
                                 "loadList",
                                 "notifyDataSetChanged--${currentPosition.minus(1)}"
@@ -930,7 +967,10 @@ open class BaseChatFragmentController constructor(
         )
 
         loadingMsgID.add(startMessage?.msgID ?: "")
-        LogUtils.i(TAG,"search startMessage = ${startMessage?.msgID} timeStamp = ${startMessage?.timestamp }")
+        LogUtils.i(
+            TAG,
+            "search startMessage = ${startMessage?.msgID} timeStamp = ${startMessage?.timestamp}"
+        )
 
         V2TMessageManager.searchMsgFromDB(
             mViewModel.isGroup.value == true,
@@ -1001,8 +1041,6 @@ open class BaseChatFragmentController constructor(
             }
         }
     }
-
-
 
 
     fun isRecyclerViewAtTop(): Boolean {
