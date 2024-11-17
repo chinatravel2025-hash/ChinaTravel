@@ -21,7 +21,7 @@ class UserSetNickNameVM : ViewModel() {
 
     private val userApi = RequestManager.build(UserImpApi().host()).create(LoginAPI::class.java)
 
-   private fun getOrderList(userName: String, callback: (() -> Unit)) {
+   private fun setName(userName: String, callback: (() -> Unit)) {
         userApi.userName(hashMapOf(
             "user_name" to userName,
         )).enqueue(object :
@@ -47,7 +47,7 @@ class UserSetNickNameVM : ViewModel() {
             SmartToast.classic().showInCenter("请输入昵称")
             return
         }
-        getOrderList(nickName.value ?: "") {
+        setName(nickName.value ?: "") {
             ARouter.getInstance().build(ARouterPathList.APP_MAIN)
                 .navigation()
         }

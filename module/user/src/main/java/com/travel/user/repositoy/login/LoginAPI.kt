@@ -7,12 +7,13 @@ import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.PUT
 
 interface LoginAPI {
 
     @POST("/user/mail/fetch_captcha")
     fun fetchCaptcha(@Body params: Map<String,String>): Call<ResponseResult<Any>>
-    @POST("/user/username")
+    @PUT("/user/username")
     fun userName(@Body params: Map<String,String>): Call<ResponseResult<Any?>>
     @POST("/user/mail/check_captcha")
     fun checkCaptcha(@Body params: Map<String,String>): Call<ResponseResult<Any>>

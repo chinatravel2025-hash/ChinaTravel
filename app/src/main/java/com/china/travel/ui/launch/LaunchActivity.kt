@@ -20,9 +20,11 @@ class LaunchActivity : BaseStatusBarActivity() {
 
     override val ivBack: Int
         get() = 0
+
     override fun getLayoutId(): Int {
         return R.layout.activity_launch
     }
+
     override fun initView(savedInstanceState: Bundle?) {
         super.initView(savedInstanceState)
 
@@ -31,15 +33,16 @@ class LaunchActivity : BaseStatusBarActivity() {
         binding.lifecycleOwner = this
         HomeRepository.homeRepository.getAppConfig()
         binding.ivCover.postDelayed({
-            if (User.isLogin){
-                ARouter.getInstance().build(ARouterPathList.APP_MAIN)
+            if (User.isLogin) {
+                var path = if (User.userName.isNullOrEmpty()) ARouterPathList.USER_SET_NICKNAME else ARouterPathList.APP_MAIN
+                ARouter.getInstance().build(path)
                     .navigation(this, object : NavCallback() {
                         override fun onArrival(p0: Postcard?) {
-                         finish()
+                            finish()
                         }
-
                     })
-            }else{
+
+            } else {
                 ARouter.getInstance().build(ARouterPathList.USER_REGISTER)
                     .navigation(this, object : NavCallback() {
                         override fun onArrival(p0: Postcard?) {
@@ -48,9 +51,8 @@ class LaunchActivity : BaseStatusBarActivity() {
 
                     })
             }
-        },500)
+        }, 500)
     }
-
 
 
 }
