@@ -15,6 +15,8 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupWithNavController
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
+import com.aws.bean.event.FilterCityEvent
+import com.aws.bean.event.FinishPageEvent
 import com.china.travel.databinding.ActivityMainBinding
 import com.coder.vincent.smart_toast.SmartToast
 import com.example.base.base.User
@@ -50,6 +52,9 @@ import com.travel.guide.common.LoginRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 
 @Route(path = ARouterPathList.APP_MAIN)
@@ -76,9 +81,21 @@ class MainActivity : AppCompatActivity() {
         Manifest.permission.ACCESS_FINE_LOCATION,
         Manifest.permission.READ_PHONE_STATE,
     )
+
+
+    var PRO_SELECT=1
+
+    companion object {
+        const val SELECTED_TAB = "SELECTED_TAB"
+        const val SELECTED_TAB_HOME = 1
+        const val SELECTED_TAB_GUIDE = 2
+        const val SELECTED_TAB_USER = 3
+        const val EXTRA_ACTION = "EXTRA_ACTION"
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
+        EventBus.getDefault().register(this)
         setContentView(binding.root)
         setupToolbar()
         StatusBarUtil.immersive(this)
@@ -87,10 +104,21 @@ class MainActivity : AppCompatActivity() {
         binding.navView.setOnItemSelectedListener { item ->
             if(item.title == "Guide"){
                 ARouter.getInstance().build(ARouterPathList.HOME_CHAT)
+                    .withString("from","MainActivity")
                     .navigation(SmartActivityUtils.getTopActivity())
                 return@setOnItemSelectedListener true
             }
+            when(item.itemId) {
+                R.id.navigation_home -> {
+                    PRO_SELECT = 1
+                }
+                R.id.navigation_profile -> {
+                    PRO_SELECT =3
+                }
+            }
             NavigationUI.onNavDestinationSelected(item, navController)
+
+
         }
         User.currentUser.observe(this){
             LoginRepository.repository.imLogin()
@@ -133,6 +161,25 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+    private fun setSelectedItem(itemId: Int?) {
+        itemId?.let {
+            LogUtils.d("smartLog","切换 TAB ：$itemId" )
+            var selectedItemId = R.id.navigation_home
+            when(itemId) {
+                SELECTED_TAB_HOME -> {
+                    selectedItemId = R.id.navigation_home
+                }
+
+                SELECTED_TAB_USER -> {
+                    selectedItemId = R.id.navigation_profile
+                }
+
+            }
+            binding.navView.selectedItemId = selectedItemId
+        }
+    }
+
+
     private var exitTime: Long = 0
     override fun finish() {
         if (System.currentTimeMillis() - exitTime > 2000) {
@@ -143,6 +190,17 @@ class MainActivity : AppCompatActivity() {
         }
         SmartActivityUtils.finishAllActivities()
         super.finish()
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onWhereFinishEvent(event: FinishPageEvent) {
+      //恢复上一次选中的tab
+        setSelectedItem(PRO_SELECT)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
     }
 
 
