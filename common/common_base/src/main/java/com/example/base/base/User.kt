@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import com.aws.bean.util.GsonUtil
 import com.example.base.localstore.MMKVConstanst
 import com.example.base.localstore.MMKVSpUtils
+import com.example.base.utils.LogUtils
 
 
 /**
@@ -78,7 +79,7 @@ object User {
         if (!userInfo.isNullOrEmpty()) {
             val info =GsonUtil.fromJson(userInfo, UserInfo::class.java)
             info.user_name=name
-            currentUser.value =info
+           saveUserInfo(info)
         }
 
     }
