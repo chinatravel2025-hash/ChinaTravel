@@ -5,15 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.alibaba.android.arouter.launcher.ARouter
 import com.example.base.base.User
+import com.example.base.base.UserInfo
 import com.example.router.ARouterPathList
 
 class UserViewModel : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is User Fragment"
-    }
-    val text: LiveData<String> = _text
-
+    var userInfo = MutableLiveData<UserInfo>()
     fun navigationSupport(){
         ARouter.getInstance().build(ARouterPathList.USER_SUPPORT)
             .navigation()

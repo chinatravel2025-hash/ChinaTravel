@@ -39,6 +39,7 @@
             android:textColor="@color/c_333333"
             android:textSize="@dimen/sp_22"
             android:textStyle="bold"
+            android:text="@{vm.userInfo.user_name}"
             app:layout_constraintLeft_toRightOf="@id/iv_head"
             app:layout_constraintTop_toTopOf="@id/iv_head"
             tools:text="Mickey Halloween" />
@@ -50,6 +51,7 @@
             android:layout_marginStart="@dimen/dp_16"
             android:textColor="@color/txt_999999"
             android:textSize="@dimen/sp_14"
+            android:text="@{vm.userInfo.mail}"
             app:layout_constraintLeft_toRightOf="@id/iv_head"
             app:layout_constraintTop_toBottomOf="@id/tv_name"
             tools:text="shanghai halloween@qq.com" />
