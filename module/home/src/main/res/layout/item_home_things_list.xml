@@ -69,7 +69,7 @@
             android:layout_marginTop="@dimen/dp_5"
             android:lines="2"
             android:ellipsize="end"
-            android:text="Sichuan cuisine stands out as a beacon of…"
+            android:text="@{vm.about}"
             android:textColor="@color/txt_FF666666"
             android:textSize="@dimen/sp_11"
             app:layout_constraintTop_toBottomOf="@id/tv_title" />

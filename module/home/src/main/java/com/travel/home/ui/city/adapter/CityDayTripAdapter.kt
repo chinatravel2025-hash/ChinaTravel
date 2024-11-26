@@ -27,6 +27,7 @@ class    CityDayTripAdapter(
     ) {
         holder.dataBinding?.apply {
             vm=item
+            rating.setStar(item.trip_rate?:1f)
             ivLike.setOnClickListener {
                 listener.cancelProductLike(holder.layoutPosition,item)
             }

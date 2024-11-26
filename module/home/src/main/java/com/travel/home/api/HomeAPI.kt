@@ -28,12 +28,18 @@ interface HomeAPI {
     @GET("/city-list")
     fun getHomeCityList(@Query("page") page: Int, @Query("size") size: Int ): Call<ResponseResult<CityDTO?>>
 
+    @GET("/favorite/city")
+    fun getFavoriteCityList(@Query("page") page: Int, @Query("size") size: Int ): Call<ResponseResult<CityDTO?>>
+
+
     @GET("/city-list/{id}")
     fun getHomeCityDetail(@Path("id") id:Long): Call<ResponseResult<CityItem?>>
 
     @GET("/travel-products")
     fun getHomeTravelProducts(@Query("page") page: Int, @Query("size") size: Int ): Call<ResponseResult<TravelProductDTO?>>
 
+    @GET("/favorite/travel-products")
+    fun getFavoriteTravelProducts(@Query("page") page: Int, @Query("size") size: Int ): Call<ResponseResult<TravelProductDTO?>>
 
     @GET("/travel-products/{id}")
     fun getTravelProductDetails(@Path("id") id:Long): Call<ResponseResult<TravelProductItem?>>
@@ -44,6 +50,8 @@ interface HomeAPI {
 
     @GET("/place")
     fun getHomeAllPlaceType(@Query("page") page: Int, @Query("size") size: Int ,@Query("city_id") cityId: Long ): Call<ResponseResult<PlaceDTO?>>
+    @GET("/favorite/place")
+    fun getFavoritePlace(@Query("page") page: Int, @Query("size") size: Int ): Call<ResponseResult<PlaceDTO?>>
 
     @GET("/place/{placeType}/{id}")
     fun getPlaceDetails( @Path("placeType") objectType: String,@Path("id") id:Long): Call<ResponseResult<PlaceItem?>>

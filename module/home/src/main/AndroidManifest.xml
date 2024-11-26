@@ -23,6 +23,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".ui.city.HomeTripDetailActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".ui.favorite.HomeFavoriteActivity"
+            android:screenOrientation="portrait"/>
 
     </application>
 </manifest>

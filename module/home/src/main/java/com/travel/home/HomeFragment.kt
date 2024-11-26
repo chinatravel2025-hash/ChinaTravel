@@ -45,8 +45,6 @@ class HomeFragment : Fragment(), CityListAdapterClickListener, TravelProductClic
     private var mThingsListAdapter: ThingsListAdapter? = null
 
 
-
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -78,7 +76,7 @@ class HomeFragment : Fragment(), CityListAdapterClickListener, TravelProductClic
                 } else {
                     mCityListAdapter?.addData(it)
                 }
-                if (h.mCityPageNum < h.cityMaxPage) {
+                if ((mCityListAdapter?.data?.size ?: 0) < h.cityMaxNum) {
                     binding.refreshLayoutCity.finishLoadMore()
                 } else {
                     binding.refreshLayoutCity.finishLoadMoreWithNoMoreData()
@@ -90,7 +88,7 @@ class HomeFragment : Fragment(), CityListAdapterClickListener, TravelProductClic
                 } else {
                     mDayTripListAdapter?.addData(it)
                 }
-                if (h.mTravelProductPageNum < h.travelProductMaxPage) {
+                if ((mDayTripListAdapter?.data?.size ?: 0) < h.travelProductMaxNum) {
                     binding.refreshLayoutDay.finishLoadMore()
                 } else {
                     binding.refreshLayoutDay.finishLoadMoreWithNoMoreData()
@@ -102,7 +100,7 @@ class HomeFragment : Fragment(), CityListAdapterClickListener, TravelProductClic
                 } else {
                     mThingsListAdapter?.addData(it)
                 }
-                if (h.mPlacePageNum < h.placeMaxPage) {
+                if ((mThingsListAdapter?.data?.size ?: 0) < h.placeMaxNum) {
                     binding.refreshLayoutThing.finishLoadMore()
                 } else {
                     binding.refreshLayoutThing.finishLoadMoreWithNoMoreData()
@@ -125,7 +123,7 @@ class HomeFragment : Fragment(), CityListAdapterClickListener, TravelProductClic
             setEnableRefresh(false)
             setEnableLoadMore(true)
             setOnLoadMoreListener {
-                if (homeVM.mCityPageNum < homeVM.cityMaxPage) {
+                if ((mCityListAdapter?.data?.size ?: 0) < homeVM.cityMaxNum) {
                     homeVM.mCityPageNum += 1
                     homeVM.getCityList()
                 }
@@ -143,7 +141,7 @@ class HomeFragment : Fragment(), CityListAdapterClickListener, TravelProductClic
             setEnableRefresh(false)
             setEnableLoadMore(true)
             setOnLoadMoreListener {
-                if (homeVM.mTravelProductPageNum < homeVM.travelProductMaxPage) {
+                if ((mDayTripListAdapter?.data?.size ?: 0) < homeVM.travelProductMaxNum) {
                     homeVM.mTravelProductPageNum += 1
                     homeVM.getHomeTravelProducts()
                 }
@@ -161,7 +159,7 @@ class HomeFragment : Fragment(), CityListAdapterClickListener, TravelProductClic
             setEnableRefresh(false)
             setEnableLoadMore(true)
             setOnLoadMoreListener {
-                if (homeVM.mPlacePageNum < homeVM.placeMaxPage) {
+                if ((mThingsListAdapter?.data?.size ?: 0) < homeVM.placeMaxNum) {
                     homeVM.mPlacePageNum += 1
                     homeVM.getPlaceList()
                 }
@@ -208,14 +206,16 @@ class HomeFragment : Fragment(), CityListAdapterClickListener, TravelProductClic
     }
 
     override fun addThingLike(position: Int, item: PlaceItem) {
-        val type =when(item.type){
-            1->{
+        val type = when (item.type) {
+            1 -> {
                 ObjectType.SIGHT
             }
-            2->{
+
+            2 -> {
                 ObjectType.SHOP
             }
-            else->{
+
+            else -> {
                 ObjectType.RESTAURANT
             }
         }
@@ -226,14 +226,16 @@ class HomeFragment : Fragment(), CityListAdapterClickListener, TravelProductClic
     }
 
     override fun cancelThingLike(position: Int, item: PlaceItem) {
-        val type =when(item.type){
-            1->{
+        val type = when (item.type) {
+            1 -> {
                 ObjectType.SIGHT
             }
-            2->{
+
+            2 -> {
                 ObjectType.SHOP
             }
-            else->{
+
+            else -> {
                 ObjectType.RESTAURANT
             }
         }

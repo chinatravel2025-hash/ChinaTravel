@@ -44,6 +44,7 @@ object ARouterPathList {
     const val HOME_SHOP_DETAIL= "/home/shop/detail"
     const val HOME_TRIP_DETAIL= "/home/trip/detail"
     const val HOME_SEARCH= "/home/search"
+    const val HOME_FAVORITE= "/home/favorite"
     const val HOME_RECOMMEND= "/home/recommend"
 
 

@@ -131,6 +131,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_1"/>
             <LinearLayout
+                android:onClick="@{()->vm.navigationFavorite()}"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_48">

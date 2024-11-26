@@ -11,13 +11,14 @@ data class TravelProductDTO(
 data class TravelProductItem(
     var id: Long? = null,
     var introduce: String? = "",
+    var about: String? = "",
     var is_like: Int? = 0,
     var like_num: Int? = 0,
     var pic_url_list: List<String>? = listOf(),
-    var price: Double? =null,
+    var price: Float? =null,
     var tags: List<TagDTO>? = listOf(),
     var title: String? = "",
-    var trip_rate: Double? = null
+    var trip_rate: Float? = null
 ): Serializable{
     fun hotLevel():String{
         return "$trip_rate"

@@ -1,7 +1,6 @@
-package com.travel.home.adapter
+package com.travel.home.ui.favorite.adapter
 
 
-import androidx.core.app.ActivityOptionsCompat
 import com.alibaba.android.arouter.launcher.ARouter
 import com.aws.bean.entities.home.TravelProductItem
 import com.chad.library.adapter.base.BaseQuickAdapter
@@ -9,24 +8,25 @@ import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder
 import com.example.base.utils.SmartActivityUtils
 import com.example.router.ARouterPathList
 import com.travel.home.R
+import com.travel.home.adapter.TravelProductClickListener
 import com.travel.home.databinding.ItemHomeDayTripListBinding
+import com.travel.home.databinding.ItemHomeFavoriteTripBinding
 
 
-class DayTripListAdapter(
+class FavoriteTripAdapter(
     val listener: TravelProductClickListener
 ) :
-    BaseQuickAdapter<TravelProductItem, BaseDataBindingHolder<ItemHomeDayTripListBinding>>(
-        R.layout.item_home_day_trip_list
+    BaseQuickAdapter<TravelProductItem, BaseDataBindingHolder<ItemHomeFavoriteTripBinding>>(
+        R.layout.item_home_favorite_trip
     ) {
 
 
     override fun convert(
-        holder: BaseDataBindingHolder<ItemHomeDayTripListBinding>,
+        holder: BaseDataBindingHolder<ItemHomeFavoriteTripBinding>,
         item: TravelProductItem
     ) {
         holder.dataBinding?.apply {
             vm=item
-            rating.setStar(item.trip_rate?:1f)
             ivLike.setOnClickListener {
                 listener.cancelProductLike(holder.layoutPosition,item)
             }
@@ -45,7 +45,7 @@ class DayTripListAdapter(
         }
     }
 
-    override fun convert(holder: BaseDataBindingHolder<ItemHomeDayTripListBinding>, item: TravelProductItem, payloads: List<Any>) {
+    override fun convert(holder: BaseDataBindingHolder<ItemHomeFavoriteTripBinding>, item: TravelProductItem, payloads: List<Any>) {
         for (p in payloads) {
             val payload = p as Int
             if (payload == ITEM_0_PAYLOAD) {

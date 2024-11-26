@@ -16,6 +16,11 @@ class UserViewModel : ViewModel() {
             .navigation()
     }
 
+    fun navigationFavorite(){
+        ARouter.getInstance().build(ARouterPathList.HOME_FAVORITE)
+            .navigation()
+    }
+
     fun navigationPreferences(){
         ARouter.getInstance().build(ARouterPathList.USER_PREFERENCES_HOME)
             .navigation()

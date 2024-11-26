@@ -1,4 +1,4 @@
-package com.travel.home
+package com.travel.home.vm
 
 import HomeAPI
 import HomeRepository
@@ -29,11 +29,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class HomeViewModel : ViewModel() {
+class HomeFavoriteViewModel : ViewModel() {
      val PAGE_SIZE=10
-    var defaultCityId=0L
-
-    var mDataBanner = MutableLiveData<List<BannerItem>>(emptyList())
 
     var mDataCity = MutableLiveData<List<CityItem>>(emptyList())
     var mCityPageNum = 1
@@ -48,33 +45,8 @@ class HomeViewModel : ViewModel() {
 
     private val homeApi = RequestManager.build(HomeImpApi().host()).create(HomeAPI::class.java)
 
-
-    fun navigationSearch(){
-        ARouter.getInstance().build(ARouterPathList.HOME_SEARCH)
-            .navigation()
-    }
-
-    fun getBannerList(){
-        homeApi.getHomeBannerList(1,5).enqueue(object :
-            Callback<ResponseResult<BannerDTO>> {
-            override fun onResponse(
-                call: Call<ResponseResult<BannerDTO>>,
-                response: Response<ResponseResult<BannerDTO>>
-            ) {
-                if (response.body()?.isSuccessful == true) {
-                    mDataBanner.value=response.body()?.data?.list
-                }
-            }
-
-            override fun onFailure(call: Call<ResponseResult<BannerDTO>>, t: Throwable) {
-               // SmartToast.classic().showInCenter(t.message ?: "请重新尝试")
-
-            }
-        })
-    }
-
-    fun getCityList(){
-        homeApi.getHomeCityList(mCityPageNum,PAGE_SIZE).enqueue(object :
+    fun getFavoriteCityList(){
+        homeApi.getFavoriteCityList(mCityPageNum,PAGE_SIZE).enqueue(object :
             Callback<ResponseResult<CityDTO?>> {
             override fun onResponse(
                 call: Call<ResponseResult<CityDTO?>>,
@@ -85,10 +57,8 @@ class HomeViewModel : ViewModel() {
                         cityMaxNum=response.body()?.data?.count?:0
                     }
                     mDataCity.value=response.body()?.data?.list
-                    if (!response.body()?.data?.list.isNullOrEmpty()){
-                        defaultCityId=response.body()?.data?.list?.get(0)?.id?:0
-                        getPlaceList()
-                    }
+                    LogUtils.d("lklklklk","cityMaxPage=${response.body()?.data?.page}")
+
                 }
             }
 
@@ -99,8 +69,8 @@ class HomeViewModel : ViewModel() {
         })
     }
 
-    fun getPlaceList(){
-        homeApi.getHomeAllPlaceType(mPlacePageNum,PAGE_SIZE,defaultCityId).enqueue(object :
+    fun getFavoritePlace(){
+        homeApi.getFavoritePlace(mPlacePageNum,PAGE_SIZE).enqueue(object :
             Callback<ResponseResult<PlaceDTO?>> {
             override fun onResponse(
                 call: Call<ResponseResult<PlaceDTO?>>,
@@ -121,8 +91,8 @@ class HomeViewModel : ViewModel() {
         })
     }
 
-    fun getHomeTravelProducts(){
-        homeApi.getHomeTravelProducts(mTravelProductPageNum,PAGE_SIZE).enqueue(object :
+    fun getFavoriteTravelProducts(){
+        homeApi.getFavoriteTravelProducts(mTravelProductPageNum,PAGE_SIZE).enqueue(object :
             Callback<ResponseResult<TravelProductDTO?>> {
             override fun onResponse(
                 call: Call<ResponseResult<TravelProductDTO?>>,
@@ -133,7 +103,6 @@ class HomeViewModel : ViewModel() {
                         travelProductMaxNum=response.body()?.data?.count?:0
                     }
                     mTravelProducts.value=response.body()?.data?.list
-                    LogUtils.d("lklklklk","travelProductMaxPage=${response.body()?.data?.page}")
                 }
             }
 

@@ -37,7 +37,7 @@ class MapViewActivity: BaseStatusBarActivity() {
         setContentView(binding.root)
         binding.mapView.onCreate(savedInstanceState)
         initMap()
-        initPager()
+        //initPager()
     }
 
     private fun initPager(){
