@@ -86,7 +86,6 @@ class  HomeCityDetailActivity : BaseStatusBarActivity(), TravelProductClickListe
     private fun initObserve(){
         mVM.mCityDetail.observe(this){ city->
             val data =BlockUtils.getBlocksList(city?.about?:"")
-            //LogUtils.d("msmakdsakj","dat= ${GsonUtil.toJson(data)}")
            mPlaceBlockAdapter?.setList(data)
             binding.banner.setAdapter(NormalBannerAdapter(city.pic_url_list))
         }

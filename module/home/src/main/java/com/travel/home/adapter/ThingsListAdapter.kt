@@ -1,17 +1,13 @@
 package com.travel.home.adapter
 
 
-import androidx.core.app.ActivityOptionsCompat
 import com.alibaba.android.arouter.launcher.ARouter
 import com.aws.bean.entities.home.PlaceItem
-import com.aws.bean.entities.home.TravelProductItem
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder
 import com.example.base.utils.SmartActivityUtils
 import com.example.router.ARouterPathList
 import com.travel.home.R
-import com.travel.home.databinding.ItemHomeCityListBinding
-import com.travel.home.databinding.ItemHomeDayTripListBinding
 import com.travel.home.databinding.ItemHomeThingsListBinding
 
 

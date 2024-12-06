@@ -4,11 +4,13 @@ import HomeAPI
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.alibaba.android.arouter.launcher.ARouter
 import com.aws.bean.entities.home.PlaceItem
 import com.aws.bean.entities.home.PlaceType
 import com.aws.bean.util.ObjectTypeUtil
 import com.example.http.RequestManager
 import com.example.http.api.ResponseResult
+import com.example.router.ARouterPathList
 import com.travel.home.api.HomeImpApi
 import retrofit2.Call
 import retrofit2.Callback
@@ -36,5 +38,10 @@ class HomeSightDetailViewModel : ViewModel() {
 
             }
         })
+    }
+
+    fun navigatorMapPage(){
+        ARouter.getInstance().build(ARouterPathList.MAP_HOME_VIEW)
+            .navigation()
     }
 }

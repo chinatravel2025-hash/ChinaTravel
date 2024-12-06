@@ -23,7 +23,6 @@ object BlockUtils {
             val origin = GsonUtil.getInstance().fromJson(content, BlockDTO::class.java)
             origin?.blocks?.forEach { item ->
                 temp.add(item.apply {
-                    data?.text = "Shanghai is the economic, financial, commercial, and cultural center of China. It serves as a major global financial hub, boasting the world’s busiest container port. The city iShanghai is the economic, financial, commercial, and cultural center of China. It serves as a major global financial hub, boasting the world’s busiest container port. The city is…"
                     itemType = item.viewType()
                 })
             }

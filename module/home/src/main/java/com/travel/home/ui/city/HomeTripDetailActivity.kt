@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
@@ -22,13 +23,16 @@ import com.amap.api.maps2d.model.LatLng
 import com.amap.api.maps2d.model.LatLngBounds
 import com.amap.api.maps2d.model.MarkerOptions
 import com.amap.api.maps2d.model.MyLocationStyle
+import com.aws.bean.entities.home.TravelProductItem
 import com.devs.readmoreoption.ReadMoreOption
 import com.example.base.base.BaseStatusBarActivity
+import com.example.base.utils.BlockUtils
 import com.example.base.utils.ResourceUtils
 import com.example.base.utils.SmartActivityUtils
 import com.example.router.ARouterPathList
 import com.travel.home.R
 import com.travel.home.adapter.NormalBannerAdapter
+import com.travel.home.adapter.PlaceBlockAdapter
 import com.travel.home.databinding.HomeActivityTripDetailBinding
 import com.travel.home.vm.HomeTripDetailViewModel
 
@@ -52,7 +56,7 @@ class HomeTripDetailActivity : BaseStatusBarActivity(), LocationSource, AMapLoca
     private var mListener: OnLocationChangedListener? = null
     private var mlocationClient: AMapLocationClient? = null
     private var mLocationOption: AMapLocationClientOption? = null
-
+    private var mPlaceBlockAdapter: PlaceBlockAdapter? = null
 
     override fun initView(savedInstanceState: Bundle?) {
         super.initView(savedInstanceState)
@@ -62,8 +66,8 @@ class HomeTripDetailActivity : BaseStatusBarActivity(), LocationSource, AMapLoca
         setContentView(binding.root)
         binding.lifecycleOwner = this
         binding.vm = mVM
-        initAboutContent()
         initObserve()
+        initTripContent()
         mVM.getHomeTravelProducts(tripId ?: 0)
         binding.space.onCreate(savedInstanceState)
         initMap()
@@ -77,6 +81,9 @@ class HomeTripDetailActivity : BaseStatusBarActivity(), LocationSource, AMapLoca
     private fun initObserve() {
         mVM.mTravelProduct.observe(this) { city ->
             binding.banner.setAdapter(NormalBannerAdapter(city.pic_url_list))
+            initAboutContent(city)
+            val data = BlockUtils.getBlocksList(city?.introduce?:"")
+            mPlaceBlockAdapter?.setList(data)
         }
     }
     private fun initMap() {
@@ -138,13 +145,7 @@ class HomeTripDetailActivity : BaseStatusBarActivity(), LocationSource, AMapLoca
     }
 
 
-    private fun initAboutContent() {
-
-        val sss = "Shanghai is the economic, financial, commercial, and cultural " +
-            "center of China. It serves as a major global financial hub," +
-            "center of China. It serves as a major global financial hub," +
-            "center of China. It serves as a major global financial hub," +
-            " boasting the world’s busiest container port. The city i"
+    private fun initAboutContent(item: TravelProductItem) {
         val readMoreOption = ReadMoreOption.Builder(this)
             .textLength(3, ReadMoreOption.TYPE_LINE)
             .moreLabel("Read more")
@@ -153,7 +154,18 @@ class HomeTripDetailActivity : BaseStatusBarActivity(), LocationSource, AMapLoca
             .lessLabelColor(ResourceUtils.getColor(com.example.peanutmusic.base.R.color.txt_12C286))
             .expandAnimation(true)
             .build()
-        readMoreOption.addReadMoreTo(binding.tvAboutContent, sss)
+        readMoreOption.addReadMoreTo(binding.tvAboutContent, item.about?:"")
+
+    }
+
+    private fun initTripContent() {
+        binding.rvTripContent.apply {
+            val manager = LinearLayoutManager(context)
+            manager.orientation = LinearLayoutManager.VERTICAL
+            layoutManager = manager
+            mPlaceBlockAdapter = PlaceBlockAdapter()
+            adapter = mPlaceBlockAdapter
+        }
 
     }
 
@@ -181,10 +193,7 @@ class HomeTripDetailActivity : BaseStatusBarActivity(), LocationSource, AMapLoca
 
     override fun activate(listener: OnLocationChangedListener?) {
         mListener = listener
-        Log.d("kkslkdl", "activate")
         if (mlocationClient == null) {
-
-            Log.d("kkslkdl", "activate1111")
             mlocationClient = AMapLocationClient(this)
             mLocationOption = AMapLocationClientOption()
             //设置定位监听
@@ -202,7 +211,6 @@ class HomeTripDetailActivity : BaseStatusBarActivity(), LocationSource, AMapLoca
     }
 
     override fun deactivate() {
-        Log.d("kkslkdl", "deactivate")
         mListener = null
         mlocationClient?.stopLocation()
         mlocationClient?.onDestroy()
@@ -210,10 +218,7 @@ class HomeTripDetailActivity : BaseStatusBarActivity(), LocationSource, AMapLoca
     }
 
     override fun onLocationChanged(p0: AMapLocation?) {
-        Log.d("kkslkdl", "street=  ${p0?.street}")
-        Log.d("kkslkdl", "aoiName=  ${p0?.aoiName}")
-        Log.d("kkslkdl", " latitude= ${p0?.latitude}")
-        Log.d("kkslkdl", " longitude= ${p0?.longitude}")
+
     }
 
 
