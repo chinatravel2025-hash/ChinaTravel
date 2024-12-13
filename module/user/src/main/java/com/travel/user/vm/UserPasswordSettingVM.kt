@@ -25,7 +25,7 @@ class UserPasswordSettingVM : ViewModel() {
 
     fun navigationVerificationCode() {
         if (canNext.value!=true){
-            SmartToast.classic().showInCenter("密码不符合规则")
+            SmartToast.classic().showInCenter("The password does not comply with the rules")
 
         }else{
             //设置名称 actionType：0 注册流程 1 修改密码流程

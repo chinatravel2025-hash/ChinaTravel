@@ -33,10 +33,10 @@ class CitySightseeingAdapter(
             }
 
             root.setOnClickListener {
-             //   val option=  ActivityOptionsCompat.makeSceneTransitionAnimation(SmartActivityUtils.getTopActivity(),ivCover,"share_sightseeing")
+
                 ARouter.getInstance().build(ARouterPathList.HOME_SIGHTSEEING_DETAIL)
-                 //   .withOptionsCompat(option)
                     .withLong("placeId",item.id?:0L)
+                    .withInt("placeType",1)
                     .navigation(SmartActivityUtils.getTopActivity())
             }
 

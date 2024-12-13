@@ -1,6 +1,7 @@
 package com.travel.home.ui.city
 
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.widget.ImageView
 import androidx.core.widget.NestedScrollView
@@ -50,6 +51,11 @@ class HomeSightseeingDetailActivity : BaseStatusBarActivity(), LocationSource {
     private var mListener: LocationSource.OnLocationChangedListener? = null
     private var mlocationClient: AMapLocationClient? = null
     private var mLocationOption: AMapLocationClientOption? = null
+
+    @JvmField
+    @Autowired
+    var placeType: Int = 1 // 1 sight 2 shop 3.restaurant
+
     @JvmField
     @Autowired
     var placeId: Long? = 0L
@@ -64,7 +70,7 @@ class HomeSightseeingDetailActivity : BaseStatusBarActivity(), LocationSource {
         binding.vm=mVM
         initObserve()
         initPlaceContent()
-        mVM.getPlaceList(PlaceType.SIGHT,placeId?:0)
+        mVM.getPlaceList(placeType,placeId?:0)
         binding.space.onCreate(savedInstanceState)
         initMap()
         binding.btnNext.setOnClickListener {
@@ -192,10 +198,8 @@ class HomeSightseeingDetailActivity : BaseStatusBarActivity(), LocationSource {
 
     override fun activate(listener: LocationSource.OnLocationChangedListener?) {
         mListener = listener
-        Log.d("kkslkdl", "activate")
         if (mlocationClient == null) {
 
-            Log.d("kkslkdl", "activate1111")
             mlocationClient = AMapLocationClient(this)
             mLocationOption = AMapLocationClientOption()
             //设置定位监听

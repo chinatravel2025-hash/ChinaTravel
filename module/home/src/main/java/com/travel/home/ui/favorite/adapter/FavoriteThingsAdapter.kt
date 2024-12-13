@@ -32,33 +32,11 @@ class FavoriteThingsAdapter(
                 listener.addThingLike(holder.layoutPosition,item)
             }
             root.setOnClickListener {
-                when (item.type){
-                    1->{
-                    //    val option=  ActivityOptionsCompat.makeSceneTransitionAnimation(SmartActivityUtils.getTopActivity(),ivCover,"share_sightseeing")
-                        ARouter.getInstance().build(ARouterPathList.HOME_SIGHTSEEING_DETAIL)
-                        //    .withOptionsCompat(option)
-                            .withLong("placeId",item.id?:0L)
-                            .navigation(SmartActivityUtils.getTopActivity())
 
-                    }
-                    2->{
-
-                       // val option=  ActivityOptionsCompat.makeSceneTransitionAnimation(SmartActivityUtils.getTopActivity(),ivCover,"share_shop")
-                        ARouter.getInstance().build(ARouterPathList.HOME_SHOP_DETAIL)
-                       //     .withOptionsCompat(option)
-                            .withLong("placeId",item.id?:0L)
-                            .navigation(SmartActivityUtils.getTopActivity())
-                    }
-                    else->{
-                    //    val option=  ActivityOptionsCompat.makeSceneTransitionAnimation(SmartActivityUtils.getTopActivity(),ivCover,"share_restaurant")
-                        ARouter.getInstance().build(ARouterPathList.HOME_RESTAURANT_DETAIL)
-                         //   .withOptionsCompat(option)
-                            .withLong("placeId",item.id?:0L)
-                            .navigation(SmartActivityUtils.getTopActivity())
-                    }
-                }
-
-
+                ARouter.getInstance().build(ARouterPathList.HOME_SIGHTSEEING_DETAIL)
+                    .withLong("placeId",item.id?:0L)
+                    .withInt("placeType",item.type?:3)
+                    .navigation(SmartActivityUtils.getTopActivity())
             }
             executePendingBindings()
         }

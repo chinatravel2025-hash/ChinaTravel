@@ -111,7 +111,6 @@ class HomeViewModel : ViewModel() {
                         placeMaxNum=response.body()?.data?.count?:0
                     }
                     mDataPlace.value=response.body()?.data?.list
-                    LogUtils.d("lklklklk","placeMaxPage=${response.body()?.data?.page}")
                 }
             }
             override fun onFailure(call: Call<ResponseResult<PlaceDTO?>>, t: Throwable) {
@@ -133,7 +132,6 @@ class HomeViewModel : ViewModel() {
                         travelProductMaxNum=response.body()?.data?.count?:0
                     }
                     mTravelProducts.value=response.body()?.data?.list
-                    LogUtils.d("lklklklk","travelProductMaxPage=${response.body()?.data?.page}")
                 }
             }
 

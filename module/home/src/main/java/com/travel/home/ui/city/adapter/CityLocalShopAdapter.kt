@@ -34,9 +34,14 @@ class CityLocalShopAdapter(
 
             root.setOnClickListener {
                // val option=  ActivityOptionsCompat.makeSceneTransitionAnimation(SmartActivityUtils.getTopActivity(),ivCover,"share_shop")
-                ARouter.getInstance().build(ARouterPathList.HOME_SHOP_DETAIL)
-                   // .withOptionsCompat(option)
+//                ARouter.getInstance().build(ARouterPathList.HOME_SHOP_DETAIL)
+//                   // .withOptionsCompat(option)
+//                    .withLong("placeId",item.id?:0L)
+//                    .navigation(SmartActivityUtils.getTopActivity())
+
+                ARouter.getInstance().build(ARouterPathList.HOME_SIGHTSEEING_DETAIL)
                     .withLong("placeId",item.id?:0L)
+                    .withInt("placeType",2)
                     .navigation(SmartActivityUtils.getTopActivity())
             }
 

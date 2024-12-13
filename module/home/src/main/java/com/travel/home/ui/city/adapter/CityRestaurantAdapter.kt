@@ -33,9 +33,12 @@ class CityRestaurantAdapter(
             }
             root.setOnClickListener {
               //  val option=  ActivityOptionsCompat.makeSceneTransitionAnimation(SmartActivityUtils.getTopActivity(),ivCover,"share_restaurant")
-                ARouter.getInstance().build(ARouterPathList.HOME_RESTAURANT_DETAIL)
-                 //   .withOptionsCompat(option)
+//                ARouter.getInstance().build(ARouterPathList.HOME_RESTAURANT_DETAIL)
+//                    .withLong("placeId",item.id?:0L)
+//                    .navigation(SmartActivityUtils.getTopActivity())
+                ARouter.getInstance().build(ARouterPathList.HOME_SIGHTSEEING_DETAIL)
                     .withLong("placeId",item.id?:0L)
+                    .withInt("placeType",3)
                     .navigation(SmartActivityUtils.getTopActivity())
             }
 

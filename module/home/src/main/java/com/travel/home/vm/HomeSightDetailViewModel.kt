@@ -18,12 +18,31 @@ import retrofit2.Response
 
 class HomeSightDetailViewModel : ViewModel() {
 
+    var title = MutableLiveData<String>("Sightseeing")
     var mDataPlace = MutableLiveData<PlaceItem>()
 
     private val homeApi = RequestManager.build(HomeImpApi().host()).create(HomeAPI::class.java)
 
 
-    fun getPlaceList(placeType: PlaceType, id:Long){
+    fun getPlaceList(type: Int, id:Long){
+        var placeType:PlaceType
+
+         when(type){
+            1->{
+                placeType=  PlaceType.SIGHT
+                title.value="Sightseeing"
+            }
+
+            2->{
+                placeType=   PlaceType.SHOP
+                title.value="Shop"
+            }
+            else->{
+                placeType=   PlaceType.RESTAURANT
+                title.value="Restaurant"
+            }
+        }
+
         homeApi.getPlaceDetails(ObjectTypeUtil.getPlaceType(placeType),id).enqueue(object :
             Callback<ResponseResult<PlaceItem?>> {
             override fun onResponse(

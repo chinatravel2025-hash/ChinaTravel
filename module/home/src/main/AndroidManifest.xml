@@ -17,10 +17,6 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".ui.city.HomeSightseeingDetailActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".ui.city.HomeRestaurantDetailActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.city.HomeShopDetailActivity"
-            android:screenOrientation="portrait"/>
         <activity android:name=".ui.city.HomeTripDetailActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".ui.favorite.HomeFavoriteActivity"

@@ -37,14 +37,14 @@ class UserSetNickNameVM : ViewModel() {
             }
 
             override fun onFailure(call: Call<ResponseResult<Any?>>, t: Throwable) {
-                SmartToast.classic().showInCenter(t.message ?: "设置昵称失败")
+                SmartToast.classic().showInCenter(t.message ?: "Failed to set nickname")
             }
         })
     }
 
     fun navigationLogin() {
         if (nickName.value.isNullOrEmpty()) {
-            SmartToast.classic().showInCenter("请输入昵称")
+            SmartToast.classic().showInCenter("Please enter a nickname")
             return
         }
         setName(nickName.value ?: "") {

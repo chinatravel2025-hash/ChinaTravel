@@ -17,7 +17,7 @@ class UserEmailLoginVM:ViewModel() {
 
     fun navigationLogin() {
         if (email.value.isNullOrEmpty() || originPw.value.isNullOrEmpty()){
-            SmartToast.classic().showInCenter("密码不符合规则")
+            SmartToast.classic().showInCenter("The password does not comply with the rules")
         }else{
             LoginRepository.loginRepository.loginByEmail(email.value?:"",originPw.value?:""){
                 ARouter.getInstance().build(ARouterPathList.APP_MAIN)
@@ -29,7 +29,7 @@ class UserEmailLoginVM:ViewModel() {
 
     fun resetPassword(){
         if (email.value.isNullOrEmpty()){
-            SmartToast.classic().showInCenter("请填写邮箱")
+            SmartToast.classic().showInCenter("Please fill in the email")
             return
         }
         email.value?.let { mail->

@@ -41,15 +41,15 @@ class LoginRepository {
                     callback.invoke(true)
                     //该邮箱已注册，请前往登录
                 } else if (response.body()?.code=="${AppCodeUtils.EMAIL_HAS_CREATE_ERROR}"){
-                    SmartToast.classic().showInCenter("该邮箱已注册")
+                    SmartToast.classic().showInCenter("The email address is registered")
                     callback.invoke(false)
                 } else {
-                    SmartToast.classic().showInCenter(response.body()?.message ?: "请重新尝试")
+                    SmartToast.classic().showInCenter(response.body()?.message ?: "Please try again")
                 }
             }
 
             override fun onFailure(call: Call<ResponseResult<Any>>, t: Throwable) {
-                SmartToast.classic().showInCenter(t.message ?: "请重新尝试")
+                SmartToast.classic().showInCenter(t.message ?: "Please try again")
 
             }
         })
@@ -73,13 +73,13 @@ class LoginRepository {
                     callback.invoke(true)
                 } else {
                     callback.invoke(false)
-                    SmartToast.classic().showInCenter(response.body()?.message ?: "请重新尝试")
+                    SmartToast.classic().showInCenter(response.body()?.message ?: "Please try again")
                 }
             }
 
             override fun onFailure(call: Call<ResponseResult<Any>>, t: Throwable) {
                 callback.invoke(false)
-                SmartToast.classic().showInCenter(t.message ?: "请重新尝试")
+                SmartToast.classic().showInCenter(t.message ?: "Please try again")
 
             }
         })
@@ -112,12 +112,12 @@ class LoginRepository {
                         imSigh(it, callback)
                     }
                 } else {
-                    SmartToast.classic().showInCenter(response.body()?.message ?: "请重新尝试")
+                    SmartToast.classic().showInCenter(response.body()?.message ?: "Please try again")
                 }
             }
 
             override fun onFailure(call: Call<ResponseResult<UserInfo?>>, t: Throwable) {
-                SmartToast.classic().showInCenter(t.message ?: "请重新尝试")
+                SmartToast.classic().showInCenter(t.message ?: "Please try again")
 
             }
         })
@@ -149,12 +149,12 @@ class LoginRepository {
                 if (response.body()?.isSuccessful == true) {
                     callback.invoke(true)
                 } else {
-                    SmartToast.classic().showInCenter(response.body()?.message ?: "请重新尝试")
+                    SmartToast.classic().showInCenter(response.body()?.message ?: "Please try again")
                 }
             }
 
             override fun onFailure(call: Call<ResponseResult<UserInfo?>>, t: Throwable) {
-                SmartToast.classic().showInCenter(t.message ?: "请重新尝试")
+                SmartToast.classic().showInCenter(t.message ?: "Please try again")
 
             }
         })
@@ -182,12 +182,12 @@ class LoginRepository {
                         imSigh(it, callback)
                     }
                 } else {
-                    SmartToast.classic().showInCenter(response.body()?.message ?: "请重新尝试")
+                    SmartToast.classic().showInCenter(response.body()?.message ?: "Please try again")
                 }
             }
 
             override fun onFailure(call: Call<ResponseResult<UserInfo?>>, t: Throwable) {
-                SmartToast.classic().showInCenter(t.message ?: "请重新尝试")
+                SmartToast.classic().showInCenter(t.message ?: "Please try again")
 
             }
         })
@@ -210,12 +210,12 @@ class LoginRepository {
                         }
                     }
                 } else {
-                    SmartToast.classic().showInCenter(response.body()?.message ?: "请重新尝试")
+                    SmartToast.classic().showInCenter(response.body()?.message ?: "Please try again")
                 }
             }
 
             override fun onFailure(call: Call<ResponseResult<IMInfo?>>, t: Throwable) {
-                SmartToast.classic().showInCenter(t.message ?: "请重新尝试")
+                SmartToast.classic().showInCenter(t.message ?: "Please try again")
 
             }
         })
