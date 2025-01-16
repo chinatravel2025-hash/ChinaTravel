@@ -23,11 +23,8 @@ import com.amap.api.maps2d.model.LatLng
 import com.amap.api.maps2d.model.LatLngBounds
 import com.amap.api.maps2d.model.MarkerOptions
 import com.amap.api.maps2d.model.MyLocationStyle
-import com.aws.bean.entities.home.TravelProductItem
-import com.devs.readmoreoption.ReadMoreOption
 import com.example.base.base.BaseStatusBarActivity
 import com.example.base.utils.BlockUtils
-import com.example.base.utils.ResourceUtils
 import com.example.base.utils.SmartActivityUtils
 import com.example.router.ARouterPathList
 import com.travel.home.R
@@ -81,7 +78,6 @@ class HomeTripDetailActivity : BaseStatusBarActivity(), LocationSource, AMapLoca
     private fun initObserve() {
         mVM.mTravelProduct.observe(this) { city ->
             binding.banner.setAdapter(NormalBannerAdapter(city.pic_url_list))
-            initAboutContent(city)
             val data = BlockUtils.getBlocksList(city?.introduce?:"")
             mPlaceBlockAdapter?.setList(data)
         }
@@ -144,19 +140,6 @@ class HomeTripDetailActivity : BaseStatusBarActivity(), LocationSource, AMapLoca
         }
     }
 
-
-    private fun initAboutContent(item: TravelProductItem) {
-        val readMoreOption = ReadMoreOption.Builder(this)
-            .textLength(3, ReadMoreOption.TYPE_LINE)
-            .moreLabel("Read more")
-            .lessLabel("  Read less")
-            .moreLabelColor(ResourceUtils.getColor(com.example.peanutmusic.base.R.color.txt_12C286))
-            .lessLabelColor(ResourceUtils.getColor(com.example.peanutmusic.base.R.color.txt_12C286))
-            .expandAnimation(true)
-            .build()
-        readMoreOption.addReadMoreTo(binding.tvAboutContent, item.about?:"")
-
-    }
 
     private fun initTripContent() {
         binding.rvTripContent.apply {

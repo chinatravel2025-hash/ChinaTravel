@@ -81,7 +81,6 @@ class HomeSightseeingDetailActivity : BaseStatusBarActivity(), LocationSource {
     private fun initObserve(){
         mVM.mDataPlace.observe(this){ city->
             binding.banner.setAdapter(NormalBannerAdapter(city.pic_url_list))
-            initAboutContent(city)
             val data = BlockUtils.getBlocksList(city?.introduce?:"")
             mPlaceBlockAdapter?.setList(data)
         }
@@ -154,18 +153,7 @@ class HomeSightseeingDetailActivity : BaseStatusBarActivity(), LocationSource {
         }
     }
 
-    private fun initAboutContent(place:PlaceItem){
-        val readMoreOption = ReadMoreOption.Builder(this)
-            .textLength(3,ReadMoreOption.TYPE_LINE)
-            .moreLabel("Read more")
-            .lessLabel("  Read less")
-            .moreLabelColor(ResourceUtils.getColor(com.example.peanutmusic.base.R.color.txt_12C286))
-            .lessLabelColor(ResourceUtils.getColor(com.example.peanutmusic.base.R.color.txt_12C286))
-            .expandAnimation(true)
-            .build()
-        readMoreOption.addReadMoreTo(binding.tvAboutContent,place.about)
 
-    }
 
 
      fun showLocation(){

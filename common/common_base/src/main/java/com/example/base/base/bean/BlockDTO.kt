@@ -18,15 +18,35 @@ data class BlocksBean(
 ) : MultiItemEntity {
     fun viewType(): Int {
         return when (type) {
+            //正文
             "paragraph" -> {
                 1
             }
+            //大标题（下划线）
             "header" -> {
                 0
             }
+
             "image" -> {
                 2
             }
+            //行程标题
+            "tripTitle" -> {
+                3
+            }
+            //行程内容
+            "tripContent" -> {
+                4
+            }
+            //关于
+            "intro" -> {
+                5
+            }
+            //地图
+            "location"-> {
+                6
+            }
+
             else -> {
                 1
             }
@@ -38,9 +58,15 @@ data class BlocksInner(
     var text: String? = null,
     var level: Int? = null,
     var file: ImgFileBean? = null,
+    var location: LocationBean? = null,
 )
 
 
 data class ImgFileBean(
     var url: String? = null,
+)
+
+data class LocationBean(
+    var lat: Double? = null,
+    var lon: Double? = null,
 )
