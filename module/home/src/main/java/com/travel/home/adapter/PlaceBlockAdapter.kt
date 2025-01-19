@@ -1,9 +1,19 @@
 package com.travel.home.adapter
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.alibaba.android.arouter.launcher.ARouter
+import com.amap.api.maps2d.AMap
+import com.amap.api.maps2d.CameraUpdateFactory
+import com.amap.api.maps2d.LocationSource
 import com.amap.api.maps2d.MapView
+import com.amap.api.maps2d.model.BitmapDescriptorFactory
+import com.amap.api.maps2d.model.LatLng
+import com.amap.api.maps2d.model.LatLngBounds
+import com.amap.api.maps2d.model.MarkerOptions
+import com.amap.api.maps2d.model.MyLocationStyle
 
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder
@@ -11,6 +21,7 @@ import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.devs.readmoreoption.ReadMoreOption
 import com.example.base.base.bean.BlocksBean
 import com.example.base.utils.ResourceUtils
+import com.example.router.ARouterPathList
 import com.travel.home.R
 import com.travel.home.databinding.ItemPlaceBlockAboutBinding
 import com.travel.home.databinding.ItemPlaceBlockHeadBinding
@@ -20,7 +31,7 @@ import com.travel.home.databinding.ItemPlaceBlockParagraphBinding
 import com.travel.home.databinding.ItemPlaceBlockTripContentBinding
 import com.travel.home.databinding.ItemPlaceBlockTripHeadBinding
 
-class PlaceBlockAdapter() :
+class PlaceBlockAdapter constructor(private val mapLocationSource: LocationSource?,private val savedInstanceState: Bundle?) :
     BaseMultiItemQuickAdapter<BlocksBean, BaseViewHolder>() {
 
         var mapView: MapView?=null
@@ -162,11 +173,84 @@ class PlaceBlockAdapter() :
                 modelHolder.dataBinding?.apply {
                     vm = item
                     mapView = space
+                    mapLocationSource?.apply {
+                        initMap()
+                    }
+                    viewClick.setOnClickListener {
+                        navigatorMapPage()
+                    }
                     executePendingBindings()
                 }
             }
         }
     }
+    private fun initMap() {
+        //val latLng = LatLng(31.075867780515686, 121.59554847645956)
+        //  val latLng = LatLng(31.238068, 121.501654)
+        //标记 https://blog.csdn.net/w794840800/article/details/80017220
+
+        mapView?.onCreate(savedInstanceState)
+        mapView?.onResume()
+        val builder = LatLngBounds.builder()
+        builder.include(LatLng(31.234521, 121.530699))
+        builder.include(LatLng(31.075867780515686, 121.59554847645956))
+        builder.include(LatLng(31.238068, 121.501654))
+
+        val latLngs = mutableListOf<LatLng>()
+        latLngs.add(LatLng(31.234521, 121.530699)) // 上海市政府
+        latLngs.add(LatLng(31.075867780515686, 121.59554847645956)) // 北京天安门
+        latLngs.add(LatLng(31.238068, 121.501654)) // 天津市政府
+//    val markerView=    LayoutInflater.from(this).inflate(com.china.travel.widget.R.layout.marker_layout,binding.space,false)
+//        val markerOptions = MarkerOptions()
+//        markerOptions.apply {
+//            position(latLng)
+//            snippet("DefaultMarker")
+//            icon(BitmapDescriptorFactory.fromView(markerView))
+//            draggable(false)
+//                .visible(true)
+//        }
+        // binding.space.map.addMarker(markerOptions)
+
+        for (latLng in latLngs) {
+            mapView?.map?.addMarker(
+                MarkerOptions()
+                .position(latLng)
+                .snippet("DefaultMarker")
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))) // 标记的图标
+            // 可以添加监听器等操作
+        }
+
+        val myLocationStyle = MyLocationStyle()
+        myLocationStyle.apply {
+            myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATE)
+            showMyLocation(true)
+            myLocationIcon(
+                BitmapDescriptorFactory.fromResource
+                (com.china.travel.widget.R.mipmap.gps_point))
+        }
+        mapView?.map?.apply {
+            setMapLanguage(AMap.ENGLISH)
+            uiSettings.isZoomControlsEnabled = false
+            uiSettings.isScaleControlsEnabled = false
+            uiSettings.isMyLocationButtonEnabled = false
+            uiSettings.setAllGesturesEnabled(false)
+            setLocationSource(mapLocationSource)
+
+            isMyLocationEnabled = true
+            setMyLocationStyle(myLocationStyle)
+
+            //城市 15
+            //  moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16f))
+            moveCamera(CameraUpdateFactory.newLatLngBounds(builder.build(), 50))
+            //    invalidate();// 刷新地图
+        }
+    }
+
+    fun navigatorMapPage(){
+        ARouter.getInstance().build(ARouterPathList.MAP_HOME_VIEW)
+            .navigation()
+    }
+
     companion object {
         const val ITEM_TYPE_HEAD = 0
         const val ITEM_TYPE_PARAGRAPH = 1

@@ -64,10 +64,9 @@ class HomeTripDetailActivity : BaseStatusBarActivity(), LocationSource, AMapLoca
         binding.lifecycleOwner = this
         binding.vm = mVM
         initObserve()
-        initTripContent()
+        initTripContent(savedInstanceState)
         mVM.getHomeTravelProducts(tripId ?: 0)
-        binding.space.onCreate(savedInstanceState)
-        initMap()
+        //initMap()
         binding.btnNext.setOnClickListener {
             ARouter.getInstance().build(ARouterPathList.HOME_CHAT)
                 .navigation(SmartActivityUtils.getTopActivity())
@@ -82,7 +81,7 @@ class HomeTripDetailActivity : BaseStatusBarActivity(), LocationSource, AMapLoca
             mPlaceBlockAdapter?.setList(data)
         }
     }
-    private fun initMap() {
+/*    private fun initMap() {
         //val latLng = LatLng(31.075867780515686, 121.59554847645956)
         //  val latLng = LatLng(31.238068, 121.501654)
         //标记 https://blog.csdn.net/w794840800/article/details/80017220
@@ -138,15 +137,15 @@ class HomeTripDetailActivity : BaseStatusBarActivity(), LocationSource, AMapLoca
             moveCamera(CameraUpdateFactory.newLatLngBounds(builder.build(), 50))
             //    invalidate();// 刷新地图
         }
-    }
+    }*/
 
 
-    private fun initTripContent() {
+    private fun initTripContent(savedInstanceState: Bundle?) {
         binding.rvTripContent.apply {
             val manager = LinearLayoutManager(context)
             manager.orientation = LinearLayoutManager.VERTICAL
             layoutManager = manager
-            mPlaceBlockAdapter = PlaceBlockAdapter()
+            mPlaceBlockAdapter = PlaceBlockAdapter(this@HomeTripDetailActivity,savedInstanceState)
             adapter = mPlaceBlockAdapter
         }
 
@@ -154,23 +153,25 @@ class HomeTripDetailActivity : BaseStatusBarActivity(), LocationSource, AMapLoca
 
     override fun onResume() {
         super.onResume()
-        binding.space.onResume()
+        if(mPlaceBlockAdapter?.mapView?.isActivated == true){
+            mPlaceBlockAdapter?.mapView?.onResume()
+        }
     }
 
     override fun onPause() {
         super.onPause()
-        binding.space.onPause()
+        mPlaceBlockAdapter?.mapView?.onPause()
         deactivate()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        binding.space.onSaveInstanceState(outState)
+        mPlaceBlockAdapter?.mapView?.onSaveInstanceState(outState)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        binding.space.onDestroy()
+        mPlaceBlockAdapter?.mapView?.onDestroy()
         mlocationClient?.onDestroy()
     }
 

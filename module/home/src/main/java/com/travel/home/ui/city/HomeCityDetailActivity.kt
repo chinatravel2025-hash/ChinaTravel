@@ -228,7 +228,7 @@ class  HomeCityDetailActivity : BaseStatusBarActivity(), TravelProductClickListe
             val manager = LinearLayoutManager(context)
             manager.orientation = LinearLayoutManager.VERTICAL
             layoutManager = manager
-            mPlaceBlockAdapter = PlaceBlockAdapter()
+            mPlaceBlockAdapter = PlaceBlockAdapter(null,null)
             adapter = mPlaceBlockAdapter
         }
 

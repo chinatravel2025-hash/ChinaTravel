@@ -69,10 +69,9 @@ class HomeSightseeingDetailActivity : BaseStatusBarActivity(), LocationSource {
         binding.ac=this
         binding.vm=mVM
         initObserve()
-        initPlaceContent()
+        initPlaceContent(savedInstanceState)
         mVM.getPlaceList(placeType,placeId?:0)
-        binding.space.onCreate(savedInstanceState)
-        initMap()
+        //initMap()
         binding.btnNext.setOnClickListener {
             ARouter.getInstance().build(ARouterPathList.HOME_CHAT)
                 .navigation(SmartActivityUtils.getTopActivity())
@@ -86,17 +85,17 @@ class HomeSightseeingDetailActivity : BaseStatusBarActivity(), LocationSource {
         }
     }
 
-    private fun initPlaceContent() {
+    private fun initPlaceContent(savedInstanceState: Bundle?) {
         binding.rvPlaceContent.apply {
             val manager = LinearLayoutManager(context)
             manager.orientation = LinearLayoutManager.VERTICAL
             layoutManager = manager
-            mPlaceBlockAdapter = PlaceBlockAdapter()
+            mPlaceBlockAdapter = PlaceBlockAdapter(this@HomeSightseeingDetailActivity, savedInstanceState = savedInstanceState)
             adapter = mPlaceBlockAdapter
         }
 
     }
-    private fun initMap() {
+/*    private fun initMap() {
         //val latLng = LatLng(31.075867780515686, 121.59554847645956)
         //  val latLng = LatLng(31.238068, 121.501654)
         //标记 https://blog.csdn.net/w794840800/article/details/80017220
@@ -122,7 +121,7 @@ class HomeSightseeingDetailActivity : BaseStatusBarActivity(), LocationSource {
         // binding.space.map.addMarker(markerOptions)
 
         for (latLng in latLngs) {
-            binding.space.map.addMarker(MarkerOptions()
+            mPlaceBlockAdapter?.mapView?.map?.addMarker(MarkerOptions()
                 .position(latLng)
                 .snippet("DefaultMarker")
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))) // 标记的图标
@@ -136,7 +135,7 @@ class HomeSightseeingDetailActivity : BaseStatusBarActivity(), LocationSource {
             myLocationIcon(BitmapDescriptorFactory.fromResource
                 (com.china.travel.widget.R.mipmap.gps_point))
         }
-        binding.space.map.apply {
+        mPlaceBlockAdapter?.mapView?.map?.apply {
             setMapLanguage(AMap.ENGLISH)
             uiSettings.isZoomControlsEnabled = false
             uiSettings.isScaleControlsEnabled = false
@@ -151,7 +150,7 @@ class HomeSightseeingDetailActivity : BaseStatusBarActivity(), LocationSource {
             moveCamera(CameraUpdateFactory.newLatLngBounds(builder.build(), 50))
             //    invalidate();// 刷新地图
         }
-    }
+    }*/
 
 
 
@@ -165,23 +164,23 @@ class HomeSightseeingDetailActivity : BaseStatusBarActivity(), LocationSource {
 
     override fun onResume() {
         super.onResume()
-        binding.space.onResume()
+        mPlaceBlockAdapter?.mapView?.onResume()
     }
 
     override fun onPause() {
         super.onPause()
-        binding.space.onPause()
+        mPlaceBlockAdapter?.mapView?.onPause()
         deactivate()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        binding.space.onSaveInstanceState(outState)
+        mPlaceBlockAdapter?.mapView?.onSaveInstanceState(outState)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        binding.space.onDestroy()
+        mPlaceBlockAdapter?.mapView?.onDestroy()
     }
 
     override fun activate(listener: LocationSource.OnLocationChangedListener?) {
