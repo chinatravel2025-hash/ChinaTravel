@@ -36,6 +36,7 @@
             app:labelTextPaddingTop="@dimen/dp_2"
             app:labelBackground="@drawable/label_bg"
             app:maxLines="3"
+            app:labelTextColor="@color/white"
             app:maxColumns="1"
             app:selectType="NONE"
             app:labelGravity="center"
