@@ -81,65 +81,6 @@ class HomeTripDetailActivity : BaseStatusBarActivity(), LocationSource, AMapLoca
             mPlaceBlockAdapter?.setList(data)
         }
     }
-/*    private fun initMap() {
-        //val latLng = LatLng(31.075867780515686, 121.59554847645956)
-        //  val latLng = LatLng(31.238068, 121.501654)
-        //标记 https://blog.csdn.net/w794840800/article/details/80017220
-
-        val builder = LatLngBounds.builder()
-        builder.include(LatLng(31.234521, 121.530699))
-        builder.include(LatLng(31.075867780515686, 121.59554847645956))
-        builder.include(LatLng(31.238068, 121.501654))
-
-        val latLngs = mutableListOf<LatLng>()
-        latLngs.add(LatLng(31.234521, 121.530699)) // 上海市政府
-        latLngs.add(LatLng(31.075867780515686, 121.59554847645956)) // 北京天安门
-        latLngs.add(LatLng(31.238068, 121.501654)) // 天津市政府
-//    val markerView=    LayoutInflater.from(this).inflate(com.china.travel.widget.R.layout.marker_layout,binding.space,false)
-//        val markerOptions = MarkerOptions()
-//        markerOptions.apply {
-//            position(latLng)
-//            snippet("DefaultMarker")
-//            icon(BitmapDescriptorFactory.fromView(markerView))
-//            draggable(false)
-//                .visible(true)
-//        }
-        // binding.space.map.addMarker(markerOptions)
-
-        for (latLng in latLngs) {
-            binding.space.map.addMarker(MarkerOptions()
-                .position(latLng)
-                .snippet("DefaultMarker")
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))) // 标记的图标
-            // 可以添加监听器等操作
-        }
-
-        val myLocationStyle = MyLocationStyle()
-        myLocationStyle.apply {
-            myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATE)
-            showMyLocation(true)
-            myLocationIcon(BitmapDescriptorFactory.fromResource
-                (com.china.travel.widget.R.mipmap.gps_point))
-        }
-        binding.space.map.apply {
-            setMapLanguage(AMap.ENGLISH)
-            uiSettings.isZoomControlsEnabled = false
-            uiSettings.isScaleControlsEnabled = false
-            uiSettings.isMyLocationButtonEnabled = false
-            uiSettings.setAllGesturesEnabled(false)
-            setLocationSource(this@HomeTripDetailActivity)
-
-            isMyLocationEnabled = true
-            setMyLocationStyle(myLocationStyle)
-
-            //城市 15
-            //  moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16f))
-            moveCamera(CameraUpdateFactory.newLatLngBounds(builder.build(), 50))
-            //    invalidate();// 刷新地图
-        }
-    }*/
-
-
     private fun initTripContent(savedInstanceState: Bundle?) {
         binding.rvTripContent.apply {
             val manager = LinearLayoutManager(context)

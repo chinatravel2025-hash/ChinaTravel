@@ -10,8 +10,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
+import com.amap.api.location.AMapLocation
 import com.amap.api.location.AMapLocationClient
 import com.amap.api.location.AMapLocationClientOption
+import com.amap.api.location.AMapLocationListener
 import com.amap.api.maps2d.AMap
 import com.amap.api.maps2d.CameraUpdateFactory
 import com.amap.api.maps2d.LocationSource
@@ -38,7 +40,7 @@ import com.travel.home.vm.HomeSightDetailViewModel
 
 
 @Route(path = ARouterPathList.HOME_SIGHTSEEING_DETAIL)
-class HomeSightseeingDetailActivity : BaseStatusBarActivity(), LocationSource {
+class HomeSightseeingDetailActivity : BaseStatusBarActivity(), LocationSource, AMapLocationListener {
 
     private lateinit var binding: HomeActivitySightseeingDetailBinding
     private lateinit var mVM: HomeSightDetailViewModel
@@ -95,76 +97,12 @@ class HomeSightseeingDetailActivity : BaseStatusBarActivity(), LocationSource {
         }
 
     }
-/*    private fun initMap() {
-        //val latLng = LatLng(31.075867780515686, 121.59554847645956)
-        //  val latLng = LatLng(31.238068, 121.501654)
-        //标记 https://blog.csdn.net/w794840800/article/details/80017220
-
-        val builder = LatLngBounds.builder()
-        builder.include(LatLng(31.234521, 121.530699))
-        builder.include(LatLng(31.075867780515686, 121.59554847645956))
-        builder.include(LatLng(31.238068, 121.501654))
-
-        val latLngs = mutableListOf<LatLng>()
-        latLngs.add(LatLng(31.234521, 121.530699)) // 上海市政府
-        latLngs.add(LatLng(31.075867780515686, 121.59554847645956)) // 北京天安门
-        latLngs.add(LatLng(31.238068, 121.501654)) // 天津市政府
-//    val markerView=    LayoutInflater.from(this).inflate(com.china.travel.widget.R.layout.marker_layout,binding.space,false)
-//        val markerOptions = MarkerOptions()
-//        markerOptions.apply {
-//            position(latLng)
-//            snippet("DefaultMarker")
-//            icon(BitmapDescriptorFactory.fromView(markerView))
-//            draggable(false)
-//                .visible(true)
-//        }
-        // binding.space.map.addMarker(markerOptions)
-
-        for (latLng in latLngs) {
-            mPlaceBlockAdapter?.mapView?.map?.addMarker(MarkerOptions()
-                .position(latLng)
-                .snippet("DefaultMarker")
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))) // 标记的图标
-            // 可以添加监听器等操作
-        }
-
-        val myLocationStyle = MyLocationStyle()
-        myLocationStyle.apply {
-            myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATE)
-            showMyLocation(true)
-            myLocationIcon(BitmapDescriptorFactory.fromResource
-                (com.china.travel.widget.R.mipmap.gps_point))
-        }
-        mPlaceBlockAdapter?.mapView?.map?.apply {
-            setMapLanguage(AMap.ENGLISH)
-            uiSettings.isZoomControlsEnabled = false
-            uiSettings.isScaleControlsEnabled = false
-            uiSettings.isMyLocationButtonEnabled = false
-            uiSettings.setAllGesturesEnabled(false)
-            setLocationSource(this@HomeSightseeingDetailActivity)
-
-            isMyLocationEnabled = true
-            setMyLocationStyle(myLocationStyle)
-            //城市 15
-            //  moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16f))
-            moveCamera(CameraUpdateFactory.newLatLngBounds(builder.build(), 50))
-            //    invalidate();// 刷新地图
-        }
-    }*/
-
-
-
-
-     fun showLocation(){
-        ScenicSpotBottomSheetDialog
-            .newInstance()
-            .show(supportFragmentManager,"ScenicSpotBottomSheetDialog")
-    }
-
 
     override fun onResume() {
         super.onResume()
-        mPlaceBlockAdapter?.mapView?.onResume()
+        if(mPlaceBlockAdapter?.mapView?.isActivated == true){
+            mPlaceBlockAdapter?.mapView?.onResume()
+        }
     }
 
     override fun onPause() {
@@ -181,16 +119,16 @@ class HomeSightseeingDetailActivity : BaseStatusBarActivity(), LocationSource {
     override fun onDestroy() {
         super.onDestroy()
         mPlaceBlockAdapter?.mapView?.onDestroy()
+        mlocationClient?.onDestroy()
     }
 
     override fun activate(listener: LocationSource.OnLocationChangedListener?) {
         mListener = listener
         if (mlocationClient == null) {
-
             mlocationClient = AMapLocationClient(this)
             mLocationOption = AMapLocationClientOption()
             //设置定位监听
-        //    mlocationClient?.setLocationListener(this@HomeTripDetailActivity)
+            mlocationClient?.setLocationListener(this@HomeSightseeingDetailActivity)
             //设置为高精度定位模式
             mLocationOption?.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy)
             //设置定位参数
@@ -204,8 +142,14 @@ class HomeSightseeingDetailActivity : BaseStatusBarActivity(), LocationSource {
     }
 
     override fun deactivate() {
-
+        mListener = null
+        mlocationClient?.stopLocation()
+        mlocationClient?.onDestroy()
+        mlocationClient = null
     }
 
+    override fun onLocationChanged(p0: AMapLocation?) {
+
+    }
 
 }
