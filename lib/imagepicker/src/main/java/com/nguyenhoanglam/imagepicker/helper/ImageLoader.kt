@@ -14,7 +14,7 @@ class ImageLoader {
             imageView.load(uri) {
                 crossfade(true)
                 placeholder(R.drawable.imagepicker_image_placeholder)
-                error(R.drawable.imagepicker_image_error)
+                //error(R.drawable.imagepicker_image_error)
                 size(width = Dimension.Pixels(120), height = Dimension.Pixels(120))
             }
         }
@@ -23,7 +23,7 @@ class ImageLoader {
             imageView.load(url) {
                 crossfade(true)
                 placeholder(R.drawable.imagepicker_image_placeholder)
-                error(R.drawable.imagepicker_image_error)
+                //error(R.drawable.imagepicker_image_error)
                 size(width = Dimension.Pixels(120), height = Dimension.Pixels(120))
             }
         }
