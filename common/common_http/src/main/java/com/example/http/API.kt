@@ -5,10 +5,6 @@ package com.example.http
 open class API {
 
     companion object {
-
-
-
-
        var env = "dev"
       // var env = "fat"
       //  var env = "production"
@@ -17,17 +13,17 @@ open class API {
 
 
     private fun dev(): String {
-        return "http://117.50.180.237:8810"
+        return "https://app-api.chunhuo.net"
     }
 
 
     private fun fat(): String {
-        return "http://117.50.180.237:8810"
+        return "https://app-api.chunhuo.net"
 
     }
 
     private fun release(): String {
-        return "http://117.50.180.237:8810"
+        return "https://app-api.chunhuo.net"
     }
 
     open fun host(): String {
