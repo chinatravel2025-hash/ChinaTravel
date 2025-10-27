@@ -50,6 +50,10 @@ class HomeTripDetailActivity : BaseStatusBarActivity(), LocationSource, AMapLoca
     @Autowired
     var tripId: Long? = 0L
 
+    @JvmField
+    @Autowired
+    var isTravelTrip: Int? = 0
+
     private var mListener: OnLocationChangedListener? = null
     private var mlocationClient: AMapLocationClient? = null
     private var mLocationOption: AMapLocationClientOption? = null
@@ -65,7 +69,7 @@ class HomeTripDetailActivity : BaseStatusBarActivity(), LocationSource, AMapLoca
         binding.vm = mVM
         initObserve()
         initTripContent(savedInstanceState)
-        mVM.getHomeTravelProducts(tripId ?: 0)
+        mVM.getHomeTravelProducts(tripId ?: 0,isTravelTrip?:0)
         //initMap()
         binding.btnNext.setOnClickListener {
             ARouter.getInstance().build(ARouterPathList.HOME_CHAT)
@@ -77,7 +81,7 @@ class HomeTripDetailActivity : BaseStatusBarActivity(), LocationSource, AMapLoca
     private fun initObserve() {
         mVM.mTravelProduct.observe(this) { city ->
             binding.banner.setAdapter(NormalBannerAdapter(city.pic_url_list))
-            val data = BlockUtils.getBlocksList(city?.introduce?:"")
+            val data = BlockUtils.getBlocksList(city?.id?:0,city?.introduce?:"")
             mPlaceBlockAdapter?.setList(data)
         }
     }
@@ -86,7 +90,7 @@ class HomeTripDetailActivity : BaseStatusBarActivity(), LocationSource, AMapLoca
             val manager = LinearLayoutManager(context)
             manager.orientation = LinearLayoutManager.VERTICAL
             layoutManager = manager
-            mPlaceBlockAdapter = PlaceBlockAdapter(this@HomeTripDetailActivity,savedInstanceState)
+            mPlaceBlockAdapter = PlaceBlockAdapter(tripId,this@HomeTripDetailActivity,savedInstanceState)
             adapter = mPlaceBlockAdapter
         }
 

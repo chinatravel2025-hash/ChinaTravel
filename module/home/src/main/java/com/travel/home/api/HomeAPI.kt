@@ -44,6 +44,9 @@ interface HomeAPI {
     @GET("/travel-products/{id}")
     fun getTravelProductDetails(@Path("id") id:Long): Call<ResponseResult<TravelProductItem?>>
 
+    @GET("/travel-trip/{id}")
+    fun getTravelTripDetails(@Path("id") id:Long): Call<ResponseResult<TravelProductItem?>>
+
 
     @GET("/place/{placeType}")
     fun getHomePlaceType( @Path("placeType") objectType: String,@Query("page") page: Int, @Query("size") size: Int ,@Query("city_id") cityId: Long ): Call<ResponseResult<PlaceDTO?>>

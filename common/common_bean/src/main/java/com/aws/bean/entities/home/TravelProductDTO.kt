@@ -18,7 +18,9 @@ data class TravelProductItem(
     var price: Float? =null,
     var tags: List<TagDTO>? = listOf(),
     var title: String? = "",
-    var trip_rate: Float? = null
+    var trip_rate: Float? = null,
+    var trip: String? = "",
+    var location: List<LocItem>? = listOf()
 ): Serializable{
     fun hotLevel():String{
         return "$trip_rate"
@@ -36,4 +38,13 @@ data class TagDTO(
 data class TagItem(
     var id: Long? = null,
     var tag: String? = ""
+): Serializable
+
+data class LocItem(
+    var lat: Double? = null,
+    var lng: Double? = null,
+    var name: String? = "",
+    var address: String? = "",
+    var trip_id: Long? = null,
+    var id: Long? = null
 ): Serializable

@@ -3,6 +3,7 @@ package com.travel.map
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager.widget.ViewPager
+import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.amap.api.maps2d.AMap
@@ -12,6 +13,7 @@ import com.amap.api.maps2d.model.LatLng
 import com.amap.api.maps2d.model.LatLngBounds
 import com.amap.api.maps2d.model.MarkerOptions
 import com.example.base.base.BaseStatusBarActivity
+import com.example.base.utils.BlockUtils
 import com.example.base.utils.doNothing
 import com.example.router.ARouterPathList
 import com.travel.adapter.DayListAdapter
@@ -30,6 +32,10 @@ class MapViewActivity: BaseStatusBarActivity() {
     private lateinit var binding: ModuleMapActivityMapViewBinding
     private var mTripPagerAdapter :TripPagerAdapter?=null
     private var mDayListAdapter :DayListAdapter?=null
+
+    @JvmField
+    @Autowired
+    var id: Long? = 0L
     override fun initView(savedInstanceState: Bundle?) {
         super.initView(savedInstanceState)
         ARouter.getInstance().inject(this)
@@ -76,15 +82,24 @@ class MapViewActivity: BaseStatusBarActivity() {
     }
 
     private fun initMap() {
+        if(id == 0L || !BlockUtils.locMap.containsKey(id)){
+            return
+        }
         val builder = LatLngBounds.builder()
-        builder.include(LatLng(31.234521, 121.530699))
-        builder.include(LatLng(31.075867780515686, 121.59554847645956))
-        builder.include(LatLng(31.238068, 121.501654))
-        val latLng = LatLng(31.234521, 121.530699)
         val latLngs= mutableListOf<LatLng>()
-        latLngs.add(LatLng(31.234521, 121.530699))
-        latLngs.add(LatLng(31.075867780515686, 121.59554847645956))
-        latLngs.add(LatLng(31.238068, 121.501654))
+        val info = BlockUtils.locMap[id?:0]
+        var latLng: LatLng? = null
+        info?.forEachIndexed { index, locationBean ->
+            if(index == 0){
+                latLng = LatLng(locationBean.lon?:0.0, locationBean.lat?:0.0)
+            }
+            builder.include(LatLng(locationBean.lon?:0.0, locationBean.lat?:0.0))
+            latLngs.add(LatLng(locationBean.lon?:0.0, locationBean.lat?:0.0))
+            //latLngs.add(LatLng(31.075867780515686, 121.59554847645956))
+            //latLngs.add(LatLng(31.238068, 121.501654))
+        }
+        //builder.include(LatLng(31.075867780515686, 121.59554847645956))
+        //builder.include(LatLng(31.238068, 121.501654))
         for (latLng in latLngs) {
             binding.mapView.map.addMarker(MarkerOptions()
                 .position(latLng)

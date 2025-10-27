@@ -85,7 +85,7 @@ class  HomeCityDetailActivity : BaseStatusBarActivity(), TravelProductClickListe
     }
     private fun initObserve(){
         mVM.mCityDetail.observe(this){ city->
-            val data =BlockUtils.getBlocksList(city?.about?:"")
+            val data =BlockUtils.getBlocksList(city?.id?:0,city?.about?:"")
            mPlaceBlockAdapter?.setList(data)
             binding.banner.setAdapter(NormalBannerAdapter(city.pic_url_list))
         }
@@ -228,7 +228,7 @@ class  HomeCityDetailActivity : BaseStatusBarActivity(), TravelProductClickListe
             val manager = LinearLayoutManager(context)
             manager.orientation = LinearLayoutManager.VERTICAL
             layoutManager = manager
-            mPlaceBlockAdapter = PlaceBlockAdapter(null,null)
+            mPlaceBlockAdapter = PlaceBlockAdapter(cityId,null,null)
             adapter = mPlaceBlockAdapter
         }
 

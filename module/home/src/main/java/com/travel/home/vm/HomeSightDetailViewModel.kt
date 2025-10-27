@@ -59,8 +59,4 @@ class HomeSightDetailViewModel : ViewModel() {
         })
     }
 
-    fun navigatorMapPage(){
-        ARouter.getInstance().build(ARouterPathList.MAP_HOME_VIEW)
-            .navigation()
-    }
 }

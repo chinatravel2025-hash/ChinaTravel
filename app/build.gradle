@@ -100,5 +100,5 @@ dependencies {
     kapt Libs.arouter_compiler
     implementation 'androidx.navigation:navigation-fragment-ktx:2.4.1'
     implementation 'androidx.navigation:navigation-ui-ktx:2.4.1'
-
+    implementation 'com.ibm.icu:icu4j:68.2'
 }

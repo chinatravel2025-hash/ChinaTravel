@@ -82,7 +82,7 @@ class HomeSightseeingDetailActivity : BaseStatusBarActivity(), LocationSource, A
     private fun initObserve(){
         mVM.mDataPlace.observe(this){ city->
             binding.banner.setAdapter(NormalBannerAdapter(city.pic_url_list))
-            val data = BlockUtils.getBlocksList(city?.introduce?:"")
+            val data = BlockUtils.getBlocksList(city?.id?:0,city?.introduce?:"")
             mPlaceBlockAdapter?.setList(data)
         }
     }
@@ -92,7 +92,7 @@ class HomeSightseeingDetailActivity : BaseStatusBarActivity(), LocationSource, A
             val manager = LinearLayoutManager(context)
             manager.orientation = LinearLayoutManager.VERTICAL
             layoutManager = manager
-            mPlaceBlockAdapter = PlaceBlockAdapter(this@HomeSightseeingDetailActivity, savedInstanceState = savedInstanceState)
+            mPlaceBlockAdapter = PlaceBlockAdapter(placeId,this@HomeSightseeingDetailActivity, savedInstanceState = savedInstanceState)
             adapter = mPlaceBlockAdapter
         }
 

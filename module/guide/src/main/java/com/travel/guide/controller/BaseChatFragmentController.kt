@@ -463,6 +463,7 @@ open class BaseChatFragmentController constructor(
                                 ARouter.getInstance().build(ARouterPathList.HOME_TRIP_DETAIL)
                                     //.withOptionsCompat(option)
                                     .withLong("tripId", it.tripsId?.toLong() ?: 0L)
+                                    .withInt("isTravelTrip", 1)
                                     .navigation(SmartActivityUtils.getTopActivity())
                             }
                         }

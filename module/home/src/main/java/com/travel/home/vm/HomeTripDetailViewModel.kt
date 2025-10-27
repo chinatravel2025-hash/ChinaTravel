@@ -11,6 +11,7 @@ import com.aws.bean.util.GsonUtil
 import com.aws.bean.util.ObjectTypeUtil
 import com.coder.vincent.smart_toast.SmartToast
 import com.example.base.base.bean.BlockDTO
+import com.example.base.base.bean.LocationBean
 import com.example.base.utils.BlockUtils
 import com.example.base.utils.LogUtils
 import com.example.http.RequestManager
@@ -28,18 +29,30 @@ class HomeTripDetailViewModel : ViewModel() {
 
     private val homeApi = RequestManager.build(HomeImpApi().host()).create(HomeAPI::class.java)
 
-    fun getHomeTravelProducts(id:Long){
-        homeApi.getTravelProductDetails(id).enqueue(object :
+    fun getHomeTravelProducts(id: Long, isTravelTrip: Int) {
+        val callback = object :
             Callback<ResponseResult<TravelProductItem?>> {
             override fun onResponse(
                 call: Call<ResponseResult<TravelProductItem?>>,
                 response: Response<ResponseResult<TravelProductItem?>>
             ) {
                 if (response.body()?.isSuccessful == true) {
-                    mTravelProduct.value=response.body()?.data
-                    response.body()?.data?.introduce?.let {
-                      //  LogUtils.d("ssssss","introduce=${BlockUtils.getBlockDto(it)}")
+                    response.body()?.data?.trip?.let {trip->
+                        if(response.body()?.data?.introduce?.isEmpty() == true){
+                            response.body()?.data?.introduce = trip
+                        }
+                    }
 
+                    mTravelProduct.value = response.body()?.data
+                    var locationBeanList = ArrayList<LocationBean>()
+                    response.body()?.data?.location?.forEachIndexed { index, locItem ->
+                        locationBeanList.add(LocationBean().apply {
+                            lat = locItem.lat
+                            lon = locItem.lng
+                        })
+                    }
+                    if(locationBeanList.isNotEmpty()){
+                        BlockUtils.locMap[id] = locationBeanList
                     }
                 }
             }
@@ -48,11 +61,13 @@ class HomeTripDetailViewModel : ViewModel() {
                 // SmartToast.classic().showInCenter(t.message ?: "请重新尝试")
 
             }
-        })
+        }
+        if (isTravelTrip == 0) {
+            homeApi.getTravelProductDetails(id).enqueue(callback)
+        } else {
+            homeApi.getTravelTripDetails(id).enqueue(callback)
+        }
+
     }
 
-    fun navigatorMapPage(){
-        ARouter.getInstance().build(ARouterPathList.MAP_HOME_VIEW)
-            .navigation()
-    }
 }
