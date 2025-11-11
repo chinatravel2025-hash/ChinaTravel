@@ -91,15 +91,11 @@ class MapViewActivity: BaseStatusBarActivity() {
         var latLng: LatLng? = null
         info?.forEachIndexed { index, locationBean ->
             if(index == 0){
-                latLng = LatLng(locationBean.lon?:0.0, locationBean.lat?:0.0)
+                latLng = LatLng(locationBean.lat?:0.0, locationBean.lon?:0.0)
             }
-            builder.include(LatLng(locationBean.lon?:0.0, locationBean.lat?:0.0))
-            latLngs.add(LatLng(locationBean.lon?:0.0, locationBean.lat?:0.0))
-            //latLngs.add(LatLng(31.075867780515686, 121.59554847645956))
-            //latLngs.add(LatLng(31.238068, 121.501654))
+            builder.include(LatLng(locationBean.lat?:0.0, locationBean.lon?:0.0))
+            latLngs.add(LatLng(locationBean.lat?:0.0, locationBean.lon?:0.0))
         }
-        //builder.include(LatLng(31.075867780515686, 121.59554847645956))
-        //builder.include(LatLng(31.238068, 121.501654))
         for (latLng in latLngs) {
             binding.mapView.map.addMarker(MarkerOptions()
                 .position(latLng)

@@ -211,13 +211,10 @@ class PlaceBlockAdapter constructor(
         item.data?.location?.let { locationBean ->
             val builder = LatLngBounds.builder()
             val latLngs = mutableListOf<LatLng>()
-            builder.include(LatLng(locationBean.lon ?: 0.0, locationBean.lat ?: 0.0))
-            //builder.include(LatLng(31.075867780515686, 121.59554847645956))
-            //builder.include(LatLng(31.238068, 121.501654))
-
-            latLngs.add(LatLng(locationBean.lon ?: 0.0, locationBean.lat ?: 0.0)) // 上海市政府
-            //latLngs.add(LatLng(31.075867780515686, 121.59554847645956)) // 北京天安门
-            //latLngs.add(LatLng(31.238068, 121.501654)) // 天津市政府
+            builder.include(LatLng(locationBean.lat ?: 0.0, locationBean.lon ?: 0.0))
+            latLngs.add(LatLng(locationBean.lat ?: 0.0, locationBean.lon ?: 0.0)) // 上海市政府
+            //latLngs.add(LatLng(121.59554847645956,31.075867780515686 )) // 北京天安门
+            //latLngs.add(LatLng(121.501654, 31.238068)) // 天津市政府
 //    val markerView=    LayoutInflater.from(this).inflate(com.china.travel.widget.R.layout.marker_layout,binding.space,false)
 //        val markerOptions = MarkerOptions()
 //        markerOptions.apply {
