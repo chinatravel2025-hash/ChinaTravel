@@ -5,6 +5,7 @@ plugins {
 }
 
 android {
+    namespace 'com.example.peanutmusic.base'
     compileSdk 33
 
     defaultConfig {
@@ -29,6 +30,7 @@ android {
         jvmTarget = '1.8'
     }
     buildFeatures {
+        buildConfig = true  // 启用 BuildConfig 以支持 BuildConfig.DEBUG 等
         dataBinding = true
         viewBinding = true
     }

@@ -6,6 +6,7 @@ apply plugin: 'kotlin-kapt'
 
 
 android {
+    namespace 'com.aws.bean'
     compileSdk 33
 
     defaultConfig {

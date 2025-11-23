@@ -9,6 +9,7 @@ static def releaseTime() {
 }
 
 android {
+    namespace 'com.travel.guide'
     compileSdk 33
 
     defaultConfig {
@@ -34,6 +35,7 @@ android {
         jvmTarget = '1.8'
     }
     buildFeatures {
+        buildConfig = true  // 启用 BuildConfig 以支持 buildConfigField
         dataBinding = true
         viewBinding = true
     }

@@ -9,7 +9,7 @@ kapt {
 apply plugin: 'kotlin-android'
 android {
     namespace 'com.china.travel'
-    compileSdk 33
+    compileSdk 35
 
     signingConfigs {
         debug {
@@ -32,7 +32,7 @@ android {
     defaultConfig {
         applicationId "com.china.travel"
         minSdk 24
-        targetSdk 33
+        targetSdk 35
         versionCode 2
         versionName "1.0.0"
         ndk {
@@ -72,6 +72,8 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    // AGP 8.0+ 需要 Java 17，但可以通过工具链配置
+    // 如果构建失败，可能需要升级到 Java 17
     buildFeatures {
         dataBinding = true
         viewBinding = true
@@ -81,13 +83,14 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar', "*.aar"], dir: 'libs')
-    implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.appcompat:appcompat:1.4.1'
-    implementation 'com.google.android.material:material:1.5.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
+    // 更新依赖库版本以支持 API 35 (Android 15)
+    implementation 'androidx.core:core-ktx:1.13.0'  // 从 1.7.0 升级，支持 API 35
+    implementation 'androidx.appcompat:appcompat:1.6.1'  // 从 1.4.1 升级，支持 API 35
+    implementation 'com.google.android.material:material:1.11.0'  // 从 1.5.0 升级，支持 API 35
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'  // 从 2.1.3 升级
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'  // 从 1.1.3 升级
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'  // 从 3.4.0 升级
     implementation project(path: ':common:common_http')
     implementation project(path: ':common:common_base')
     implementation project(path: ':common:common_router')
@@ -98,7 +101,7 @@ dependencies {
     implementation project(path: ':module:web')
     implementation project(path: ':lib:map')
     kapt Libs.arouter_compiler
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.4.1'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.4.1'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.7.6'  // 从 2.4.1 升级，支持 API 35
+    implementation 'androidx.navigation:navigation-ui-ktx:2.7.6'  // 从 2.4.1 升级，支持 API 35
     implementation 'com.ibm.icu:icu4j:68.2'
 }

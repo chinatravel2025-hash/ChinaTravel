@@ -4,6 +4,7 @@ plugins {
 }
 
 android {
+    namespace 'com.example.common_http'
     compileSdk 33
 
     defaultConfig {
@@ -27,6 +28,9 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+    buildFeatures {
+        buildConfig = true  // 启用 BuildConfig 以支持 BuildConfig.DEBUG
     }
 }
 

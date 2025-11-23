@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-parcelize'
 
 android {
+    namespace 'com.nguyenhoanglam.imagepicker'
     compileSdk 33
 
     defaultConfig {
@@ -19,6 +20,13 @@ android {
     }
     buildFeatures {
         viewBinding = true
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
     }
 }
 

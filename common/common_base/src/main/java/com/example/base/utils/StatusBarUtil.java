@@ -10,9 +10,13 @@ import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowInsetsController;
 import android.view.WindowManager;
 
 import androidx.annotation.IntDef;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.core.view.WindowInsetsControllerCompat;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -46,12 +50,19 @@ public class StatusBarUtil {
      * Android碎片化太验证，导航栏适配过于复杂，底部视图很容易被导航栏覆盖导致不能被点击
      *
      * 主题中不能 设置 导航栏 相关属性，否则不会生效
+     * 适配 Android 15 Edge-to-Edge 要求
      * @param window
      */
     public static void immersive(Window window) {
 
         if (window == null) return;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            // Android 15 (API 35) 强制要求 Edge-to-Edge
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                // 使用 WindowCompat 启用 Edge-to-Edge
+                WindowCompat.setDecorFitsSystemWindows(window, false);
+            }
+            
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
@@ -59,16 +70,24 @@ public class StatusBarUtil {
             window.addFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
             window.clearFlags(1024);
 
-
-
             //设置状态栏颜色
             window.setStatusBarColor(Color.TRANSPARENT);
-            int visibility = window.getDecorView().getSystemUiVisibility();
-            //布局内容全屏显示,沉浸式 SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-            visibility |= View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
-//          防止内容区域大小发生变化
-            visibility |= View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
-            window.getDecorView().setSystemUiVisibility(visibility);
+            
+            // 使用新的 WindowInsetsController API (API 30+)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                WindowInsetsControllerCompat windowInsetsController = WindowCompat.getInsetsController(window, window.getDecorView());
+                if (windowInsetsController != null) {
+                    windowInsetsController.setAppearanceLightStatusBars(false);
+                }
+            } else {
+                // 兼容旧版本
+                int visibility = window.getDecorView().getSystemUiVisibility();
+                //布局内容全屏显示,沉浸式 SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                visibility |= View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
+                //防止内容区域大小发生变化
+                visibility |= View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+                window.getDecorView().setSystemUiVisibility(visibility);
+            }
 
         } else {
             window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -148,8 +167,18 @@ public class StatusBarUtil {
     }
 
     //设置6.0 状态栏深色浅色切换
+    // 适配 Android 15，使用新的 WindowInsetsController API
     public static boolean setCommonUI(Window window, boolean dark) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            // 优先使用新的 WindowInsetsController API (API 30+)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                WindowInsetsControllerCompat windowInsetsController = WindowCompat.getInsetsController(window, window.getDecorView());
+                if (windowInsetsController != null) {
+                    windowInsetsController.setAppearanceLightStatusBars(dark);
+                    return true;
+                }
+            }
+            // 兼容旧版本 (API 23-29)
             View decorView = window.getDecorView();
             int vis = decorView.getSystemUiVisibility();
             if (dark) {
