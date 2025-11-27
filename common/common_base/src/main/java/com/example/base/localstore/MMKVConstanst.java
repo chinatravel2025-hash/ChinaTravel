@@ -15,6 +15,11 @@ public class MMKVConstanst {
      */
     public static final String IM_LOGIN_INFO_KEY = "IM_LOGIN_INFO_KEY";
 
+    /**
+     * 用户协议和隐私条款同意状态
+     */
+    public static final String USER_AGREEMENT_ACCEPTED = "user_agreement_accepted";
+
 
 
 

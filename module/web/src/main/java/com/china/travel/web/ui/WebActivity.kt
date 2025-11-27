@@ -71,7 +71,14 @@ class WebActivity : AppCompatActivity() {
         }*/
 
         binding.ivBack.setOnClickListener {
-            finish()
+            if (hasBack()) goBack() else finish()
+        }
+
+        // 设置标题
+        if (title != null && title?.isNotEmpty() == true) {
+            viewModel.title.value = title
+        } else {
+            viewModel.title.value = ""
         }
         //binding.blurview.setBlurRadius(100F)
         binding.wbWeb.settings.run {
@@ -105,8 +112,12 @@ class WebActivity : AppCompatActivity() {
         url?.let {
            // if (isOursH5()) {
               //  binding.wbWeb.addJavascriptInterface(JSBridgeUtil(this, binding.wbWeb, binding.llTop, this.javaClass.name), "native")
-
-            binding.wbWeb.loadUrl(it)
+            // 支持加载本地 assets 文件
+            if (it.startsWith("file:///android_asset/") || it.startsWith("file://android_asset/")) {
+                binding.wbWeb.loadUrl(it)
+            } else {
+                binding.wbWeb.loadUrl(it)
+            }
         }
         if (title == null || title?.isEmpty() == true) {
             title = ""
