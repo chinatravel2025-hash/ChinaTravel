@@ -121,7 +121,7 @@ class PlaceBlockAdapter constructor(
                 val addHolder = holder as BlockParagraphHolder
                 addHolder.dataBinding?.apply {
                     vm = item
-                    val readMoreOption = ReadMoreOption.Builder(context)
+                    /*val readMoreOption = ReadMoreOption.Builder(context)
                         .textLength(200, ReadMoreOption.TYPE_CHARACTER)
                         .moreLabel("Read more")
                         .lessLabel("  Read less")
@@ -129,7 +129,8 @@ class PlaceBlockAdapter constructor(
                         .lessLabelColor(ResourceUtils.getColor(com.example.peanutmusic.base.R.color.txt_12C286))
                         .expandAnimation(true)
                         .build()
-                    readMoreOption.addReadMoreTo(tvContent, item.data?.text)
+                    readMoreOption.addReadMoreTo(tvContent, item.data?.text)*/
+                    tvContent.text  = item.data?.text?:""
                     executePendingBindings()
                 }
             }
@@ -154,7 +155,7 @@ class PlaceBlockAdapter constructor(
                 val modelHolder = holder as BlockTripContentHolder
                 modelHolder.dataBinding?.apply {
                     vm = item
-                    val readMoreOption = ReadMoreOption.Builder(context)
+                    /*val readMoreOption = ReadMoreOption.Builder(context)
                         .textLength(200, ReadMoreOption.TYPE_CHARACTER)
                         .moreLabel("Read more")
                         .lessLabel("  Read less")
@@ -162,7 +163,8 @@ class PlaceBlockAdapter constructor(
                         .lessLabelColor(ResourceUtils.getColor(com.example.peanutmusic.base.R.color.txt_12C286))
                         .expandAnimation(true)
                         .build()
-                    readMoreOption.addReadMoreTo(tvContent, item.data?.text)
+                    readMoreOption.addReadMoreTo(tvContent, item.data?.text)*/
+                    tvContent.text  = item.data?.text?:""
                     executePendingBindings()
                 }
             }
@@ -171,7 +173,7 @@ class PlaceBlockAdapter constructor(
                 val modelHolder = holder as BlockAboutHolder
                 modelHolder.dataBinding?.apply {
                     vm = item
-                    val readMoreOption = ReadMoreOption.Builder(context)
+                    /*val readMoreOption = ReadMoreOption.Builder(context)
                         .textLength(200, ReadMoreOption.TYPE_CHARACTER)
                         .moreLabel("Read more")
                         .lessLabel("  Read less")
@@ -179,7 +181,8 @@ class PlaceBlockAdapter constructor(
                         .lessLabelColor(ResourceUtils.getColor(com.example.peanutmusic.base.R.color.txt_12C286))
                         .expandAnimation(true)
                         .build()
-                    readMoreOption.addReadMoreTo(tvContent, item.data?.text)
+                    readMoreOption.addReadMoreTo(tvContent, item.data?.text)*/
+                    tvContent.text  = item.data?.text?:""
                     executePendingBindings()
                 }
             }

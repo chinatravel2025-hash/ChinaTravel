@@ -107,15 +107,18 @@ class HomeViewModel : ViewModel() {
                 response: Response<ResponseResult<PlaceDTO?>>
             ) {
                 if (response.body()?.isSuccessful == true) {
+                    Log.d("getHomeAllPlaceType","${response.body()?.data?.count?:0}")
                     if (response.body()?.data?.page==1){
                         placeMaxNum=response.body()?.data?.count?:0
                     }
                     mDataPlace.value=response.body()?.data?.list
+                }else{
+                    Log.e("onFailure","${response.body()?.data?.count?:0}")
                 }
             }
             override fun onFailure(call: Call<ResponseResult<PlaceDTO?>>, t: Throwable) {
                 // SmartToast.classic().showInCenter(t.message ?: "请重新尝试")
-
+                Log.e("onFailure",t.message?:"")
             }
         })
     }

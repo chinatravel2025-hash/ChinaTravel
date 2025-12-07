@@ -35,4 +35,10 @@ class UserViewModel : ViewModel() {
         ARouter.getInstance().build(ARouterPathList.USER_REGISTER)
             .navigation()
     }
+
+    val showPrivacyPolicyDialog = MutableLiveData<Boolean>()
+    
+    fun showPrivacyPolicy(){
+        showPrivacyPolicyDialog.value = true
+    }
 }
