@@ -38,7 +38,7 @@ class WebActivity : AppCompatActivity() {
 
     @JvmField
     @Autowired
-    var hideActionBar: Boolean? = true
+    var hideActionBar: Boolean? = false
     private lateinit var binding: ModuleWebActivityMainBinding
     private lateinit var viewModel: WebViewModel
     var statusBarDarkTheme: Boolean = true

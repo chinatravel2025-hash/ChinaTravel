@@ -31,7 +31,6 @@ import retrofit2.Response
 
 class HomeViewModel : ViewModel() {
      val PAGE_SIZE=10
-    var defaultCityId=0L
 
     var mDataBanner = MutableLiveData<List<BannerItem>>(emptyList())
 
@@ -85,10 +84,6 @@ class HomeViewModel : ViewModel() {
                         cityMaxNum=response.body()?.data?.count?:0
                     }
                     mDataCity.value=response.body()?.data?.list
-                    if (!response.body()?.data?.list.isNullOrEmpty()){
-                        defaultCityId=response.body()?.data?.list?.get(0)?.id?:0
-                        getPlaceList()
-                    }
                 }
             }
 
@@ -97,10 +92,12 @@ class HomeViewModel : ViewModel() {
 
             }
         })
+
+        getPlaceList()
     }
 
     fun getPlaceList(){
-        homeApi.getHomeAllPlaceType(mPlacePageNum,PAGE_SIZE,defaultCityId).enqueue(object :
+        homeApi.getHomeAllPlaceType(mPlacePageNum,PAGE_SIZE,0).enqueue(object :
             Callback<ResponseResult<PlaceDTO?>> {
             override fun onResponse(
                 call: Call<ResponseResult<PlaceDTO?>>,
