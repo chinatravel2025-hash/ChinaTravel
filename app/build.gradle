@@ -45,7 +45,7 @@ android {
                 arg("AROUTER_MODULE_NAME", project.getName())
             }
         }
-        signingConfig signingConfigs.release
+        // 移除这里的签名配置，让debug和release分别使用各自的签名配置
     }
     buildTypes {
         debug {
@@ -54,7 +54,8 @@ android {
             zipAlignEnabled true  //压缩优化
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             jniDebuggable true
-
+            // Debug构建使用debug签名配置（如果签名文件存在），否则使用系统默认debug签名
+            signingConfig signingConfigs.debug
         }
         release {
             debuggable false
@@ -62,6 +63,8 @@ android {
             zipAlignEnabled true  //压缩优化
             shrinkResources false  //移出无用资源
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            // Release构建使用release签名配置
+            signingConfig signingConfigs.release
         }
     }
 
