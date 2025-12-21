@@ -1,7 +1,7 @@
 <resources>
 
-    <string name="lite_not_has">引用内容不存在</string>
-    <string name="lite_chat_revoke">引用内容已撤回</string>
+    <string name="lite_not_has">Referenced content does not exist</string>
+    <string name="lite_chat_revoke">Referenced content has been revoked</string>
     <string name="im_login_error">Logging error</string>
     <string name="im_login_ing">Logging in...</string>
     <string name="im_login_success">Logging Success</string>

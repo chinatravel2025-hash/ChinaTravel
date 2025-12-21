@@ -109,15 +109,15 @@ public final class PermissionInterceptor implements OnPermissionInterceptor {
         } else {
             // 注意：这里的 Dialog 只是示例，没有用 DialogFragment 来处理 Dialog 生命周期
             new AlertDialog.Builder(activity)
-                    .setTitle("权限说明")
+                    .setTitle(R.string.common_permission_description_title)
                     .setMessage(mPermissionDescription)
                     .setCancelable(false)
-                    .setPositiveButton("授予", (dialog, which) -> {
+                    .setPositiveButton(R.string.common_permission_granted, (dialog, which) -> {
                         dialog.dismiss();
                         PermissionFragment.launch(activity, allPermissions,
                                 PermissionInterceptor.this, callback);
                     })
-                    .setNegativeButton("取消", (dialog, which) -> {
+                    .setNegativeButton(R.string.common_permission_denied, (dialog, which) -> {
                         dialog.dismiss();
                         if (callback == null) {
                             return;
@@ -148,7 +148,7 @@ public final class PermissionInterceptor implements OnPermissionInterceptor {
 
         if (doNotAskAgain) {
             if (deniedPermissions.size() == 1 && Permission.ACCESS_MEDIA_LOCATION.equals(deniedPermissions.get(0))) {
-                Toast.makeText(activity,"获取媒体位置权限失败\n请清除应用数据后重试",Toast.LENGTH_SHORT).show();
+                Toast.makeText(activity,activity.getString(R.string.common_permission_media_location_hint_fail),Toast.LENGTH_SHORT).show();
                 return;
             }
             //不在询问后是否要显示设置

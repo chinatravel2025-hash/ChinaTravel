@@ -34,7 +34,7 @@
                 android:textSize="@dimen/sp_13"
                 android:textColor="@color/c_333333"
                 android:textFontWeight="600"
-                android:text="Shanghai Oriental Pear 上海的城市遥遥领先"
+                android:text="Shanghai Oriental Pear"
                 android:layout_height="wrap_content"/>
             <TextView
                 android:layout_width="0dp"

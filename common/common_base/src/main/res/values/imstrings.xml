@@ -1,13 +1,13 @@
 <resources>
 
 
-    <string name="new_friend">新的联系人</string>
-    <string name="group">我的群聊</string>
-    <string name="blacklist">黑名单</string>
+    <string name="new_friend">New Contact</string>
+    <string name="group">My Groups</string>
+    <string name="blacklist">Blacklist</string>
 
-    <string name="ui_at_all">[@所有人]</string>
-    <string name="ui_at_me">[有人@我]</string>
-    <string name="ui_at_all_me">[@所有人][有人@我]</string>
+    <string name="ui_at_all">[@All]</string>
+    <string name="ui_at_me">[@Me]</string>
+    <string name="ui_at_all_me">[@All][@Me]</string>
 
 
 
@@ -23,9 +23,9 @@
     <string name="custom_msg">[自定义消息]</string>
     <string name="no_support_msg">不支持的自定义消息</string>
 
-    <string name="revoke_tips_you">您撤回了一条消息</string>
-    <string name="revoke_tips">撤回了一条消息</string>
-    <string name="revoke_tips_other">对方撤回了一条消息</string>
+    <string name="revoke_tips_you">You revoked a message</string>
+    <string name="revoke_tips">Revoked a message</string>
+    <string name="revoke_tips_other">The other party revoked a message</string>
 
 
     <string name="setting">设置中</string>

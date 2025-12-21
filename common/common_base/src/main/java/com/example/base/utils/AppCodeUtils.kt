@@ -20,18 +20,18 @@ object AppCodeUtils {
     fun errorToast(code:Int):String{
         var toastStr=""
          when(code){
-             TOKEN_ERROR->{toastStr ="用户未登录，未授权，token失效"}
-             UNKNOWN_ERROR->{toastStr ="未知错误"}
-             UNKNOWN_ARGUMENT_ERROR->{toastStr ="未知参数"}
-             UNKNOWN_ARGUMENT_FORMANT_ERROR->{toastStr ="参数格式错误"}
-             FREQUENT_EMAIL_ERROR->{toastStr ="邮件发送频繁"}
-             CODE_ERROR->{toastStr ="验证码错误"}
-             PASSWORD_IS_INCONSISTENT_ERROR->{toastStr ="密码输入前后不一致"}
-             EMAIL_OUT_TIME_ERROR->{toastStr ="邮箱验证超时过期"}
-             TOKEN_CREATE_ERROR->{toastStr ="token生成失败"}
-             EMAIL_HAS_CREATE_ERROR->{toastStr ="该邮箱已注册，请前往登录"}
-             EMAIL_UN_CREATE_ERROR->{toastStr ="该邮箱未注册，请前往登录"}
-             ACCOUNT_OR_PASSWORD_ERROR->{toastStr ="账号或密码错误"}
+             TOKEN_ERROR->{toastStr ="User not logged in, unauthorized, token expired"}
+             UNKNOWN_ERROR->{toastStr ="Unknown error"}
+             UNKNOWN_ARGUMENT_ERROR->{toastStr ="Unknown parameter"}
+             UNKNOWN_ARGUMENT_FORMANT_ERROR->{toastStr ="Parameter format error"}
+             FREQUENT_EMAIL_ERROR->{toastStr ="Email sending too frequent"}
+             CODE_ERROR->{toastStr ="Verification code error"}
+             PASSWORD_IS_INCONSISTENT_ERROR->{toastStr ="Password input inconsistent"}
+             EMAIL_OUT_TIME_ERROR->{toastStr ="Email verification timeout"}
+             TOKEN_CREATE_ERROR->{toastStr ="Token generation failed"}
+             EMAIL_HAS_CREATE_ERROR->{toastStr ="This email is already registered, please log in"}
+             EMAIL_UN_CREATE_ERROR->{toastStr ="This email is not registered, please register"}
+             ACCOUNT_OR_PASSWORD_ERROR->{toastStr ="Account or password error"}
          }
         return toastStr
     }

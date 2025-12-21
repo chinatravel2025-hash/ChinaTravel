@@ -197,11 +197,11 @@ class ImageAlbumFragment : BasePageFragment(), ImageItemFragment.ImageItemListen
 
                     val decodeBmp = fragment.getFillBitmap()
                     if (decodeBmp == null) {
-                        ToastHelper.createToastToFail(requireContext(), "未识别到二维码")
+                        ToastHelper.createToastToFail(requireContext(), "QR code not recognized")
                         return
                     }
 
-                    LoadHelper.showLoading(requireContext(), "解析中")
+                    LoadHelper.showLoading(requireContext(), "Parsing...")
                     val decodeImgThread= DecodeImgThread(fragment.getFillBitmap(),object : DecodeImgCallback{
                         override fun onImageDecodeSuccess(result: DecodeResult) {
                             MainScope().launch {

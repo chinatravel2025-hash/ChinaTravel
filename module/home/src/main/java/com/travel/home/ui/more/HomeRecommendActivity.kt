@@ -73,7 +73,7 @@ class HomeRecommendActivity : BaseStatusBarActivity(), (CityItem) -> Unit {
     private fun showFilter() {
         binding.llFilter.setOnClickListener {
             if (mVM.mDataCity.value.isNullOrEmpty()){
-                SmartToast.classic().showInCenter("获取城市失败")
+                SmartToast.classic().showInCenter("Failed to get city")
             }else{
                 popupView = XPopup.Builder(this)
                     .atView(it)

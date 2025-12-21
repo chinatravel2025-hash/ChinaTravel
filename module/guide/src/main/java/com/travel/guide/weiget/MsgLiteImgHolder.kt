@@ -68,7 +68,7 @@ class MsgLiteImgHolder(binding: ViewDataBinding) : MsgBaseHolder(binding) {
                     tvContent.let {
                         TextViewBindingAdapter.setText(
                             it,
-                            "${if (msg.isSelf) "我" else ((if (msg.friendRemark?.isNotEmpty() == true) msg.friendRemark else msg.nickName) ?: "")}："
+                            "${if (msg.isSelf) "Me" else ((if (msg.friendRemark?.isNotEmpty() == true) msg.friendRemark else msg.nickName) ?: "")}: "
                         )
                     }
 

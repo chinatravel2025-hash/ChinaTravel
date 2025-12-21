@@ -699,7 +699,7 @@ object V2TMessageManager {
             return ""
         }
         val info = V2TIMOfflinePushInfo()
-        info.desc = "[语音通话]"
+        info.desc = "[Voice Call]"
         return V2TIMManager.getSignalingManager()
             .invite(to,
                 data,

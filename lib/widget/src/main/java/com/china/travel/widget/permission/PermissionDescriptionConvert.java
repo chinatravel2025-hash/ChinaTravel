@@ -36,6 +36,6 @@ public final class PermissionDescriptionConvert {
    @NonNull
    public static String permissionsToDescription(Context context, String permissionName) {
        // 请根据权限名称转换成对应权限说明
-       return "用于"+permissionName+"业务";
+       return "For " + permissionName + " service";
    }
 }

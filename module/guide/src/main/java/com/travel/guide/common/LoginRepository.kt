@@ -204,7 +204,7 @@ class LoginRepository {
             super.onConnectFailed(code, error)
             LogUtils.i(TAG, "onConnectFailed code = ${code} , error = ${error ?: ""}")
             for (l in imConnectionListeners) {
-                l.onConnectFailed(code, error ?: "未知错误")
+                l.onConnectFailed(code, error ?: "Unknown error")
             }
         }
 
@@ -320,7 +320,7 @@ class LoginRepository {
 
             ThreadUtils.runOnUiThread {
                 if (userSig.isEmpty()) {
-                    imLoginOnFailed(-1, "未获取到登录信息")
+                    imLoginOnFailed(-1, "Failed to get login information")
                     isIMLogining = false
                     LogUtils.i(TAG, "IMLogin failed  用户签名信息为null")
                     return@runOnUiThread
@@ -351,7 +351,7 @@ class LoginRepository {
                                 "IMLogin failed errorCode = ${errorCode} error = ${errorMessage} " +
                                         " userSig = ${userSig}"
                             )
-                            imLoginOnFailed(errorCode, errorMessage ?: "未知错误")
+                            imLoginOnFailed(errorCode, errorMessage ?: "Unknown error")
                         }
                     })
             }
@@ -388,16 +388,16 @@ class LoginRepository {
                             }
                         }
                         if (users.isNotEmpty()) {
-                            V2TGroupManager.createGroup("用户${User.uid}", "", users) { groupId ->
+                            V2TGroupManager.createGroup("User${User.uid}", "", users) { groupId ->
                                 //群组创建成功 直接拉客服id
                                 if (groupId?.isNotEmpty() == true) {
                                     callback.invoke(groupId)
                                 } else {
-                                    imLoginOnFailed(-3, "群组创建失败")
+                                    imLoginOnFailed(-3, "Group creation failed")
                                 }
                             }
                         } else {
-                            imLoginOnFailed(-2, "未获取到客服列表")
+                            imLoginOnFailed(-2, "Failed to get customer service list")
                         }
                     }
 
@@ -483,7 +483,7 @@ class LoginRepository {
                                         "IMLogin failed errorCode = ${errorCode} error = ${errorMessage} userId = ${userId}" +
                                                 " userSig = ${userSig}"
                                     )
-                                    imLoginOnFailed(errorCode, errorMessage ?: "未知错误")
+                                    imLoginOnFailed(errorCode, errorMessage ?: "Unknown error")
                                 }
                             })
                     }

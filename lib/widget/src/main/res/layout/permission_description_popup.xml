@@ -38,7 +38,7 @@
             android:layout_marginTop="@dimen/dp_6"
             android:textColor="#999999"
             android:lineHeight="@dimen/dp_18"
-            android:text="需要您授权开启通知，以便于我们能及时通知您所收到的新消息。"
+            android:text="We need your permission to enable notifications so we can notify you of new messages in time."
             android:textSize="@dimen/sp_12" />
 
     </LinearLayout>

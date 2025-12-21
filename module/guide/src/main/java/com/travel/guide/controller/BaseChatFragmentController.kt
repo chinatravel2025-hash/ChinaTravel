@@ -296,7 +296,7 @@ open class BaseChatFragmentController constructor(
                     .interceptor(
                         PermissionInterceptor(
                             "Camera Authorization Instructions",
-                            "需要您授权开启相机，以便于我们能拍照上传。"
+                            "We need your permission to enable the camera so we can take photos and upload them."
                         )
                     )
                     .request(object : OnPermissionCallback {
@@ -505,7 +505,7 @@ open class BaseChatFragmentController constructor(
                                         } else {
                                             ToastHelper.createToastToFail(
                                                 App.getContext(),
-                                                "转文本失败"
+                                                "Failed to convert to text"
                                             )
                                         }
                                     }
@@ -558,7 +558,7 @@ open class BaseChatFragmentController constructor(
                                 mViewModel.isQuote.value = true
                                 mViewModel.quoteMsgId.value = msgID
                                 mViewModel.isVoiceType.value = 0
-                                var name = "我"
+                                var name = "Me"
                                 if (userId != User.ridString) {
                                     FriendsRepository.repository
                                         .queryFriendInfo(userId)
@@ -628,8 +628,8 @@ open class BaseChatFragmentController constructor(
             if (!has) {
                 OursDialogHelper.showPermission(
                     this,
-                    "发送语音消息的授权说明",
-                    "需要您授权开启麦克风，以便于您可以正常使用发送录音功能。"
+                    "Voice Message Authorization Instructions",
+                    "We need your permission to enable the microphone so you can use the voice recording feature."
                 )
             }
             val px =
@@ -669,7 +669,7 @@ open class BaseChatFragmentController constructor(
             if (isSand) {
                 flRoot.context?.let {
                     if (it is Activity) {
-                        LoadHelper.showLoading(it, "数据处理中...")
+                        LoadHelper.showLoading(it, "Processing data...")
                     }
                 }
             }
@@ -681,7 +681,7 @@ open class BaseChatFragmentController constructor(
                         val isOursAudio =
                             mViewModel.isOursMode.value == true && RTASRHelper.helper.animationList.text.isNotEmpty()
                         if(mViewModel.isOursMode.value == true && RTASRHelper.helper.animationList.text.isEmpty()){
-                            ToastHelper.createToastToTxt("您发送的ours语音未识别，已自动转成常规语音")
+                            ToastHelper.createToastToTxt("Your OURS voice was not recognized and has been automatically converted to regular voice")
                         }
                         V2TMessageManager.sendVoiceMsg(
                             mId,
@@ -701,7 +701,7 @@ open class BaseChatFragmentController constructor(
                         MainScope().launch {
                             ToastHelper.createToastToFail(
                                 App.getContext(),
-                                "录制不能小于一秒"
+                                "Recording cannot be less than one second"
                             )
                         }
                     }
@@ -727,8 +727,8 @@ open class BaseChatFragmentController constructor(
             if (!has) {
                 OursDialogHelper.showPermission(
                     this,
-                    "发送语音消息的授权说明",
-                    "需要您授权开启麦克风，以便于您可以正常使用录音发送功能。"
+                    "Voice Message Authorization Instructions",
+                    "We need your permission to enable the microphone so you can use the voice recording feature."
                 )
             }
             val px =

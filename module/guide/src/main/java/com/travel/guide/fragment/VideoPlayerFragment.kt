@@ -107,7 +107,7 @@ class VideoPlayerFragment constructor(val userId: String, val url: String,val in
         }
         mBinding.ivSave.setOnClickListener {
             SaveUtils.saveVideoToAlbum(requireActivity(), url ?: "")
-            ToastHelper.createToastToSuccess(App.getContext(), "已保存至相册")
+            ToastHelper.createToastToSuccess(App.getContext(), "Saved to album")
         }
         mBinding.seekBar.setOnRangeChangedListener(object : OnRangeChangedListener {
             @SuppressLint("SetTextI18n")

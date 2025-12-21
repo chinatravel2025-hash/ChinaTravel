@@ -54,7 +54,7 @@ class MsgLiteTxtHolder(binding: ViewDataBinding) : MsgBaseHolder(binding) {
             tvContent.text = tvContent.context.getString(R.string.lite_not_has)
             if (vo.message?.elemType == V2TIMMessage.V2TIM_ELEM_TYPE_TEXT) {
                 vo.message?.let {msg->
-                    tvContent.text = "${if (msg.isSelf) "我" else msg.nickName}：${msg.textElem?.text ?: ""}"
+                    tvContent.text = "${if (msg.isSelf) "Me" else msg.nickName}: ${msg.textElem?.text ?: ""}"
                     initDoubleCheckerView(
                         msg.sender,
                         position,

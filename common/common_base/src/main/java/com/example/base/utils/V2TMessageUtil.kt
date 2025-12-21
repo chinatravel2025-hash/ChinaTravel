@@ -344,17 +344,17 @@ fun V2TIMMessage.toTitle(isSend: Boolean, isGroup: Boolean, isTopic: Boolean): S
 
     if (elemType == V2TIMMessage.V2TIM_ELEM_TYPE_GROUP_TIPS) {
         return when(groupTipsElem.type){
-            V2TIMGroupTipsElem.V2TIM_GROUP_TIPS_TYPE_QUIT -> "你已退出群聊"
-            V2TIMGroupTipsElem.V2TIM_GROUP_TIPS_TYPE_KICKED -> "你已被移出群聊"
-            V2TIMGroupTipsElem.V2TIM_GROUP_TIPS_TYPE_SET_ADMIN -> "群主设置管理员"
-            V2TIMGroupTipsElem.V2TIM_GROUP_TIPS_TYPE_CANCEL_ADMIN -> "群主取消管理员"
-            V2TIMGroupTipsElem.V2TIM_GROUP_TIPS_TYPE_GROUP_INFO_CHANGE -> "群信息已变更"
-            V2TIMGroupTipsElem.V2TIM_GROUP_TIPS_TYPE_MEMBER_INFO_CHANGE -> "群成员信息变更"
-            else -> "群设置已变更"
+            V2TIMGroupTipsElem.V2TIM_GROUP_TIPS_TYPE_QUIT -> "You left the group"
+            V2TIMGroupTipsElem.V2TIM_GROUP_TIPS_TYPE_KICKED -> "You were removed from the group"
+            V2TIMGroupTipsElem.V2TIM_GROUP_TIPS_TYPE_SET_ADMIN -> "Group owner set admin"
+            V2TIMGroupTipsElem.V2TIM_GROUP_TIPS_TYPE_CANCEL_ADMIN -> "Group owner removed admin"
+            V2TIMGroupTipsElem.V2TIM_GROUP_TIPS_TYPE_GROUP_INFO_CHANGE -> "Group info changed"
+            V2TIMGroupTipsElem.V2TIM_GROUP_TIPS_TYPE_MEMBER_INFO_CHANGE -> "Group member info changed"
+            else -> "Group settings changed"
         }
     }
     if (status == V2TIMMessage.V2TIM_MSG_STATUS_LOCAL_REVOKED) {
-        return "${nickName}撤回了一条消息"
+        return "${nickName} revoked a message"
     }
     return when (elemType) {
         V2TIMMessage.V2TIM_ELEM_TYPE_TEXT -> {
@@ -362,15 +362,15 @@ fun V2TIMMessage.toTitle(isSend: Boolean, isGroup: Boolean, isTopic: Boolean): S
         }
 
         V2TIMMessage.V2TIM_ELEM_TYPE_IMAGE -> {
-            "[图片]"
+            "[Image]"
         }
 
         V2TIMMessage.V2TIM_ELEM_TYPE_VIDEO -> {
-            "[视频]"
+            "[Video]"
         }
 
         V2TIMMessage.V2TIM_ELEM_TYPE_SOUND -> {
-            if (cloudCustomDataToBean()?.ours_voice_ext?.isNotEmpty() == true) "[OURS消息]" else "[语音]"
+            if (cloudCustomDataToBean()?.ours_voice_ext?.isNotEmpty() == true) "[OURS Message]" else "[Voice]"
         }
 
         V2TIMMessage.V2TIM_ELEM_TYPE_CUSTOM -> {
@@ -378,27 +378,27 @@ fun V2TIMMessage.toTitle(isSend: Boolean, isGroup: Boolean, isTopic: Boolean): S
             if (bean != null) {
                 when (bean?.type ?: 0) {
                     ChatCMDMsgType.TYPE_MSG_TOPIC_NEW -> {
-                        return "[新话题消息]"
+                        return "[New Topic Message]"
                     }
 
                     ChatCMDMsgType.TYPE_MSG_WISH_ASSIST -> {
-                        return "[心愿单助力]"
+                        return "[Wishlist Assist]"
                     }
 
                     ChatCMDMsgType.TYPE_MSG_CARD -> {
-                        return "[个人名片]"
+                        return "[Personal Card]"
                     }
 
                     /*ChatCMDMsgType.TYPE_MSG_PHONE -> {
                         if (bean.data != null) {
                             val data = bean.data
                             when (data?.phoneType) {
-                                1 -> "[OURS通话]"
-                                2 -> "[视频通话]"
-                                else -> "[语音通话]"
+                                1 -> "[OURS Call]"
+                                2 -> "[Video Call]"
+                                else -> "[Voice Call]"
                             }
                         } else {
-                            "[未知消息类型]"
+                            "[Unknown Message Type]"
                         }
                     }*/
 
@@ -407,12 +407,12 @@ fun V2TIMMessage.toTitle(isSend: Boolean, isGroup: Boolean, isTopic: Boolean): S
                     }
                 }
             } else {
-                "[未知消息类型]"
+                "[Unknown Message Type]"
             }
         }
 
         else -> {
-            "[未知消息类型]"
+            "[Unknown Message Type]"
         }
 
     }
@@ -425,7 +425,7 @@ fun TUIMessageBean.customMsgToTxt(
     message?.let { message ->
         return message.customMsgToTxt(isSend, isGroup, isTopic)
     }
-    return "未知消息类型"
+    return "[Unknown Message Type]"
 }
 
 fun V2TIMMessage.customMsgToTxt(
@@ -435,34 +435,34 @@ fun V2TIMMessage.customMsgToTxt(
 ): String {
     if (elemType == V2TIMMessage.V2TIM_ELEM_TYPE_GROUP_TIPS) {
         return when(groupTipsElem.type){
-            V2TIMGroupTipsElem.V2TIM_GROUP_TIPS_TYPE_QUIT -> "你已退出群聊"
-            V2TIMGroupTipsElem.V2TIM_GROUP_TIPS_TYPE_KICKED -> "你已被移出群聊"
-            V2TIMGroupTipsElem.V2TIM_GROUP_TIPS_TYPE_SET_ADMIN -> "群主设置管理员"
-            V2TIMGroupTipsElem.V2TIM_GROUP_TIPS_TYPE_CANCEL_ADMIN -> "群主取消管理员"
-            V2TIMGroupTipsElem.V2TIM_GROUP_TIPS_TYPE_GROUP_INFO_CHANGE -> "群信息已变更"
-            V2TIMGroupTipsElem.V2TIM_GROUP_TIPS_TYPE_MEMBER_INFO_CHANGE -> "群成员信息变更"
-            else -> "群设置已变更"
+            V2TIMGroupTipsElem.V2TIM_GROUP_TIPS_TYPE_QUIT -> "You left the group"
+            V2TIMGroupTipsElem.V2TIM_GROUP_TIPS_TYPE_KICKED -> "You were removed from the group"
+            V2TIMGroupTipsElem.V2TIM_GROUP_TIPS_TYPE_SET_ADMIN -> "Group owner set admin"
+            V2TIMGroupTipsElem.V2TIM_GROUP_TIPS_TYPE_CANCEL_ADMIN -> "Group owner removed admin"
+            V2TIMGroupTipsElem.V2TIM_GROUP_TIPS_TYPE_GROUP_INFO_CHANGE -> "Group info changed"
+            V2TIMGroupTipsElem.V2TIM_GROUP_TIPS_TYPE_MEMBER_INFO_CHANGE -> "Group member info changed"
+            else -> "Group settings changed"
         }
     }
     if (status == V2TIMMessage.V2TIM_MSG_STATUS_LOCAL_REVOKED) {
-        return "${nickName}撤回了一条消息"
+        return "${nickName} revoked a message"
     }
     val customBean = customDataToBean()
     if (elemType == V2TIMMessage.V2TIM_ELEM_TYPE_CUSTOM) {
         when (customBean?.type) {
             ChatCMDMsgType.TYPE_MSG_OZ_QA, ChatCMDMsgType.TYPE_MSG_OZ_TEXT -> {
-                return "[提问]"
+                return "[Question]"
             }
 
             ChatCMDMsgType.TYPE_MSG_OZ_SEND_TEXT -> {
-                return "[提问]"
+                return "[Question]"
             }
 
             ChatCMDMsgType.TYPE_MSG_SEND_FAIL -> {
-                return "消息已发出，但被对方拒收了。"
+                return "Message sent but was rejected by the recipient."
             }
             ChatCMDMsgType.TYPE_MSG_SYSTEM_TRIPS -> {
-                return "[行程消息]"
+                return "[Trip Message]"
             }
             ChatCMDMsgType.TYPE_MSG_SYSTEM_TIME -> {
                 customBean.data?.let { data ->
@@ -472,7 +472,7 @@ fun V2TIMMessage.customMsgToTxt(
 
         }
     }
-    return "未知消息类型"
+    return "[Unknown Message Type]"
 }
 
 fun V2TIMMessage.isApplyFriend(): Boolean {
@@ -555,7 +555,7 @@ private fun getShowName(message:V2TIMMessage):String{
 
 fun V2TIMMessage.getPushDesc(isSend: Boolean, isGroup: Boolean, isTopic: Boolean): String {
     val content = toTitle(isSend, isGroup, isTopic)
-    return if (isGroup) "${if (isSend) "我" else getShowName(this)}：${content}" else content
+    return if (isGroup) "${if (isSend) "Me" else getShowName(this)}: ${content}" else content
 }
 
 fun V2TIMMessage.getConversationDesc(isTopic: Boolean): String {

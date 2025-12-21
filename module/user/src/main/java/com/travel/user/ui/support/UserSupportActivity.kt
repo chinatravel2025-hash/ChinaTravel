@@ -88,7 +88,7 @@ class UserSupportActivity : BaseStatusBarActivity() {
 
         XXPermissions.with(this)
             .permission(permissionList)
-            .interceptor(PermissionInterceptor("相册授权说明", "需要您授权开启相册，以便于我们能选择图片上传。"))
+            .interceptor(PermissionInterceptor("Album Authorization Instructions", "We need your permission to enable album access so we can select and upload images."))
             .request(object : OnPermissionCallback {
                 override fun onGranted(permissions: MutableList<String>, allGranted: Boolean) {
                     if (allGranted) {
@@ -115,7 +115,7 @@ class UserSupportActivity : BaseStatusBarActivity() {
         }
         XXPermissions.with(this)
             .permission(permissionList)
-            .interceptor(PermissionInterceptor("相机授权说明", "需要您授权开启相机，以便于我们能拍照上传。"))
+            .interceptor(PermissionInterceptor("Camera Authorization Instructions", "We need your permission to enable the camera so we can take photos and upload them."))
             .request(object : OnPermissionCallback {
                 override fun onGranted(permissions: MutableList<String>, allGranted: Boolean) {
                     if (allGranted) {
