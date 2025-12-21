@@ -148,7 +148,7 @@ class LaunchActivity : BaseStatusBarActivity() {
         HomeRepository.homeRepository.getAppConfig()
         binding.ivCover.postDelayed({
             if (User.isLogin) {
-                var path = if (User.userName.isNullOrEmpty()) ARouterPathList.USER_SET_NICKNAME else ARouterPathList.APP_MAIN
+                var path = ARouterPathList.APP_MAIN
                 ARouter.getInstance().build(path)
                     .navigation(this, object : NavCallback() {
                         override fun onArrival(p0: Postcard?) {
