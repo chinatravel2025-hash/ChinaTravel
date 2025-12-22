@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.launcher.ARouter
 import com.aws.bean.entities.home.BannerItem
@@ -13,6 +14,7 @@ import com.example.base.glide.GlideApp
 import com.example.base.utils.AppConfig
 import com.example.router.ARouterPathList
 import com.travel.home.R
+import com.travel.home.dialog.ImagePreviewDialogFragment
 import com.youth.banner.adapter.BannerAdapter
 
 class NormalBannerAdapter(mDatas: List<String?>?) : BannerAdapter<String?, NormalBannerAdapter.BannerViewHolder>(mDatas) {
@@ -24,14 +26,25 @@ class NormalBannerAdapter(mDatas: List<String?>?) : BannerAdapter<String?, Norma
     }
 
     override fun onBindView(holder: BannerViewHolder?, data: String?, position: Int, size: Int) {
-        holder?.imageView?.let {
+        holder?.imageView?.let { imageView ->
             GlideApp.with(App.getContext())
                 .load(AppConfig.appBaseImg(data))
                // .load(R.mipmap.banner)
                 .dontAnimate()
                 .diskCacheStrategy(DiskCacheStrategy.ALL) // 设置缓存的策略
-                .into(it)
-
+                .into(imageView)
+            
+            // 点击查看大图
+            val imageUrl = data
+            if (!imageUrl.isNullOrEmpty()) {
+                imageView.setOnClickListener {
+                    val activity = imageView.context as? FragmentActivity
+                    activity?.let {
+                        val dialog = ImagePreviewDialogFragment.newInstance(imageUrl)
+                        dialog.show(it.supportFragmentManager, "ImagePreviewDialog")
+                    }
+                }
+            }
         }
     }
 

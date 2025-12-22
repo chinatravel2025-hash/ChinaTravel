@@ -480,6 +480,42 @@ open class BaseChatFragmentController constructor(
         view: View
     ) {
         val bean = list[position]
+        bean.message?.let { message ->
+            // 显示确认删除弹窗
+            mFragmentWeakReference?.get()?.let { fragment ->
+                val dialog = com.example.base.toast.NormalDialog.Builder()
+                    .setTitle("Delete Message")
+                    .setSubTitle("Are you sure you want to delete this message?")
+                    .setLeftText("Cancel")
+                    .setRightText("Confirm")
+                    // 设置弹窗背景色为白色
+                    .setBackgroundColor(android.graphics.Color.parseColor("#FFFFFF"))
+                    // 设置标题和副标题文字颜色为黑色
+                    .setTitleTextColor(android.graphics.Color.parseColor("#000000"))
+                    .setSubTitleTextColor(android.graphics.Color.parseColor("#000000"))
+                    // 设置取消按钮文字颜色为红色
+                    .setLeftTextColor(android.graphics.Color.parseColor("#FF0000"))
+                    // 设置确认按钮文字颜色为灰色
+                    .setRightTextColor(android.graphics.Color.parseColor("#999999"))
+                    // 设置按钮背景为带灰色边框的drawable
+                    .setLeftBg(com.example.peanutmusic.base.R.drawable.shape_btn_border_gray)
+                    .setRightBg(com.example.peanutmusic.base.R.drawable.shape_btn_border_gray)
+                    .setLeftListener(object : com.example.commponent.ui.dialog.OnClickLeftListener {
+                        override fun onLeft(content: String?) {
+                            // 取消操作，关闭弹窗
+                        }
+                    })
+                    .setRightListener(object : com.example.commponent.ui.dialog.OnClickRightListener {
+                        override fun onRight(content: String?) {
+                            // 确认删除：从UI移除并调用SDK删除方法
+                            // removeDataAt方法在isDeleteDB为true时会自动调用V2TMessageManager.deleteMessages
+                            mAdapter.removeDataAt(mId, position, true)
+                        }
+                    })
+                    .build()
+                dialog.show(fragment.childFragmentManager, "DeleteMessageDialog")
+            }
+        }
         /*bean.message?.apply {
             XPopup.Builder(view.context)
                 .isTouchThrough(false)

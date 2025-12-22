@@ -30,6 +30,7 @@ class NormalDialog : DialogFragment() {
     private var mLeftBgResId:Int?=null
     private var mRightBtnTextColor:Int?=null
     private var mRightBgResId:Int?=null
+    private var mBackgroundColor:Int?=null
 
     /**
      * 单个按钮是用右边的按钮
@@ -79,25 +80,26 @@ class NormalDialog : DialogFragment() {
             mOnClickRightListener?.onRight()
         }
         mLeftBtnTextColor?.let {
-            //binding.btnLeft.setSkinTextColor(it)
+            binding.btnLeft.setTextColor(it)
         }
         mRightBtnTextColor?.let {
-            //binding.btnRight.setSkinTextColor(it)
+            binding.btnRight.setTextColor(it)
         }
         mTitleTextColor?.let {
-            //binding.tvTitle.setSkinTextColor(it)
+            binding.tvTitle.setTextColor(it)
         }
         mSubTitleTextColor?.let {
-            //binding.tvSubTitle.setSkinTextColor(it)
+            binding.tvSubTitle.setTextColor(it)
         }
         mLeftBgResId?.let {
-            //setSkinViewBackground(binding.btnLeft,it)
+            binding.btnLeft.setBackgroundResource(it)
         }
         mRightBgResId?.let {
-            //binding.btnRight.setSkinBackgroundResource(it)
-
+            binding.btnRight.setBackgroundResource(it)
         }
-        //binding.flContainer.setSkinBackgroundResource(ColorRes.color_bg_item_pop)
+        mBackgroundColor?.let {
+            binding.flContainer.setBackgroundColor(it)
+        }
         return binding.root
     }
 
@@ -180,6 +182,11 @@ class NormalDialog : DialogFragment() {
         }
         fun setSingleBtn(singleBtn:Boolean):Builder{
             dialog.mSingleBtn=singleBtn
+            return this
+        }
+
+        fun setBackgroundColor(color:Int):Builder{
+            dialog.mBackgroundColor=color
             return this
         }
 
