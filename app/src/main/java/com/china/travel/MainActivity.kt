@@ -28,6 +28,7 @@ import com.example.base.localstore.MMKVConstanst
 import com.example.base.localstore.MMKVSpUtils
 import com.example.base.msg.i.TUIMessageBean
 import com.example.base.utils.LogUtils
+import com.example.base.utils.LocationPermissionDisclosureHelper
 import com.example.base.utils.PermissionCheckUtil
 import com.example.base.utils.SmartActivityUtils
 import com.example.base.utils.StatusBarUtil
@@ -124,13 +125,8 @@ class MainActivity : AppCompatActivity() {
             LoginRepository.repository.imLogin()
         }
         imInit()
-       XXPermissions.with(this).permission(needPermissions)
-           .request(object: OnPermissionCallback{
-               override fun onGranted(p0: MutableList<String>, p1: Boolean) {
-
-               }
-
-           })
+        // 在请求位置权限前显示说明对话框
+        requestLocationPermissionWithDisclosure()
     }
 
     private fun setUpBottomNavigationBar() {
@@ -271,6 +267,66 @@ class MainActivity : AppCompatActivity() {
             }
             null
         }
+    }
+
+    /**
+     * 请求位置权限（带披露说明）
+     * 在请求系统权限前先显示说明对话框，符合Google Play的显著披露要求
+     */
+    private fun requestLocationPermissionWithDisclosure() {
+        // 检查是否已经授权位置权限
+        val locationPermissions = arrayOf(
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.ACCESS_FINE_LOCATION
+        )
+        
+        if (XXPermissions.isGranted(this, *locationPermissions)) {
+            // 已经授权，直接请求其他权限
+            requestOtherPermissions()
+            return
+        }
+        
+        // 显示位置权限说明对话框
+        LocationPermissionDisclosureHelper.showLocationPermissionDisclosure(
+            this,
+            onAllow = {
+                // 用户同意后，请求位置权限
+                XXPermissions.with(this)
+                    .permission(*locationPermissions)
+                    .request(object : OnPermissionCallback {
+                        override fun onGranted(permissions: MutableList<String>, allGranted: Boolean) {
+                            // 位置权限授权后，继续请求其他权限
+                            requestOtherPermissions()
+                        }
+                        
+                        override fun onDenied(permissions: MutableList<String>, doNotAskAgain: Boolean) {
+                            // 位置权限被拒绝，仍然请求其他权限
+                            requestOtherPermissions()
+                        }
+                    })
+            },
+            onDeny = {
+                // 用户拒绝说明对话框，仍然请求其他权限（但不请求位置权限）
+                requestOtherPermissions()
+            }
+        )
+    }
+    
+    /**
+     * 请求其他非位置权限
+     */
+    private fun requestOtherPermissions() {
+        val otherPermissions = arrayOf(
+            Manifest.permission.READ_PHONE_STATE
+        )
+        
+        XXPermissions.with(this)
+            .permission(*otherPermissions)
+            .request(object : OnPermissionCallback {
+                override fun onGranted(permissions: MutableList<String>, allGranted: Boolean) {
+                    // 权限授权成功
+                }
+            })
     }
 
 }

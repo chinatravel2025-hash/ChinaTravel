@@ -236,3 +236,4 @@ class ZoomImageView @JvmOverloads constructor(
         return minScale
     }
 }
+

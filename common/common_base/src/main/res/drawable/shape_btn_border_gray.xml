@@ -7,3 +7,4 @@
         android:width="@dimen/dp_1"/>
     <corners android:radius="@dimen/dp_8" />
 </shape>
+

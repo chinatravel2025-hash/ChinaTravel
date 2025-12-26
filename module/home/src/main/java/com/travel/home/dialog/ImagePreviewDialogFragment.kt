@@ -96,3 +96,4 @@ class ImagePreviewDialogFragment : DialogFragment() {
         }
     }
 }
+

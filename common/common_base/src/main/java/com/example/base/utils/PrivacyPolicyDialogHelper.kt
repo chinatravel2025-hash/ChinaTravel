@@ -20,7 +20,7 @@ object PrivacyPolicyDialogHelper {
                 "3. The following permissions will be requested when using the app:\n" +
                 "(1) Camera (to take photos for user avatar or upload images);\n" +
                 "(2) Storage permission (to read and save images from gallery);\n" +
-                "(3) Location permission (to provide location-based services and map features);\n" +
+                "(3) Location permission: We request location permission to provide interactive map features that enhance your travel planning experience. When you view sightseeing details or trip itineraries, the app displays maps showing the exact locations of attractions, restaurants, and points of interest. Location data is only used when you actively view map content in the app. We do not collect, store, or share your location data with third parties. You can revoke this permission at any time through your device settings.\n" +
                 "(4) Network status (to check network connectivity);\n" +
                 "(5) Microphone (for voice messages in chat features);\n" +
                 "(6) Notifications (to send you important updates and messages);"
