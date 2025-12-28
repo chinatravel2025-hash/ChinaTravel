@@ -33,7 +33,7 @@ class NormalBannerAdapter(mDatas: List<String?>?) : BannerAdapter<String?, Norma
                 .dontAnimate()
                 .diskCacheStrategy(DiskCacheStrategy.ALL) // 设置缓存的策略
                 .into(imageView)
-            
+
             // 点击查看大图
             val imageUrl = data
             if (!imageUrl.isNullOrEmpty()) {

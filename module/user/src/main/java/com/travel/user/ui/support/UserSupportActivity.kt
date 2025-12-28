@@ -10,6 +10,7 @@ import com.china.travel.widget.bottomsheet.TakePhotoDialog
 import com.china.travel.widget.permission.PermissionInterceptor
 import com.example.base.base.BaseStatusBarActivity
 import com.example.base.utils.LogUtils
+import com.example.base.utils.PhotoVideoPermissionDisclosureHelper
 import com.example.router.ARouterPathList
 import com.hjq.permissions.OnPermissionCallback
 import com.hjq.permissions.Permission
@@ -59,15 +60,18 @@ class UserSupportActivity : BaseStatusBarActivity() {
             }
 
             override fun pickImage() {
-
-                val config = ImagePickerConfig(
-                    isLightStatusBar = true,
-                    isMultipleMode = true,
-                    isShowNumberIndicator = false,
-                    maxSize = 1,
+                // 先显示披露对话框，再请求相册权限
+                PhotoVideoPermissionDisclosureHelper.showPhotoVideoPermissionDisclosure(
+                    this@UserSupportActivity,
+                    PhotoVideoPermissionDisclosureHelper.PermissionType.GALLERY,
+                    onAllow = {
+                        // 用户同意后，请求系统权限
+                        requestPhotoPermission()
+                    },
+                    onDeny = {
+                        // 用户拒绝，不执行任何操作
+                    }
                 )
-                imagePickerLauncher.launch(config)
-              //  requestPhotoPermission()
             }
 
         })
@@ -76,19 +80,18 @@ class UserSupportActivity : BaseStatusBarActivity() {
     }
 
     private fun requestPhotoPermission() {
-
         val permissionList =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                listOf(Permission.READ_MEDIA_IMAGES,
-                    Permission.READ_MEDIA_VIDEO,
-                    Permission.READ_MEDIA_AUDIO)
+                listOf(
+                    Permission.READ_MEDIA_IMAGES,
+                    Permission.READ_MEDIA_VIDEO
+                )
             } else {
                 listOf(Permission.READ_EXTERNAL_STORAGE)
             }
 
         XXPermissions.with(this)
             .permission(permissionList)
-            .interceptor(PermissionInterceptor("Album Authorization Instructions", "We need your permission to enable album access so we can select and upload images."))
             .request(object : OnPermissionCallback {
                 override fun onGranted(permissions: MutableList<String>, allGranted: Boolean) {
                     if (allGranted) {
@@ -109,27 +112,37 @@ class UserSupportActivity : BaseStatusBarActivity() {
     }
 
     private fun requestCameraPermission() {
-        val permissionList = mutableListOf(Permission.CAMERA)
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
-            permissionList.add(Permission.WRITE_EXTERNAL_STORAGE)
-        }
-        XXPermissions.with(this)
-            .permission(permissionList)
-            .interceptor(PermissionInterceptor("Camera Authorization Instructions", "We need your permission to enable the camera so we can take photos and upload them."))
-            .request(object : OnPermissionCallback {
-                override fun onGranted(permissions: MutableList<String>, allGranted: Boolean) {
-                    if (allGranted) {
-                        val config = ImagePickerConfig(
-                            isCameraOnly = true
-                        )
-                        imagePickerLauncher.launch(config)
-                    }
+        // 先显示披露对话框，再请求相机权限
+        PhotoVideoPermissionDisclosureHelper.showPhotoVideoPermissionDisclosure(
+            this,
+            PhotoVideoPermissionDisclosureHelper.PermissionType.CAMERA,
+            onAllow = {
+                // 用户同意后，请求系统权限
+                val permissionList = mutableListOf(Permission.CAMERA)
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+                    permissionList.add(Permission.WRITE_EXTERNAL_STORAGE)
                 }
+                XXPermissions.with(this)
+                    .permission(permissionList)
+                    .request(object : OnPermissionCallback {
+                        override fun onGranted(permissions: MutableList<String>, allGranted: Boolean) {
+                            if (allGranted) {
+                                val config = ImagePickerConfig(
+                                    isCameraOnly = true
+                                )
+                                imagePickerLauncher.launch(config)
+                            }
+                        }
 
-                override fun onDenied(permissions: MutableList<String>, doNotAskAgain: Boolean) {
+                        override fun onDenied(permissions: MutableList<String>, doNotAskAgain: Boolean) {
 
-                }
-            })
+                        }
+                    })
+            },
+            onDeny = {
+                // 用户拒绝，不执行任何操作
+            }
+        )
     }
 
 
