@@ -100,3 +100,4 @@ You can manage location permissions in your device settings.
 2. **隐私政策更新：** 修改`PrivacyPolicyDialogHelper.kt`的`getPrivacyPolicyContent()`方法
 3. **设置页面：** 如果应用有设置页面，在那里添加说明
 
+

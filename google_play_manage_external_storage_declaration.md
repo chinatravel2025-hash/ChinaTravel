@@ -156,3 +156,4 @@ StoragePermissionDisclosureHelper.showStoragePermissionDisclosure(
 ```
 
 **注意：** `MANAGE_EXTERNAL_STORAGE` 是特殊权限，在 Android 11 (API 30) 及以上版本需要通过系统设置页面手动授予，不能通过运行时权限对话框直接授予。
+
