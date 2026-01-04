@@ -57,7 +57,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-        <com.amap.api.maps2d.MapView
+        <com.amap.api.maps.MapView
             app:layout_constraintTop_toBottomOf="@id/cons_top"
             android:layout_marginTop="@dimen/dp_12"
             android:id="@+id/map_view"

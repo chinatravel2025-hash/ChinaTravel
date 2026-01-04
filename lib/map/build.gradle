@@ -42,7 +42,7 @@ android {
 }
 
 dependencies {
-   // api fileTree(include: ['*.jar'], dir: 'libs')
+    api fileTree(include: ['*.aar'], dir: 'libs')
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.1'
     implementation 'com.google.android.material:material:1.8.0'
@@ -54,9 +54,11 @@ dependencies {
     kapt Libs.arouter_compiler
     //定位
     // api 'com.amap.api:location:latest.integration'
-      api 'com.amap.api:location:6.4.7'
+      //api 'com.amap.api:location:6.4.7'
     //搜索
     //  api 'com.amap.api:search:latest.integration'
-      api 'com.amap.api:search:9.7.0'
-      api 'com.amap.api:map2d:6.0.0'
+      //api 'com.amap.api:search:9.7.0'
+      //api 'com.amap.api:map2d:6.0.0'
+    //3d地图
+    //api 'com.amap.api:3dmap-location-search:10.1.600_loc6.5.1_sea9.7.4'
 }

@@ -19,13 +19,9 @@
     <uses-permission android:name="android.permission.READ_MEDIA_VIDEO"/>
     <!-- android13+ 通知权限，targetSdk 33+ 需要运行时请求 -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
-
-    <uses-feature android:name="android.hardware.camera" />
-    <uses-feature android:name="android.hardware.autofocus" /> <!-- 声网 -->
-    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <!-- 网络状态检查 -->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.BLUETOOTH" /> <!-- 声网 -->
     <!-- IM SDK required start -->
     <!-- 允许程序振动，用于本地通知设置振动 -->
     <uses-permission android:name="android.permission.VIBRATE" /> <!-- 访问网络权限 -->

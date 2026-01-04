@@ -224,7 +224,6 @@
 -keep class android.support.v8.renderscript.** { *; }
 -keep class androidx.renderscript.** { *; }
 -keep class com.iflytek.**{*;}
--keep class io.agora.**{*;}
 -keep class **.zego.**{*;}
 #视频播放组件
 -keep class com.shuyu.gsyvideoplayer.video.** { *; }

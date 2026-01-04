@@ -27,6 +27,6 @@
 #搜索
 -keep   class com.amap.api.services.**{*;}
 
-#2D地图
--keep class com.amap.api.maps2d.**{*;}
--keep class com.amap.api.mapcore2d.**{*;}
+#3D地图
+-keep class com.amap.api.maps.**{*;}
+-keep class com.amap.api.mapcore.**{*;}

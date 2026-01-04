@@ -32,7 +32,7 @@
             app:layout_constraintLeft_toLeftOf="@id/tv_address"
             app:layout_constraintRight_toRightOf="@id/tv_address" />
 
-        <com.amap.api.maps2d.MapView
+        <com.amap.api.maps.MapView
             android:layout_marginTop="@dimen/dp_8"
             app:layout_constraintTop_toBottomOf="@+id/tv_address"
             android:id="@+id/space"
