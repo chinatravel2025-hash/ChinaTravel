@@ -265,7 +265,6 @@
             <View
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginEnd="@dimen/dp_30"
-                android:background="@color/txt_12C286"
                 app:layout_constraintRight_toRightOf="@id/tv_sign_in"
                 app:layout_constraintLeft_toLeftOf="@id/tv_sign_in"
                 android:layout_width="0dp"

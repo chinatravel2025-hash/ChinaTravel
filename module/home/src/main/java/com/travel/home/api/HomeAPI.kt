@@ -13,6 +13,7 @@ import com.google.gson.internal.LinkedTreeMap
 import org.checkerframework.checker.units.qual.A
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
@@ -36,7 +37,7 @@ interface HomeAPI {
     fun getHomeCityDetail(@Path("id") id:Long): Call<ResponseResult<CityItem?>>
 
     @GET("/travel-products")
-    fun getHomeTravelProducts(@Query("page") page: Int, @Query("size") size: Int ): Call<ResponseResult<TravelProductDTO?>>
+    fun getHomeTravelProducts(@Query("page") page: Int, @Query("size") size: Int, @Query("id") id: Long? = null ): Call<ResponseResult<TravelProductDTO?>>
 
     @GET("/favorite/travel-products")
     fun getFavoriteTravelProducts(@Query("page") page: Int, @Query("size") size: Int ): Call<ResponseResult<TravelProductDTO?>>
@@ -64,6 +65,9 @@ interface HomeAPI {
 
     @POST("/favorite/{objectType}/cancel/{id}")
     fun cancelFavorite(@Path("objectType") objectType: String,@Path("id") id: Long): Call<ResponseResult<Any?>>
+
+    @DELETE("/user")
+    fun closeUser(): Call<ResponseResult<Any?>>
 
 
 

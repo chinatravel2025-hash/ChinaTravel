@@ -11,6 +11,7 @@
     <uses-permission
         android:name="android.permission.READ_PRIVILEGED_PHONE_STATE"
         tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <!-- android13需要新增以下权限 -->
@@ -19,9 +20,13 @@
     <uses-permission android:name="android.permission.READ_MEDIA_VIDEO"/>
     <!-- android13+ 通知权限，targetSdk 33+ 需要运行时请求 -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
-    <!-- 网络状态检查 -->
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.autofocus" /> <!-- 声网 -->
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.BLUETOOTH" /> <!-- 声网 -->
     <!-- IM SDK required start -->
     <!-- 允许程序振动，用于本地通知设置振动 -->
     <uses-permission android:name="android.permission.VIBRATE" /> <!-- 访问网络权限 -->
@@ -31,6 +36,8 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 写入扩展存储权限，用于附件等的存储 -->
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- api 21 后被标记为 deprecated，可以移除 -->

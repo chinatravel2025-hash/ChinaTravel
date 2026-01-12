@@ -31,6 +31,7 @@ class CityListAdapter(
                 ARouter.getInstance().build(ARouterPathList.HOME_CITY_DETAIL)
                //     .withOptionsCompat(option)
                     .withLong("cityId",item.id?:0L)
+                    .withString("cityName",item.city_name)
                     .navigation(SmartActivityUtils.getTopActivity())
             }
             labelList.setLabels(item.tags) { _, _, data -> data?.tag?.tag ?: "" }

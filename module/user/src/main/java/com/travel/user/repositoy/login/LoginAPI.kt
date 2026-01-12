@@ -5,6 +5,7 @@ import com.example.base.base.UserInfo
 import com.example.http.api.ResponseResult
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
@@ -35,4 +36,7 @@ interface LoginAPI {
 
     @POST("/im/sign")
     fun imSigh(): Call<ResponseResult<IMInfo?>>
+
+    @DELETE("/user")
+    fun closeUser(): Call<ResponseResult<Any?>>
 }

@@ -7,7 +7,7 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="pull">#487B70</color>
+    <!--<color name="pull">#487B70</color>-->
     <color name="barColor">#ededed</color>
     <color name="nvbarColor">#f7f7f7</color>
     <color name="transparent">#00000000</color>

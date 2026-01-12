@@ -52,8 +52,8 @@ class HomeCityDetailViewModel : ViewModel() {
             }
         })
     }
-    fun getHomeTravelProducts(){
-        homeApi.getHomeTravelProducts(1,10).enqueue(object :
+    fun getHomeTravelProducts(cityId: Long? = null){
+        homeApi.getHomeTravelProducts(1,10, cityId).enqueue(object :
             Callback<ResponseResult<TravelProductDTO?>> {
             override fun onResponse(
                 call: Call<ResponseResult<TravelProductDTO?>>,

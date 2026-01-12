@@ -8,6 +8,7 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.aws.bean.util.GsonUtil
 import com.china.travel.widget.bottomsheet.TakePhotoDialog
 import com.china.travel.widget.permission.PermissionInterceptor
+import com.coder.vincent.smart_toast.SmartToast
 import com.example.base.base.BaseStatusBarActivity
 import com.example.base.utils.LogUtils
 import com.example.base.utils.PhotoVideoPermissionDisclosureHelper
@@ -143,6 +144,16 @@ class UserSupportActivity : BaseStatusBarActivity() {
                 // 用户拒绝，不执行任何操作
             }
         )
+    }
+
+    fun send() {
+        val inputText = binding.edName.text?.toString()?.trim()
+        if (inputText.isNullOrEmpty()) {
+            SmartToast.classic().showInCenter("Please enter text")
+        } else {
+            SmartToast.classic().showInCenter("Submitted successfully")
+            finish()
+        }
     }
 
 

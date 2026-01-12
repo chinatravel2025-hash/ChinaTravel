@@ -30,6 +30,7 @@ class FavoriteCityAdapter(
                 ARouter.getInstance().build(ARouterPathList.HOME_CITY_DETAIL)
                //     .withOptionsCompat(option)
                     .withLong("cityId",item.id?:0L)
+                    .withString("cityName",item.city_name)
                     .navigation(SmartActivityUtils.getTopActivity())
             }
 

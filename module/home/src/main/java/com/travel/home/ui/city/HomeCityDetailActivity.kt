@@ -63,6 +63,10 @@ class  HomeCityDetailActivity : BaseStatusBarActivity(), TravelProductClickListe
     @JvmField
     @Autowired
     var cityId: Long? = 0L
+    
+    @JvmField
+    @Autowired
+    var cityName: String? = null
     override fun initView(savedInstanceState: Bundle?) {
         super.initView(savedInstanceState)
         ARouter.getInstance().inject(this)
@@ -76,7 +80,7 @@ class  HomeCityDetailActivity : BaseStatusBarActivity(), TravelProductClickListe
         initScrollView()
 
         mVM.getHomeCityDetail(cityId ?: 0)
-        mVM.getHomeTravelProducts()
+        mVM.getHomeTravelProducts(cityId)
         mVM.getPlaceList(ObjectType.SIGHT, cityId ?: 0)
         mVM.getPlaceList(ObjectType.SHOP, cityId ?: 0)
         mVM.getPlaceList(ObjectType.RESTAURANT, cityId ?: 0)
