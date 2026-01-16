@@ -33,7 +33,7 @@ android {
         applicationId "com.china.travel"
         minSdk 24
         targetSdk 35
-        versionCode 11
+        versionCode 12
         versionName "1.0.0"
         ndk {
             //设置支持的SO库架构
