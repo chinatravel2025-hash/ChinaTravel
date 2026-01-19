@@ -6,6 +6,7 @@
 
 - [隐私政策](privacy_policy.html) - Privacy Policy
 - [用户协议](user_agreement.html) - User Agreement
+- [删除账户](delete_account.html) - Delete Account
 
 ## 🌐 如何以网页形式查看
 
@@ -47,6 +48,7 @@ npx http-server
 - `index.html` - 文档导航首页
 - `privacy_policy.html` - 隐私政策文档
 - `user_agreement.html` - 用户协议文档
+- `delete_account.html` - 删除账户指南文档
 
 ## 📧 联系方式
 
