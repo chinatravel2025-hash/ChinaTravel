@@ -179,7 +179,7 @@
             <strong>⚠️ Important Notice</strong>
             <p>Once you close your account, it cannot be recovered. All your data, including your profile, travel preferences, orders, and favorites will be permanently deleted and cannot be restored. Please make sure you have backed up any important information before proceeding.</p>
         </div>
-        <button class="btn-close" id="btnClose">注销</button>
+        <button class="btn-close" id="btnClose">Close Account</button>
         <a href="login.html" class="link-back">Back to Login</a>
     </div>
     
@@ -250,13 +250,13 @@
                 } else {
                     alert(result.msg || result.message || 'Failed to close account. Please try again.');
                     btnClose.disabled = false;
-                    btnClose.textContent = '注销';
+                    btnClose.textContent = 'Close Account';
                     modalConfirm.disabled = false;
                 }
             } catch (err) {
                 alert('Network error. Please check your connection and try again.');
                 btnClose.disabled = false;
-                btnClose.textContent = '注销';
+                btnClose.textContent = 'Close Account';
                 modalConfirm.disabled = false;
             }
         });
