@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChinaTravel - Close Account</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Helvetica, Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+        
+        .container {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 480px;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            font-size: 24px;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+        
+        .warning-box {
+            background-color: #fff3cd;
+            border: 1px solid #ffc107;
+            border-left: 4px solid #e74c3c;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            color: #856404;
+        }
+        
+        .warning-box p {
+            margin: 0;
+            line-height: 1.6;
+            font-size: 15px;
+        }
+        
+        .warning-box strong {
+            color: #721c24;
+            display: block;
+            margin-bottom: 8px;
+        }
+        
+        .btn-close {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+        
+        .btn-close:hover {
+            opacity: 0.9;
+        }
+        
+        .btn-close:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .link-back {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #667eea;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .link-back:hover {
+            text-decoration: underline;
+        }
+        
+        .not-logged-in {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+        
+        .not-logged-in a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        
+        .not-logged-in a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .modal-overlay.show {
+            display: flex;
+        }
+        
+        .modal {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            max-width: 400px;
+            width: 100%;
+        }
+        
+        .modal p {
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .modal-buttons {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .modal-buttons button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        
+        .modal-btn-cancel {
+            background: #e0e0e0;
+            color: #333;
+        }
+        
+        .modal-btn-confirm {
+            background: #e74c3c;
+            color: white;
+        }
+        
+        .modal-btn-cancel:hover,
+        .modal-btn-confirm:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="mainContent">
+        <h1>Close Account</h1>
+        <div class="warning-box">
+            <strong>⚠️ Important Notice</strong>
+            <p>Once you close your account, it cannot be recovered. All your data, including your profile, travel preferences, orders, and favorites will be permanently deleted and cannot be restored. Please make sure you have backed up any important information before proceeding.</p>
+        </div>
+        <button class="btn-close" id="btnClose">注销</button>
+        <a href="login.html" class="link-back">Back to Login</a>
+    </div>
+    
+    <div class="container not-logged-in" id="notLoggedIn" style="display: none;">
+        <p>You are not logged in. Please <a href="login.html">login</a> first to close your account.</p>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div class="modal-overlay" id="confirmModal">
+        <div class="modal">
+            <p>Are you sure you want to close your account? This action cannot be undone.</p>
+            <div class="modal-buttons">
+                <button class="modal-btn-cancel" id="modalCancel">Cancel</button>
+                <button class="modal-btn-confirm" id="modalConfirm">Confirm Deactivation</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'https://app-api.chunhuo.net';
+        
+        const token = localStorage.getItem('china_travel_token');
+        
+        if (!token) {
+            document.getElementById('mainContent').style.display = 'none';
+            document.getElementById('notLoggedIn').style.display = 'block';
+        }
+        
+        const btnClose = document.getElementById('btnClose');
+        const confirmModal = document.getElementById('confirmModal');
+        const modalCancel = document.getElementById('modalCancel');
+        const modalConfirm = document.getElementById('modalConfirm');
+        
+        btnClose.addEventListener('click', function() {
+            if (!token) return;
+            confirmModal.classList.add('show');
+        });
+        
+        modalCancel.addEventListener('click', function() {
+            confirmModal.classList.remove('show');
+        });
+        
+        modalConfirm.addEventListener('click', async function() {
+            if (!token) return;
+            
+            btnClose.disabled = true;
+            btnClose.textContent = 'Processing...';
+            modalConfirm.disabled = true;
+            
+            try {
+                const response = await fetch(API_BASE + '/user/del_user', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': token
+                    }
+                });
+                
+                const result = await response.json();
+                
+                const success = result.code === '0' || result.code === 0 || (response.ok && !result.code);
+                
+                if (success) {
+                    localStorage.removeItem('china_travel_token');
+                    localStorage.removeItem('china_travel_user');
+                    alert('Account closed successfully.');
+                    window.location.href = 'login.html';
+                } else {
+                    alert(result.msg || result.message || 'Failed to close account. Please try again.');
+                    btnClose.disabled = false;
+                    btnClose.textContent = '注销';
+                    modalConfirm.disabled = false;
+                }
+            } catch (err) {
+                alert('Network error. Please check your connection and try again.');
+                btnClose.disabled = false;
+                btnClose.textContent = '注销';
+                modalConfirm.disabled = false;
+            }
+        });
+        
+        confirmModal.addEventListener('click', function(e) {
+            if (e.target === confirmModal) {
+                confirmModal.classList.remove('show');
+            }
+        });
+    </script>
+</body>
+</html>
